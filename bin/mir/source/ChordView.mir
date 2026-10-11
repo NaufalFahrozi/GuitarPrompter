@@ -1,0 +1,520 @@
+[ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [Graphics,1,14,22]; ]
+import Toybox.Graphics;
+[ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc"; @line = 2; @symbol_importdef<0> = [Toybox,2,7,13]; @symbol_importdef<1> = [Lang,2,14,18]; ]
+import Toybox.Lang;
+[ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc"; @line = 3; @symbol_importdef<0> = [Toybox,3,7,13]; @symbol_importdef<1> = [WatchUi,3,14,21]; ]
+import Toybox.WatchUi;
+[ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc"; @line = 6; typecheck = strict; @symbol_classdef = [ChordView,6,6,15]; @symbol_extends<0> = [WatchUi,6,24,31]; @symbol_extends<1> = [View,6,32,36]; ]
+class ChordView extends WatchUi.View {
+    [ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc"; @line = 6; ]
+    <init> {
+    }
+    [ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc"; @line = 6; ]
+    static
+    <init> {
+    }
+    [ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc"; @line = 7; @position = 16; @symbol_vardef = [mModel,7,16,22]; @symbol_type<0> = [SongModel,7,26,35]; ]
+    private
+    var mModel as SongModel;
+    [ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc"; @line = 9; @symbol_functiondef = [initialize,9,20,30]; @symbol_param<0> = [model,9,31,36]; @symbol_param<0>_type<0> = [SongModel,9,40,49]; ]
+    public
+    function initialize(model as SongModel) as Void {
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_9_51_12_4_start:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 10 8 ]
+        symbol [ View %tmp.2 10 8 12 ];
+        %tmp.2 = getv ? :View;
+        symbol [ initialize %tmp.3 10 13 23 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 11 8 ]
+        %tmp.4 = lgetv %model;
+        symbol [ model %tmp.4 11 17 22 ];
+        symbol [ mModel ? 11 8 14 ];
+        putv self :mModel %tmp.4;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_9_51_12_4_stop:
+    }
+    [ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc"; @line = 14; @symbol_functiondef = [onUpdate,14,20,28]; @symbol_param<0> = [dc,14,29,31]; @symbol_param<0>_type<0> = [Graphics,14,35,43]; @symbol_param<0>_type<1> = [Dc,14,44,46]; ]
+    public
+    function onUpdate(dc as Graphics.Dc) as Void {
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_14_56_66_4_start:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 16 8 ]
+        %tmp.1 = lgetv %dc;
+        symbol [ dc %tmp.1 16 8 10 ];
+        symbol [ setColor %tmp.2 16 11 19 ];
+        %tmp.2 = getv function %tmp.1 :setColor;
+        symbol [ Graphics %tmp.3 16 20 28 ];
+        %tmp.3 = getm $.Toybox.Graphics;
+        symbol [ COLOR_BLACK %tmp.4 16 29 40 ];
+        %tmp.4 = getv %tmp.3 :COLOR_BLACK;
+        symbol [ Graphics %tmp.5 16 42 50 ];
+        %tmp.5 = getm $.Toybox.Graphics;
+        symbol [ COLOR_BLACK %tmp.6 16 51 62 ];
+        %tmp.6 = getv %tmp.5 :COLOR_BLACK;
+        invoke %tmp.1 %tmp.2(%tmp.4, %tmp.6);
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 17 8 ]
+        %tmp.7 = lgetv %dc;
+        symbol [ dc %tmp.7 17 8 10 ];
+        symbol [ clear %tmp.8 17 11 16 ];
+        %tmp.8 = getv function %tmp.7 :clear;
+        invoke %tmp.7 %tmp.8();
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 19 8 ]
+        [ "C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_14_56_66_4_start" "C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_14_56_66_4_stop" ]
+        %statusMsg.1 = local;
+        symbol [ statusMsg %statusMsg.1 19 12 21 ];
+        symbol [ mModel %tmp.10 19 24 30 ];
+        %tmp.10 = getv ? :mModel;
+        symbol [ getStatusMessage %tmp.11 19 31 47 ];
+        %tmp.11 = getv function %tmp.10 :getStatusMessage;
+        %tmp.12 = invoke %tmp.10 %tmp.11();
+        lputv %statusMsg.1 %tmp.12;
+        symbol [ statusMsg %statusMsg.1 19 12 21 ];
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 20 8 ]
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_20_8_24_8_if_stmt:
+        %tmp.13 = lgetv %statusMsg.1;
+        symbol [ statusMsg %tmp.13 20 12 21 ];
+        %tmp.14 = null;
+        %tmp.15 = ne %tmp.13 %tmp.14;
+        bf %tmp.15 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_20_8_24_8_if_end;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_20_8_24_8_if_true:
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_20_31_24_8_start:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 21 12 ]
+        %tmp.16 = lgetv %dc;
+        symbol [ dc %tmp.16 21 12 14 ];
+        symbol [ setColor %tmp.17 21 15 23 ];
+        %tmp.17 = getv function %tmp.16 :setColor;
+        symbol [ Graphics %tmp.18 21 24 32 ];
+        %tmp.18 = getm $.Toybox.Graphics;
+        symbol [ COLOR_YELLOW %tmp.19 21 33 45 ];
+        %tmp.19 = getv %tmp.18 :COLOR_YELLOW;
+        symbol [ Graphics %tmp.20 21 47 55 ];
+        %tmp.20 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.21 21 56 73 ];
+        %tmp.21 = getv %tmp.20 :COLOR_TRANSPARENT;
+        invoke %tmp.16 %tmp.17(%tmp.19, %tmp.21);
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 22 12 ]
+        %tmp.22 = lgetv %dc;
+        symbol [ dc %tmp.22 22 12 14 ];
+        symbol [ drawText %tmp.23 22 15 23 ];
+        %tmp.23 = getv function %tmp.22 :drawText;
+        %tmp.24 = 195;
+        %tmp.25 = 195;
+        symbol [ Graphics %tmp.26 22 34 42 ];
+        %tmp.26 = getm $.Toybox.Graphics;
+        symbol [ FONT_MEDIUM %tmp.27 22 43 54 ];
+        %tmp.27 = getv %tmp.26 :FONT_MEDIUM;
+        %tmp.28 = lgetv %statusMsg.1;
+        symbol [ statusMsg %tmp.28 22 56 65 ];
+        %tmp.29 = as %tmp.28 { (!Null) };
+        symbol [ Graphics %tmp.30 22 67 75 ];
+        %tmp.30 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.31 22 76 95 ];
+        %tmp.31 = getv %tmp.30 :TEXT_JUSTIFY_CENTER;
+        symbol [ Graphics %tmp.32 22 98 106 ];
+        %tmp.32 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_VCENTER %tmp.33 22 107 127 ];
+        %tmp.33 = getv %tmp.32 :TEXT_JUSTIFY_VCENTER;
+        %tmp.34 = bitor %tmp.31 %tmp.33;
+        invoke %tmp.22 %tmp.23(%tmp.24, %tmp.25, %tmp.27, %tmp.29, %tmp.34);
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 23 12 ]
+        ret ?;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_20_31_24_8_stop:
+        goto @C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_20_8_24_8_if_end;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_20_8_24_8_if_end:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 26 8 ]
+        [ "C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_14_56_66_4_start" "C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_14_56_66_4_stop" ]
+        %step.2 = local;
+        symbol [ step %step.2 26 12 16 ];
+        symbol [ mModel %tmp.36 26 19 25 ];
+        %tmp.36 = getv ? :mModel;
+        symbol [ getCurrentStep %tmp.37 26 26 40 ];
+        %tmp.37 = getv function %tmp.36 :getCurrentStep;
+        %tmp.38 = invoke %tmp.36 %tmp.37();
+        lputv %step.2 %tmp.38;
+        symbol [ step %step.2 26 12 16 ];
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 27 8 ]
+        [ "C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_14_56_66_4_start" "C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_14_56_66_4_stop" ]
+        %currentStepNum.3 = local;
+        symbol [ currentStepNum %currentStepNum.3 27 12 26 ];
+        symbol [ mModel %tmp.40 27 29 35 ];
+        %tmp.40 = getv ? :mModel;
+        symbol [ getCurrentIndex %tmp.41 27 36 51 ];
+        %tmp.41 = getv function %tmp.40 :getCurrentIndex;
+        %tmp.42 = invoke %tmp.40 %tmp.41();
+        %tmp.43 = 1;
+        %tmp.44 = add %tmp.42 %tmp.43;
+        lputv %currentStepNum.3 %tmp.44;
+        symbol [ currentStepNum %currentStepNum.3 27 12 26 ];
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 28 8 ]
+        [ "C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_14_56_66_4_start" "C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_14_56_66_4_stop" ]
+        %totalSteps.4 = local;
+        symbol [ totalSteps %totalSteps.4 28 12 22 ];
+        symbol [ mModel %tmp.46 28 25 31 ];
+        %tmp.46 = getv ? :mModel;
+        symbol [ getTotalSteps %tmp.47 28 32 45 ];
+        %tmp.47 = getv function %tmp.46 :getTotalSteps;
+        %tmp.48 = invoke %tmp.46 %tmp.47();
+        lputv %totalSteps.4 %tmp.48;
+        symbol [ totalSteps %totalSteps.4 28 12 22 ];
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 31 8 ]
+        %tmp.49 = lgetv %dc;
+        symbol [ dc %tmp.49 31 8 10 ];
+        symbol [ setColor %tmp.50 31 11 19 ];
+        %tmp.50 = getv function %tmp.49 :setColor;
+        symbol [ Graphics %tmp.51 31 20 28 ];
+        %tmp.51 = getm $.Toybox.Graphics;
+        symbol [ COLOR_LT_GRAY %tmp.52 31 29 42 ];
+        %tmp.52 = getv %tmp.51 :COLOR_LT_GRAY;
+        symbol [ Graphics %tmp.53 31 44 52 ];
+        %tmp.53 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.54 31 53 70 ];
+        %tmp.54 = getv %tmp.53 :COLOR_TRANSPARENT;
+        invoke %tmp.49 %tmp.50(%tmp.52, %tmp.54);
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 32 8 ]
+        %tmp.55 = lgetv %dc;
+        symbol [ dc %tmp.55 32 8 10 ];
+        symbol [ drawText %tmp.56 32 11 19 ];
+        %tmp.56 = getv function %tmp.55 :drawText;
+        %tmp.57 = 195;
+        %tmp.58 = 50;
+        symbol [ Graphics %tmp.59 32 29 37 ];
+        %tmp.59 = getm $.Toybox.Graphics;
+        symbol [ FONT_XTINY %tmp.60 32 38 48 ];
+        %tmp.60 = getv %tmp.59 :FONT_XTINY;
+        %tmp.61 = lgetv %step.2;
+        symbol [ step %tmp.61 32 50 54 ];
+        %tmp.63 = const :songTitle;
+        symbol [ songTitle %tmp.63 32 56 65 const ];
+        %tmp.64 = agetv %tmp.61 %tmp.63;
+        symbol [ Graphics %tmp.65 32 68 76 ];
+        %tmp.65 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.66 32 77 96 ];
+        %tmp.66 = getv %tmp.65 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.55 %tmp.56(%tmp.57, %tmp.58, %tmp.60, %tmp.64, %tmp.66);
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 34 8 ]
+        [ "C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_14_56_66_4_start" "C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_14_56_66_4_stop" ]
+        %statusLine.5 = local;
+        symbol [ statusLine %statusLine.5 34 12 22 ];
+        symbol [ Lang %tmp.67 34 25 29 ];
+        %tmp.67 = getm $.Toybox.Lang;
+        symbol [ format %tmp.68 34 30 36 ];
+        %tmp.68 = getv function %tmp.67 :format;
+        %tmp.69 = "$1$  •  $2$/$3$";
+        %tmp.70 = newa 3;
+        %tmp.71 = lgetv %step.2;
+        symbol [ step %tmp.71 34 57 61 ];
+        %tmp.73 = const :section;
+        symbol [ section %tmp.73 34 63 70 const ];
+        %tmp.74 = agetv %tmp.71 %tmp.73;
+        %tmp.75 = dup %tmp.70;
+        %tmp.76 = aputv %tmp.75 0 %tmp.74;
+        %tmp.77 = lgetv %currentStepNum.3;
+        symbol [ currentStepNum %tmp.77 34 73 87 ];
+        %tmp.78 = dup %tmp.76;
+        %tmp.79 = aputv %tmp.78 1 %tmp.77;
+        %tmp.80 = lgetv %totalSteps.4;
+        symbol [ totalSteps %tmp.80 34 89 99 ];
+        %tmp.81 = dup %tmp.79;
+        %tmp.82 = aputv %tmp.81 2 %tmp.80;
+        %tmp.83 = invoke %tmp.67 %tmp.68(%tmp.69, %tmp.82);
+        lputv %statusLine.5 %tmp.83;
+        symbol [ statusLine %statusLine.5 34 12 22 ];
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 35 8 ]
+        %tmp.84 = lgetv %dc;
+        symbol [ dc %tmp.84 35 8 10 ];
+        symbol [ setColor %tmp.85 35 11 19 ];
+        %tmp.85 = getv function %tmp.84 :setColor;
+        symbol [ Graphics %tmp.86 35 20 28 ];
+        %tmp.86 = getm $.Toybox.Graphics;
+        symbol [ COLOR_DK_GRAY %tmp.87 35 29 42 ];
+        %tmp.87 = getv %tmp.86 :COLOR_DK_GRAY;
+        symbol [ Graphics %tmp.88 35 44 52 ];
+        %tmp.88 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.89 35 53 70 ];
+        %tmp.89 = getv %tmp.88 :COLOR_TRANSPARENT;
+        invoke %tmp.84 %tmp.85(%tmp.87, %tmp.89);
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 36 8 ]
+        %tmp.90 = lgetv %dc;
+        symbol [ dc %tmp.90 36 8 10 ];
+        symbol [ drawText %tmp.91 36 11 19 ];
+        %tmp.91 = getv function %tmp.90 :drawText;
+        %tmp.92 = 195;
+        %tmp.93 = 74;
+        symbol [ Graphics %tmp.94 36 29 37 ];
+        %tmp.94 = getm $.Toybox.Graphics;
+        symbol [ FONT_XTINY %tmp.95 36 38 48 ];
+        %tmp.95 = getv %tmp.94 :FONT_XTINY;
+        %tmp.96 = lgetv %statusLine.5;
+        symbol [ statusLine %tmp.96 36 50 60 ];
+        symbol [ Graphics %tmp.97 36 62 70 ];
+        %tmp.97 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.98 36 71 90 ];
+        %tmp.98 = getv %tmp.97 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.90 %tmp.91(%tmp.92, %tmp.93, %tmp.95, %tmp.96, %tmp.98);
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 38 8 ]
+        %tmp.99 = lgetv %dc;
+        symbol [ dc %tmp.99 38 8 10 ];
+        symbol [ setColor %tmp.100 38 11 19 ];
+        %tmp.100 = getv function %tmp.99 :setColor;
+        %tmp.101 = 0x2A2A2A;
+        symbol [ Graphics %tmp.102 38 30 38 ];
+        %tmp.102 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.103 38 39 56 ];
+        %tmp.103 = getv %tmp.102 :COLOR_TRANSPARENT;
+        invoke %tmp.99 %tmp.100(%tmp.101, %tmp.103);
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 39 8 ]
+        %tmp.104 = lgetv %dc;
+        symbol [ dc %tmp.104 39 8 10 ];
+        symbol [ drawLine %tmp.105 39 11 19 ];
+        %tmp.105 = getv function %tmp.104 :drawLine;
+        %tmp.106 = 120;
+        %tmp.107 = 100;
+        %tmp.108 = 270;
+        %tmp.109 = 100;
+        invoke %tmp.104 %tmp.105(%tmp.106, %tmp.107, %tmp.108, %tmp.109);
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 42 8 ]
+        %tmp.110 = lgetv %dc;
+        symbol [ dc %tmp.110 42 8 10 ];
+        symbol [ setColor %tmp.111 42 11 19 ];
+        %tmp.111 = getv function %tmp.110 :setColor;
+        symbol [ Graphics %tmp.112 42 20 28 ];
+        %tmp.112 = getm $.Toybox.Graphics;
+        symbol [ COLOR_ORANGE %tmp.113 42 29 41 ];
+        %tmp.113 = getv %tmp.112 :COLOR_ORANGE;
+        symbol [ Graphics %tmp.114 42 43 51 ];
+        %tmp.114 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.115 42 52 69 ];
+        %tmp.115 = getv %tmp.114 :COLOR_TRANSPARENT;
+        invoke %tmp.110 %tmp.111(%tmp.113, %tmp.115);
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 43 8 ]
+        %tmp.116 = lgetv %dc;
+        symbol [ dc %tmp.116 43 8 10 ];
+        symbol [ drawText %tmp.117 43 11 19 ];
+        %tmp.117 = getv function %tmp.116 :drawText;
+        %tmp.118 = 195;
+        %tmp.119 = 155;
+        symbol [ Graphics %tmp.120 43 30 38 ];
+        %tmp.120 = getm $.Toybox.Graphics;
+        symbol [ FONT_SYSTEM_LARGE %tmp.121 43 39 56 ];
+        %tmp.121 = getv %tmp.120 :FONT_SYSTEM_LARGE;
+        %tmp.122 = lgetv %step.2;
+        symbol [ step %tmp.122 43 58 62 ];
+        %tmp.124 = const :chord;
+        symbol [ chord %tmp.124 43 64 69 const ];
+        %tmp.125 = agetv %tmp.122 %tmp.124;
+        symbol [ Graphics %tmp.126 43 72 80 ];
+        %tmp.126 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.127 43 81 100 ];
+        %tmp.127 = getv %tmp.126 :TEXT_JUSTIFY_CENTER;
+        symbol [ Graphics %tmp.128 43 103 111 ];
+        %tmp.128 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_VCENTER %tmp.129 43 112 132 ];
+        %tmp.129 = getv %tmp.128 :TEXT_JUSTIFY_VCENTER;
+        %tmp.130 = bitor %tmp.127 %tmp.129;
+        invoke %tmp.116 %tmp.117(%tmp.118, %tmp.119, %tmp.121, %tmp.125, %tmp.130);
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 45 8 ]
+        %tmp.131 = lgetv %dc;
+        symbol [ dc %tmp.131 45 8 10 ];
+        symbol [ setColor %tmp.132 45 11 19 ];
+        %tmp.132 = getv function %tmp.131 :setColor;
+        %tmp.133 = 0x2A2A2A;
+        symbol [ Graphics %tmp.134 45 30 38 ];
+        %tmp.134 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.135 45 39 56 ];
+        %tmp.135 = getv %tmp.134 :COLOR_TRANSPARENT;
+        invoke %tmp.131 %tmp.132(%tmp.133, %tmp.135);
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 46 8 ]
+        %tmp.136 = lgetv %dc;
+        symbol [ dc %tmp.136 46 8 10 ];
+        symbol [ drawLine %tmp.137 46 11 19 ];
+        %tmp.137 = getv function %tmp.136 :drawLine;
+        %tmp.138 = 90;
+        %tmp.139 = 208;
+        %tmp.140 = 300;
+        %tmp.141 = 208;
+        invoke %tmp.136 %tmp.137(%tmp.138, %tmp.139, %tmp.140, %tmp.141);
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 49 8 ]
+        %tmp.142 = lgetv %dc;
+        symbol [ dc %tmp.142 49 8 10 ];
+        symbol [ setColor %tmp.143 49 11 19 ];
+        %tmp.143 = getv function %tmp.142 :setColor;
+        symbol [ Graphics %tmp.144 49 20 28 ];
+        %tmp.144 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.145 49 29 40 ];
+        %tmp.145 = getv %tmp.144 :COLOR_WHITE;
+        symbol [ Graphics %tmp.146 49 42 50 ];
+        %tmp.146 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.147 49 51 68 ];
+        %tmp.147 = getv %tmp.146 :COLOR_TRANSPARENT;
+        invoke %tmp.142 %tmp.143(%tmp.145, %tmp.147);
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 50 8 ]
+        %tmp.148 = lgetv %dc;
+        symbol [ dc %tmp.148 50 8 10 ];
+        symbol [ drawText %tmp.149 50 11 19 ];
+        %tmp.149 = getv function %tmp.148 :drawText;
+        %tmp.150 = 195;
+        %tmp.151 = 234;
+        symbol [ Graphics %tmp.152 50 30 38 ];
+        %tmp.152 = getm $.Toybox.Graphics;
+        symbol [ FONT_SMALL %tmp.153 50 39 49 ];
+        %tmp.153 = getv %tmp.152 :FONT_SMALL;
+        %tmp.154 = lgetv %step.2;
+        symbol [ step %tmp.154 50 51 55 ];
+        %tmp.156 = const :lyric;
+        symbol [ lyric %tmp.156 50 57 62 const ];
+        %tmp.157 = agetv %tmp.154 %tmp.156;
+        symbol [ Graphics %tmp.158 50 65 73 ];
+        %tmp.158 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.159 50 74 93 ];
+        %tmp.159 = getv %tmp.158 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.148 %tmp.149(%tmp.150, %tmp.151, %tmp.153, %tmp.157, %tmp.159);
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 52 8 ]
+        [ "C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_14_56_66_4_start" "C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_14_56_66_4_stop" ]
+        %nextChord.6 = local;
+        symbol [ nextChord %nextChord.6 52 12 21 ];
+        symbol [ mModel %tmp.161 52 24 30 ];
+        %tmp.161 = getv ? :mModel;
+        symbol [ getNextChord %tmp.162 52 31 43 ];
+        %tmp.162 = getv function %tmp.161 :getNextChord;
+        %tmp.163 = invoke %tmp.161 %tmp.162();
+        lputv %nextChord.6 %tmp.163;
+        symbol [ nextChord %nextChord.6 52 12 21 ];
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 53 8 ]
+        [ "C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_14_56_66_4_start" "C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_14_56_66_4_stop" ]
+        %nextHint.7 = local;
+        symbol [ nextHint %nextHint.7 53 12 20 ];
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_53_23_53_79_begin:
+        %tmp.164 = lgetv %nextChord.6;
+        symbol [ nextChord %tmp.164 53 24 33 ];
+        symbol [ equals %tmp.165 53 34 40 ];
+        %tmp.165 = getv function %tmp.164 :equals;
+        %tmp.166 = "--";
+        %tmp.167 = invoke %tmp.164 %tmp.165(%tmp.166);
+        bf %tmp.167 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_53_23_53_79_else_false;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_53_23_53_79_true:
+        %tmp.168 = "Selesai";
+        push %tmp.168;
+        goto @C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_53_23_53_79_end;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_53_23_53_79_else_false:
+        %tmp.169 = "Berikutnya: ";
+        %tmp.170 = lgetv %nextChord.6;
+        symbol [ nextChord %tmp.170 53 79 88 ];
+        %tmp.171 = add %tmp.169 %tmp.170;
+        push %tmp.171;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_53_23_53_79_end:
+        %tmp.172 = phi [%tmp.167 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_53_23_53_79_begin] [%tmp.168 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_53_23_53_79_true] [%tmp.171 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_53_23_53_79_else_false] [%tmp.172 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_53_23_53_79_end];
+        lputv %nextHint.7 %tmp.172;
+        symbol [ nextHint %nextHint.7 53 12 20 ];
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 54 8 ]
+        %tmp.173 = lgetv %dc;
+        symbol [ dc %tmp.173 54 8 10 ];
+        symbol [ setColor %tmp.174 54 11 19 ];
+        %tmp.174 = getv function %tmp.173 :setColor;
+        symbol [ Graphics %tmp.175 54 20 28 ];
+        %tmp.175 = getm $.Toybox.Graphics;
+        symbol [ COLOR_LT_GRAY %tmp.176 54 29 42 ];
+        %tmp.176 = getv %tmp.175 :COLOR_LT_GRAY;
+        symbol [ Graphics %tmp.177 54 44 52 ];
+        %tmp.177 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.178 54 53 70 ];
+        %tmp.178 = getv %tmp.177 :COLOR_TRANSPARENT;
+        invoke %tmp.173 %tmp.174(%tmp.176, %tmp.178);
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 55 8 ]
+        %tmp.179 = lgetv %dc;
+        symbol [ dc %tmp.179 55 8 10 ];
+        symbol [ drawText %tmp.180 55 11 19 ];
+        %tmp.180 = getv function %tmp.179 :drawText;
+        %tmp.181 = 195;
+        %tmp.182 = 280;
+        symbol [ Graphics %tmp.183 55 30 38 ];
+        %tmp.183 = getm $.Toybox.Graphics;
+        symbol [ FONT_XTINY %tmp.184 55 39 49 ];
+        %tmp.184 = getv %tmp.183 :FONT_XTINY;
+        %tmp.185 = lgetv %nextHint.7;
+        symbol [ nextHint %tmp.185 55 51 59 ];
+        symbol [ Graphics %tmp.186 55 61 69 ];
+        %tmp.186 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.187 55 70 89 ];
+        %tmp.187 = getv %tmp.186 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.179 %tmp.180(%tmp.181, %tmp.182, %tmp.184, %tmp.185, %tmp.187);
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 58 8 ]
+        %tmp.188 = lgetv %dc;
+        symbol [ dc %tmp.188 58 8 10 ];
+        symbol [ setColor %tmp.189 58 11 19 ];
+        %tmp.189 = getv function %tmp.188 :setColor;
+        %tmp.190 = 0x222222;
+        symbol [ Graphics %tmp.191 58 30 38 ];
+        %tmp.191 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.192 58 39 56 ];
+        %tmp.192 = getv %tmp.191 :COLOR_TRANSPARENT;
+        invoke %tmp.188 %tmp.189(%tmp.190, %tmp.192);
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 59 8 ]
+        %tmp.193 = lgetv %dc;
+        symbol [ dc %tmp.193 59 8 10 ];
+        symbol [ fillRoundedRectangle %tmp.194 59 11 31 ];
+        %tmp.194 = getv function %tmp.193 :fillRoundedRectangle;
+        %tmp.195 = 135;
+        %tmp.196 = 330;
+        %tmp.197 = 120;
+        %tmp.198 = 4;
+        %tmp.199 = 2;
+        invoke %tmp.193 %tmp.194(%tmp.195, %tmp.196, %tmp.197, %tmp.198, %tmp.199);
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 61 8 ]
+        [ "C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_14_56_66_4_start" "C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_14_56_66_4_stop" ]
+        %fillW.8 = local;
+        symbol [ fillW %fillW.8 61 12 17 ];
+        %tmp.200 = 120.0f;
+        symbol [ mModel %tmp.202 61 30 36 ];
+        %tmp.202 = getv ? :mModel;
+        symbol [ getProgressRatio %tmp.203 61 37 53 ];
+        %tmp.203 = getv function %tmp.202 :getProgressRatio;
+        %tmp.204 = invoke %tmp.202 %tmp.203();
+        %tmp.205 = mul %tmp.200 %tmp.204;
+        symbol [ toNumber %tmp.206 61 57 65 ];
+        %tmp.206 = getv function %tmp.205 :toNumber;
+        %tmp.207 = invoke %tmp.205 %tmp.206();
+        lputv %fillW.8 %tmp.207;
+        symbol [ fillW %fillW.8 61 12 17 ];
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 62 8 ]
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_62_8_65_8_if_stmt:
+        %tmp.208 = lgetv %fillW.8;
+        symbol [ fillW %tmp.208 62 12 17 ];
+        %tmp.209 = 0;
+        %tmp.210 = gt %tmp.208 %tmp.209;
+        bf %tmp.210 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_62_8_65_8_if_end;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_62_8_65_8_if_true:
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_62_23_65_8_start:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 63 12 ]
+        %tmp.211 = lgetv %dc;
+        symbol [ dc %tmp.211 63 12 14 ];
+        symbol [ setColor %tmp.212 63 15 23 ];
+        %tmp.212 = getv function %tmp.211 :setColor;
+        symbol [ Graphics %tmp.213 63 24 32 ];
+        %tmp.213 = getm $.Toybox.Graphics;
+        symbol [ COLOR_ORANGE %tmp.214 63 33 45 ];
+        %tmp.214 = getv %tmp.213 :COLOR_ORANGE;
+        symbol [ Graphics %tmp.215 63 47 55 ];
+        %tmp.215 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.216 63 56 73 ];
+        %tmp.216 = getv %tmp.215 :COLOR_TRANSPARENT;
+        invoke %tmp.211 %tmp.212(%tmp.214, %tmp.216);
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc" 64 12 ]
+        %tmp.217 = lgetv %dc;
+        symbol [ dc %tmp.217 64 12 14 ];
+        symbol [ fillRoundedRectangle %tmp.218 64 15 35 ];
+        %tmp.218 = getv function %tmp.217 :fillRoundedRectangle;
+        %tmp.219 = 135;
+        %tmp.220 = 330;
+        %tmp.221 = lgetv %fillW.8;
+        symbol [ fillW %tmp.221 64 46 51 ];
+        %tmp.222 = 4;
+        %tmp.223 = 2;
+        invoke %tmp.217 %tmp.218(%tmp.219, %tmp.220, %tmp.221, %tmp.222, %tmp.223);
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_62_23_65_8_stop:
+        goto @C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_62_8_65_8_if_end;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_62_8_65_8_if_end:
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordView_mc_14_56_66_4_stop:
+    }
+}
+[ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordView.mc"; @line = 1; ]
+<init> {
+}
