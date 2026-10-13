@@ -19,7 +19,7 @@ class ChordView extends WatchUi.View {
         var statusMsg = mModel.getStatusMessage();
         if (statusMsg != null) {
             dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(195, 195, Graphics.FONT_MEDIUM, statusMsg, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+            dc.drawText(195, 195, Graphics.FONT_XTINY, statusMsg, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
             return;
         }
 
@@ -30,106 +30,124 @@ class ChordView extends WatchUi.View {
         var isAuto = mModel.isAutoScrolling();
         var speed = mModel.getSpeedMultiplier();
 
-        // 1. Top status pill: [▶ AUTO 1.0x] or [❚❚ MANUAL]
-        if (isAuto) {
-            dc.setColor(0x072A12, Graphics.COLOR_TRANSPARENT);
-            dc.fillRoundedRectangle(135, 20, 120, 18, 9);
-            dc.setColor(0x00E676, Graphics.COLOR_TRANSPARENT);
-            dc.drawRoundedRectangle(135, 20, 120, 18, 9);
-            dc.setColor(0x00FF7F, Graphics.COLOR_TRANSPARENT);
-            var speedBadge = (speed == 1.0f) ? "[▶ AUTO]" : Lang.format("[▶ $1$x]", [speed.format("%.1f")]);
-            dc.drawText(195, 20, Graphics.FONT_XTINY, speedBadge, Graphics.TEXT_JUSTIFY_CENTER);
-        } else {
-            dc.setColor(0x1A1A1A, Graphics.COLOR_TRANSPARENT);
-            dc.fillRoundedRectangle(140, 20, 110, 18, 9);
-            dc.setColor(0x444444, Graphics.COLOR_TRANSPARENT);
-            dc.drawRoundedRectangle(140, 20, 110, 18, 9);
-            dc.setColor(0x888888, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(195, 20, Graphics.FONT_XTINY, "[❚❚ MANUAL]", Graphics.TEXT_JUSTIFY_CENTER);
+        // 1. Slim Status Pill at top (Standard ASCII, compact width 80, height 16)
+        var statusText = isAuto ? "AUTO" : "MANUAL";
+        if (isAuto && speed != 1.0f) {
+            statusText = Lang.format("AUTO $1$x", [speed.format("%.1f")]);
         }
 
-        // 2. Top header: Song Title & optional Capo Badge
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(195, 42, Graphics.FONT_XTINY, step[:songTitle], Graphics.TEXT_JUSTIFY_CENTER);
+        if (isAuto) {
+            dc.setColor(0x062810, Graphics.COLOR_TRANSPARENT);
+            dc.fillRoundedRectangle(155, 18, 80, 16, 8);
+            dc.setColor(0x00E676, Graphics.COLOR_TRANSPARENT);
+            dc.drawRoundedRectangle(155, 18, 80, 16, 8);
+            dc.setColor(0x00FF7F, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(195, 18, Graphics.FONT_XTINY, statusText, Graphics.TEXT_JUSTIFY_CENTER);
+        } else {
+            dc.setColor(0x181818, Graphics.COLOR_TRANSPARENT);
+            dc.fillRoundedRectangle(155, 18, 80, 16, 8);
+            dc.setColor(0x383838, Graphics.COLOR_TRANSPARENT);
+            dc.drawRoundedRectangle(155, 18, 80, 16, 8);
+            dc.setColor(0x777777, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(195, 18, Graphics.FONT_XTINY, statusText, Graphics.TEXT_JUSTIFY_CENTER);
+        }
 
-        var dividerY = 94;
+        // 2. Header: Song Title & Section (Compact FONT_XTINY)
+        var boxY = 100;
+        var lyricY = 178;
+
         if (capo != null) {
-            // Neon cyan pill badge for capo tuning requirement
+            // Capo badge in neon cyan
+            dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(195, 40, Graphics.FONT_XTINY, step[:songTitle], Graphics.TEXT_JUSTIFY_CENTER);
+
             var capoStr = "[" + (capo as Lang.String).toUpper() + "]";
             dc.setColor(0x00E5FF, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(195, 60, Graphics.FONT_XTINY, capoStr, Graphics.TEXT_JUSTIFY_CENTER);
+            dc.drawText(195, 58, Graphics.FONT_XTINY, capoStr, Graphics.TEXT_JUSTIFY_CENTER);
 
-            // Section & step position
             var statusLine = Lang.format("$1$  •  $2$/$3$", [step[:section], currentStepNum, totalSteps]);
             dc.setColor(0xFFA500, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(195, 78, Graphics.FONT_XTINY, statusLine, Graphics.TEXT_JUSTIFY_CENTER);
-            dividerY = 98;
+            dc.drawText(195, 76, Graphics.FONT_XTINY, statusLine, Graphics.TEXT_JUSTIFY_CENTER);
+
+            dc.setColor(0x242424, Graphics.COLOR_TRANSPARENT);
+            dc.drawLine(130, 94, 260, 94);
+
+            boxY = 106;
+            lyricY = 184;
         } else {
-            // Standard tuning: section line directly below title
+            // Standard layout without Capo
+            dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(195, 42, Graphics.FONT_XTINY, step[:songTitle], Graphics.TEXT_JUSTIFY_CENTER);
+
             var statusLine = Lang.format("$1$  •  $2$/$3$", [step[:section], currentStepNum, totalSteps]);
             dc.setColor(0xFFA500, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(195, 64, Graphics.FONT_XTINY, statusLine, Graphics.TEXT_JUSTIFY_CENTER);
-            dividerY = 88;
+            dc.drawText(195, 62, Graphics.FONT_XTINY, statusLine, Graphics.TEXT_JUSTIFY_CENTER);
+
+            dc.setColor(0x242424, Graphics.COLOR_TRANSPARENT);
+            dc.drawLine(130, 82, 260, 82);
+
+            boxY = 94;
+            lyricY = 172;
         }
 
-        // Top divider
-        dc.setColor(0x282828, Graphics.COLOR_TRANSPARENT);
-        dc.drawLine(95, dividerY, 295, dividerY);
-
-        // 3. Middle Stage: 3-Chord Horizontal Display
+        // 3. Middle Stage: 3-Chord Horizontal Display (Proportional, sleek sizes)
         var prevChord = mModel.getPrevChord();
         var currentChord = mModel.getCurrentChord();
         var nextChord = mModel.getNextChord();
+        var chordCenterY = boxY + 23;
 
-        // Previous chord (left: muted soft gray)
-        dc.setColor(0x666666, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(75, 144, Graphics.FONT_MEDIUM, prevChord, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        // Previous chord (left: muted soft gray, FONT_XTINY)
+        dc.setColor(0x555555, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(85, chordCenterY, Graphics.FONT_XTINY, prevChord, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
-        // Current chord card (center: warm dark amber backdrop with glowing electric orange border)
-        dc.setColor(0x221303, Graphics.COLOR_TRANSPARENT);
-        dc.fillRoundedRectangle(135, 112, 120, 64, 10);
+        // Current chord card (center: sleek compact card with warm glow)
+        dc.setColor(0x1C1004, Graphics.COLOR_TRANSPARENT);
+        dc.fillRoundedRectangle(147, boxY, 96, 46, 6);
 
         dc.setColor(0xFF7700, Graphics.COLOR_TRANSPARENT);
-        dc.setPenWidth(3);
-        dc.drawRoundedRectangle(135, 112, 120, 64, 10);
+        dc.setPenWidth(2);
+        dc.drawRoundedRectangle(147, boxY, 96, 46, 6);
         dc.setPenWidth(1);
 
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(195, 144, Graphics.FONT_SYSTEM_LARGE, currentChord, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(195, chordCenterY, Graphics.FONT_LARGE, currentChord, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
-        // Next chord (right: soft ice-cyan accent)
+        // Next chord (right: soft ice-cyan, FONT_XTINY)
         dc.setColor(0x80CBC4, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(315, 144, Graphics.FONT_MEDIUM, nextChord, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(305, chordCenterY, Graphics.FONT_XTINY, nextChord, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
         // Stage bottom divider
-        dc.setColor(0x282828, Graphics.COLOR_TRANSPARENT);
-        dc.drawLine(90, 192, 300, 192);
+        var stageDivY = boxY + 54;
+        dc.setColor(0x242424, Graphics.COLOR_TRANSPARENT);
+        dc.drawLine(130, stageDivY, 260, stageDivY);
 
-        // 4. Lyric area (wrapped cleanly into 2 lines)
-        drawWrappedLyric(dc, step[:lyric] as Lang.String?, 228);
+        // 4. Lyric area (Compact FONT_XTINY, clean line wrap, safely inside bezel)
+        drawWrappedLyric(dc, step[:lyric] as Lang.String?, lyricY);
 
         // Next chord teaser hint
-        var nextHint = (nextChord.equals("--")) ? "• End of Song •" : "Next: " + nextChord;
-        dc.setColor(0x777777, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(195, 276, Graphics.FONT_XTINY, nextHint, Graphics.TEXT_JUSTIFY_CENTER);
+        var nextHint = (nextChord.equals("--")) ? "End of Song" : "Next: " + nextChord;
+        dc.setColor(0x666666, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(195, lyricY + 36, Graphics.FONT_XTINY, nextHint, Graphics.TEXT_JUSTIFY_CENTER);
 
-        // 5. Sleek bottom progress bar and step percentage
+        // 5. Slim bottom progress bar
+        var barY = lyricY + 60;
         dc.setColor(0x202020, Graphics.COLOR_TRANSPARENT);
-        dc.fillRoundedRectangle(115, 318, 160, 6, 3);
+        dc.fillRoundedRectangle(145, barY, 100, 3, 1);
 
-        var fillW = (160.0f * mModel.getProgressRatio()).toNumber();
+        var fillW = (100.0f * mModel.getProgressRatio()).toNumber();
         if (fillW > 0) {
             dc.setColor(0xFF7700, Graphics.COLOR_TRANSPARENT);
-            dc.fillRoundedRectangle(115, 318, fillW, 6, 3);
+            dc.fillRoundedRectangle(145, barY, fillW, 3, 1);
         }
 
+        // Step percentage footer
         var percent = (mModel.getProgressRatio() * 100.0f).toNumber();
         var progText = Lang.format("Step $1$/$2$ ($3$%)", [currentStepNum, totalSteps, percent]);
-        dc.setColor(0x666666, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(195, 336, Graphics.FONT_XTINY, progText, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.setColor(0x555555, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(195, barY + 12, Graphics.FONT_XTINY, progText, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
-    // Split long lyrics across 2 lines to fit circular 390x390 display without edge-clipping
+    // Split long lyrics across 2 compact lines with safe margins inside circular bezel
     private function drawWrappedLyric(dc as Graphics.Dc, rawLyric as Lang.String?, y as Lang.Number) as Void {
         if (rawLyric == null) {
             return;
@@ -140,12 +158,13 @@ class ChordView extends WatchUi.View {
             return;
         }
 
-        var font = Graphics.FONT_SMALL;
-        var maxWidth = 265;
+        // FONT_XTINY gives clean, compact, non-crowded readability
+        var font = Graphics.FONT_XTINY;
+        var maxWidth = 200;
 
         if (dc.getTextWidthInPixels(lyric, font) <= maxWidth) {
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(195, y, font, lyric, Graphics.TEXT_JUSTIFY_CENTER);
+            dc.drawText(195, y + 6, font, lyric, Graphics.TEXT_JUSTIFY_CENTER);
             return;
         }
 
@@ -174,7 +193,7 @@ class ChordView extends WatchUi.View {
 
         if (words.size() <= 1) {
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(195, y, font, lyric, Graphics.TEXT_JUSTIFY_CENTER);
+            dc.drawText(195, y + 6, font, lyric, Graphics.TEXT_JUSTIFY_CENTER);
             return;
         }
 
@@ -218,7 +237,7 @@ class ChordView extends WatchUi.View {
         }
 
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(195, y - 14, font, line1, Graphics.TEXT_JUSTIFY_CENTER);
-        dc.drawText(195, y + 14, font, line2, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(195, y, font, line1, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(195, y + 16, font, line2, Graphics.TEXT_JUSTIFY_CENTER);
     }
 }
