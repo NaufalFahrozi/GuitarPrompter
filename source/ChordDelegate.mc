@@ -23,15 +23,19 @@ class ChordDelegate extends WatchUi.BehaviorDelegate {
         return true;
     }
 
-    // Tombol Start/Enter (Kanan Atas) membuka menu daftar lagu
+    // Tombol Start/Enter (Kanan Atas) membuka menu: Play/Pause Auto-Scroll, daftar lagu, dan Sync
     public function onSelect() as Lang.Boolean {
-        var menu = new WatchUi.Menu2({:title => "Pilih Lagu"});
-        
+        var menu = new WatchUi.Menu2({:title => "Menu"});
+
+        var autoTitle = mModel.isAutoScrolling() ? "Pause Auto-Scroll" : "Play Auto-Scroll";
+        var autoSub = mModel.isAutoScrolling() ? "Hentikan gulir otomatis" : "Gulir otomatis (3.5s)";
+        menu.addItem(new WatchUi.MenuItem(autoTitle, autoSub, "AUTO_SCROLL", null));
+
         for (var i = 0; i < mModel.getSongCount(); i++) {
             menu.addItem(new WatchUi.MenuItem(mModel.getSongTitle(i), null, i, null));
         }
         menu.addItem(new WatchUi.MenuItem("🔄 Sync dari Web", "Download lirik baru", "SYNC", null));
-        
+
         WatchUi.pushView(menu, new SongMenuDelegate(mModel), WatchUi.SLIDE_UP);
         return true;
     }
@@ -40,10 +44,13 @@ class ChordDelegate extends WatchUi.BehaviorDelegate {
         return false;
     }
 
-    // Sentuhan Layar: Bawah = Maju, Atas = Mundur
+    // Sentuhan Layar: Tengah (80-160) = Toggle Auto-Scroll, Bawah (>160) = Maju, Atas (<80) = Mundur
     public function onTap(clickEvent as WatchUi.ClickEvent) as Lang.Boolean {
         var coords = clickEvent.getCoordinates();
-        if (coords[1] >= 195) {
+        var y = coords[1];
+        if (y >= 80 && y <= 160) {
+            mModel.toggleAutoScroll();
+        } else if (y > 160) {
             mModel.nextStep();
         } else {
             mModel.prevStep();
@@ -81,9 +88,14 @@ class SongMenuDelegate extends WatchUi.Menu2InputDelegate {
         if (id instanceof Lang.Number) {
             mModel.selectSong(id);
             WatchUi.popView(WatchUi.SLIDE_DOWN);
-        } else if (id.equals("SYNC")) {
-            WatchUi.popView(WatchUi.SLIDE_DOWN);
-            mModel.startSync();
+        } else if (id instanceof Lang.String) {
+            if (id.equals("AUTO_SCROLL")) {
+                mModel.toggleAutoScroll();
+                WatchUi.popView(WatchUi.SLIDE_DOWN);
+            } else if (id.equals("SYNC")) {
+                WatchUi.popView(WatchUi.SLIDE_DOWN);
+                mModel.startSync();
+            }
         }
     }
 

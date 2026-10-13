@@ -1,6 +1,8 @@
+import Toybox.Application;
 import Toybox.Application.Storage;
 import Toybox.Communications;
 import Toybox.Lang;
+import Toybox.Timer;
 import Toybox.WatchUi;
 
 typedef SongStep as {
@@ -21,6 +23,11 @@ class SongModel {
     private var mCurrentStepIndex as Lang.Number = 0;
     private var mSongs as Lang.Array<SongData> = [];
     private var mStatusMessage as Lang.String? = null;
+
+    // Hands-free Auto-Scroll Timer (default interval 3.5 detik)
+    private var mAutoScrollTimer as Timer.Timer? = null;
+    private var mIsAutoScrolling as Lang.Boolean = false;
+    private var mScrollIntervalMs as Lang.Number = 3500;
 
     // Ganti URL ini dengan URL Raw Gist / Pastebin milikmu sendiri jika ingin sync lagu baru
     private var mSyncUrl as Lang.String = "https://gist.githubusercontent.com/raw/sample_songs.txt";
@@ -70,6 +77,47 @@ class SongModel {
         ];
     }
 
+    // Auto-Scroll methods
+    public function isAutoScrolling() as Lang.Boolean {
+        return mIsAutoScrolling;
+    }
+
+    public function toggleAutoScroll() as Void {
+        if (mIsAutoScrolling) {
+            stopAutoScroll();
+        } else {
+            startAutoScroll();
+        }
+    }
+
+    public function startAutoScroll() as Void {
+        if (mAutoScrollTimer == null) {
+            mAutoScrollTimer = new Timer.Timer();
+        }
+        mAutoScrollTimer.start(method(:onAutoScrollTimer), mScrollIntervalMs, true);
+        mIsAutoScrolling = true;
+        WatchUi.requestUpdate();
+    }
+
+    public function stopAutoScroll() as Void {
+        if (mAutoScrollTimer != null) {
+            mAutoScrollTimer.stop();
+        }
+        mIsAutoScrolling = false;
+        WatchUi.requestUpdate();
+    }
+
+    public function onAutoScrollTimer() as Void {
+        var currentSteps = mSongs[mCurrentSongIndex][:steps];
+        if (mCurrentStepIndex < currentSteps.size() - 1) {
+            mCurrentStepIndex++;
+            mStatusMessage = null;
+            WatchUi.requestUpdate();
+        } else {
+            stopAutoScroll();
+        }
+    }
+
     public function startSync() as Void {
         mStatusMessage = "Mengunduh Lagu...";
         WatchUi.requestUpdate();
@@ -92,7 +140,7 @@ class SongModel {
                 mSongs = parsedSongs;
                 mCurrentSongIndex = 0;
                 mCurrentStepIndex = 0;
-                Storage.setValue("SAVED_SONGS", mSongs);
+                Storage.setValue("SAVED_SONGS", mSongs as Application.Storage.ValueType);
                 mStatusMessage = "Berhasil (" + mSongs.size().toString() + " Lagu)";
             } else {
                 mStatusMessage = "Gagal: Format Salah";
@@ -195,6 +243,22 @@ class SongModel {
             :chord => step[:chord],
             :lyric => step[:lyric]
         };
+    }
+
+    public function getPrevChord() as Lang.String {
+        var currentSteps = mSongs[mCurrentSongIndex][:steps];
+        if (mCurrentStepIndex > 0 && currentSteps.size() > 0) {
+            return currentSteps[mCurrentStepIndex - 1][:chord];
+        }
+        return "--";
+    }
+
+    public function getCurrentChord() as Lang.String {
+        var currentSteps = mSongs[mCurrentSongIndex][:steps];
+        if (mCurrentStepIndex >= 0 && mCurrentStepIndex < currentSteps.size()) {
+            return currentSteps[mCurrentStepIndex][:chord];
+        }
+        return "--";
     }
 
     public function getNextChord() as Lang.String {

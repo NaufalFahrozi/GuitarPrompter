@@ -1,0 +1,651 @@
+[ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [Lang,1,14,18]; ]
+import Toybox.Lang;
+[ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc"; @line = 2; @symbol_importdef<0> = [Toybox,2,7,13]; @symbol_importdef<1> = [System,2,14,20]; ]
+import Toybox.System;
+[ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc"; @line = 3; @symbol_importdef<0> = [Toybox,3,7,13]; @symbol_importdef<1> = [WatchUi,3,14,21]; ]
+import Toybox.WatchUi;
+[ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc"; @line = 6; typecheck = strict; @symbol_classdef = [ChordDelegate,6,6,19]; @symbol_extends<0> = [WatchUi,6,28,35]; @symbol_extends<1> = [BehaviorDelegate,6,36,52]; ]
+class ChordDelegate extends WatchUi.BehaviorDelegate {
+    [ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc"; @line = 6; ]
+    <init> {
+    }
+    [ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc"; @line = 6; ]
+    static
+    <init> {
+    }
+    [ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc"; @line = 7; @position = 16; @symbol_vardef = [mModel,7,16,22]; @symbol_type<0> = [SongModel,7,26,35]; ]
+    private
+    var mModel as SongModel;
+    [ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc"; @line = 9; @symbol_functiondef = [initialize,9,20,30]; @symbol_param<0> = [model,9,31,36]; @symbol_param<0>_type<0> = [SongModel,9,40,49]; ]
+    public
+    function initialize(model as SongModel) as Void {
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_9_51_12_4_start:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 10 8 ]
+        symbol [ BehaviorDelegate %tmp.2 10 8 24 ];
+        %tmp.2 = getv ? :BehaviorDelegate;
+        symbol [ initialize %tmp.3 10 25 35 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 11 8 ]
+        %tmp.4 = lgetv %model;
+        symbol [ model %tmp.4 11 17 22 ];
+        symbol [ mModel ? 11 8 14 ];
+        putv self :mModel %tmp.4;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_9_51_12_4_stop:
+    }
+    [ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc"; @line = 14; @symbol_functiondef = [onNextPage,14,20,30]; @symbol_return<0> = [Lang,14,36,40]; @symbol_return<1> = [Boolean,14,41,48]; ]
+    public
+    function onNextPage() as Lang.Boolean {
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_14_49_18_4_start:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 15 8 ]
+        symbol [ mModel %tmp.2 15 8 14 ];
+        %tmp.2 = getv ? :mModel;
+        symbol [ nextStep %tmp.3 15 15 23 ];
+        %tmp.3 = getv function %tmp.2 :nextStep;
+        invoke %tmp.2 %tmp.3();
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 16 8 ]
+        symbol [ WatchUi %tmp.4 16 8 15 ];
+        %tmp.4 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.5 16 16 29 ];
+        %tmp.5 = getv function %tmp.4 :requestUpdate;
+        invoke %tmp.4 %tmp.5();
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 17 8 ]
+        %tmp.6 = true;
+        ret %tmp.6;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_14_49_18_4_stop:
+    }
+    [ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc"; @line = 20; @symbol_functiondef = [onPreviousPage,20,20,34]; @symbol_return<0> = [Lang,20,40,44]; @symbol_return<1> = [Boolean,20,45,52]; ]
+    public
+    function onPreviousPage() as Lang.Boolean {
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_20_53_24_4_start:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 21 8 ]
+        symbol [ mModel %tmp.2 21 8 14 ];
+        %tmp.2 = getv ? :mModel;
+        symbol [ prevStep %tmp.3 21 15 23 ];
+        %tmp.3 = getv function %tmp.2 :prevStep;
+        invoke %tmp.2 %tmp.3();
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 22 8 ]
+        symbol [ WatchUi %tmp.4 22 8 15 ];
+        %tmp.4 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.5 22 16 29 ];
+        %tmp.5 = getv function %tmp.4 :requestUpdate;
+        invoke %tmp.4 %tmp.5();
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 23 8 ]
+        %tmp.6 = true;
+        ret %tmp.6;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_20_53_24_4_stop:
+    }
+    [ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc"; @line = 27; @symbol_functiondef = [onSelect,27,20,28]; @symbol_return<0> = [Lang,27,34,38]; @symbol_return<1> = [Boolean,27,39,46]; ]
+    public
+    function onSelect() as Lang.Boolean {
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_27_47_41_4_start:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 28 8 ]
+        [ "C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_27_47_41_4_start" "C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_27_47_41_4_stop" ]
+        %menu.1 = local;
+        symbol [ menu %menu.1 28 12 16 ];
+        symbol [ WatchUi %tmp.3 28 23 30 ];
+        %tmp.3 = getm $.Toybox.WatchUi;
+        symbol [ Menu2 %tmp.4 28 31 36 ];
+        %tmp.4 = getv function ? %tmp.3 :Menu2;
+        %tmp.5 = newd 1;
+        %tmp.7 = const :title;
+        symbol [ title %tmp.7 28 39 44 const ];
+        %tmp.8 = "Menu";
+        %tmp.9 = dup %tmp.5;
+        %tmp.10 = aputv %tmp.9 %tmp.7 %tmp.8;
+        %tmp.1 = newc %tmp.4 (%tmp.10);
+        lputv %menu.1 %tmp.1;
+        symbol [ menu %menu.1 28 12 16 ];
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 30 8 ]
+        [ "C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_27_47_41_4_start" "C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_27_47_41_4_stop" ]
+        %autoTitle.2 = local;
+        symbol [ autoTitle %autoTitle.2 30 12 21 ];
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_30_24_30_73_begin:
+        symbol [ mModel %tmp.12 30 24 30 ];
+        %tmp.12 = getv ? :mModel;
+        symbol [ isAutoScrolling %tmp.13 30 31 46 ];
+        %tmp.13 = getv function %tmp.12 :isAutoScrolling;
+        %tmp.14 = invoke %tmp.12 %tmp.13();
+        bf %tmp.14 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_30_24_30_73_else_false;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_30_24_30_73_true:
+        %tmp.15 = "Pause Auto-Scroll";
+        push %tmp.15;
+        goto @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_30_24_30_73_end;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_30_24_30_73_else_false:
+        %tmp.16 = "Play Auto-Scroll";
+        push %tmp.16;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_30_24_30_73_end:
+        %tmp.17 = phi [%tmp.14 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_30_24_30_73_begin] [%tmp.15 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_30_24_30_73_true] [%tmp.16 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_30_24_30_73_else_false] [%tmp.17 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_30_24_30_73_end];
+        lputv %autoTitle.2 %tmp.17;
+        symbol [ autoTitle %autoTitle.2 30 12 21 ];
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 31 8 ]
+        [ "C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_27_47_41_4_start" "C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_27_47_41_4_stop" ]
+        %autoSub.3 = local;
+        symbol [ autoSub %autoSub.3 31 12 19 ];
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_31_22_31_77_begin:
+        symbol [ mModel %tmp.19 31 22 28 ];
+        %tmp.19 = getv ? :mModel;
+        symbol [ isAutoScrolling %tmp.20 31 29 44 ];
+        %tmp.20 = getv function %tmp.19 :isAutoScrolling;
+        %tmp.21 = invoke %tmp.19 %tmp.20();
+        bf %tmp.21 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_31_22_31_77_else_false;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_31_22_31_77_true:
+        %tmp.22 = "Hentikan gulir otomatis";
+        push %tmp.22;
+        goto @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_31_22_31_77_end;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_31_22_31_77_else_false:
+        %tmp.23 = "Gulir otomatis (3.5s)";
+        push %tmp.23;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_31_22_31_77_end:
+        %tmp.24 = phi [%tmp.21 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_31_22_31_77_begin] [%tmp.22 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_31_22_31_77_true] [%tmp.23 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_31_22_31_77_else_false] [%tmp.24 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_31_22_31_77_end];
+        lputv %autoSub.3 %tmp.24;
+        symbol [ autoSub %autoSub.3 31 12 19 ];
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 32 8 ]
+        %tmp.25 = lgetv %menu.1;
+        symbol [ menu %tmp.25 32 8 12 ];
+        symbol [ addItem %tmp.26 32 13 20 ];
+        %tmp.26 = getv function %tmp.25 :addItem;
+        symbol [ WatchUi %tmp.29 32 25 32 ];
+        %tmp.29 = getm $.Toybox.WatchUi;
+        symbol [ MenuItem %tmp.30 32 33 41 ];
+        %tmp.30 = getv function ? %tmp.29 :MenuItem;
+        %tmp.31 = lgetv %autoTitle.2;
+        symbol [ autoTitle %tmp.31 32 42 51 ];
+        %tmp.32 = lgetv %autoSub.3;
+        symbol [ autoSub %tmp.32 32 53 60 ];
+        %tmp.33 = "AUTO_SCROLL";
+        %tmp.34 = null;
+        %tmp.27 = newc %tmp.30 (%tmp.31, %tmp.32, %tmp.33, %tmp.34);
+        invoke %tmp.25 %tmp.26(%tmp.27);
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 34 8 ]
+        for @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_34_8_36_8_for_test @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_34_8_36_8_for_incr @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_34_8_36_8_for_end;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_34_8_36_8_for_init:
+        [ "C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_34_8_36_8_for_begin" "C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_34_8_36_8_for_end" ]
+        %i.4 = local;
+        symbol [ i %i.4 34 17 18 ];
+        %tmp.35 = 0;
+        lputv %i.4 %tmp.35;
+        symbol [ i %i.4 34 17 18 ];
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_34_8_36_8_for_test:
+        %tmp.36 = lgetv %i.4;
+        symbol [ i %tmp.36 34 24 25 ];
+        symbol [ mModel %tmp.38 34 28 34 ];
+        %tmp.38 = getv ? :mModel;
+        symbol [ getSongCount %tmp.39 34 35 47 ];
+        %tmp.39 = getv function %tmp.38 :getSongCount;
+        %tmp.40 = invoke %tmp.38 %tmp.39();
+        %tmp.41 = lt %tmp.36 %tmp.40;
+        bf %tmp.41 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_34_8_36_8_for_end;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_34_8_36_8_for_begin:
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_34_56_36_8_start:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 35 12 ]
+        %tmp.42 = lgetv %menu.1;
+        symbol [ menu %tmp.42 35 12 16 ];
+        symbol [ addItem %tmp.43 35 17 24 ];
+        %tmp.43 = getv function %tmp.42 :addItem;
+        symbol [ WatchUi %tmp.46 35 29 36 ];
+        %tmp.46 = getm $.Toybox.WatchUi;
+        symbol [ MenuItem %tmp.47 35 37 45 ];
+        %tmp.47 = getv function ? %tmp.46 :MenuItem;
+        symbol [ mModel %tmp.49 35 46 52 ];
+        %tmp.49 = getv ? :mModel;
+        symbol [ getSongTitle %tmp.50 35 53 65 ];
+        %tmp.50 = getv function %tmp.49 :getSongTitle;
+        %tmp.51 = lgetv %i.4;
+        symbol [ i %tmp.51 35 66 67 ];
+        %tmp.52 = invoke %tmp.49 %tmp.50(%tmp.51);
+        %tmp.53 = null;
+        %tmp.54 = lgetv %i.4;
+        symbol [ i %tmp.54 35 76 77 ];
+        %tmp.55 = null;
+        %tmp.44 = newc %tmp.47 (%tmp.52, %tmp.53, %tmp.54, %tmp.55);
+        invoke %tmp.42 %tmp.43(%tmp.44);
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_34_56_36_8_stop:
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_34_8_36_8_for_incr:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 34 ]
+        %tmp.58 = lgetv %i.4;
+        symbol [ i %tmp.58 34 51 52 ];
+        %tmp.59 = add %tmp.58 1;
+        lputv %i.4 %tmp.59;
+        symbol [ i %i.4 34 51 52 ];
+        goto @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_34_8_36_8_for_test;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_34_8_36_8_for_end:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 37 8 ]
+        %tmp.60 = lgetv %menu.1;
+        symbol [ menu %tmp.60 37 8 12 ];
+        symbol [ addItem %tmp.61 37 13 20 ];
+        %tmp.61 = getv function %tmp.60 :addItem;
+        symbol [ WatchUi %tmp.64 37 25 32 ];
+        %tmp.64 = getm $.Toybox.WatchUi;
+        symbol [ MenuItem %tmp.65 37 33 41 ];
+        %tmp.65 = getv function ? %tmp.64 :MenuItem;
+        %tmp.66 = "🔄 Sync dari Web";
+        %tmp.67 = "Download lirik baru";
+        %tmp.68 = "SYNC";
+        %tmp.69 = null;
+        %tmp.62 = newc %tmp.65 (%tmp.66, %tmp.67, %tmp.68, %tmp.69);
+        invoke %tmp.60 %tmp.61(%tmp.62);
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 39 8 ]
+        symbol [ WatchUi %tmp.70 39 8 15 ];
+        %tmp.70 = getm $.Toybox.WatchUi;
+        symbol [ pushView %tmp.71 39 16 24 ];
+        %tmp.71 = getv function %tmp.70 :pushView;
+        %tmp.72 = lgetv %menu.1;
+        symbol [ menu %tmp.72 39 25 29 ];
+        symbol [ SongMenuDelegate %tmp.76 39 35 51 ];
+        %tmp.76 = getv ? :SongMenuDelegate;
+        symbol [ mModel %tmp.78 39 52 58 ];
+        %tmp.78 = getv ? :mModel;
+        %tmp.73 = newc %tmp.76 (%tmp.78);
+        symbol [ WatchUi %tmp.79 39 61 68 ];
+        %tmp.79 = getm $.Toybox.WatchUi;
+        symbol [ SLIDE_UP %tmp.80 39 69 77 ];
+        %tmp.80 = getv %tmp.79 :SLIDE_UP;
+        invoke %tmp.70 %tmp.71(%tmp.72, %tmp.73, %tmp.80);
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 40 8 ]
+        %tmp.81 = true;
+        ret %tmp.81;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_27_47_41_4_stop:
+    }
+    [ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc"; @line = 43; @symbol_functiondef = [onBack,43,20,26]; @symbol_return<0> = [Lang,43,32,36]; @symbol_return<1> = [Boolean,43,37,44]; ]
+    public
+    function onBack() as Lang.Boolean {
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_43_45_45_4_start:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 44 8 ]
+        %tmp.1 = false;
+        ret %tmp.1;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_43_45_45_4_stop:
+    }
+    [ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc"; @line = 48; @symbol_functiondef = [onTap,48,20,25]; @symbol_param<0> = [clickEvent,48,26,36]; @symbol_param<0>_type<0> = [WatchUi,48,40,47]; @symbol_param<0>_type<1> = [ClickEvent,48,48,58]; @symbol_return<0> = [Lang,48,63,67]; @symbol_return<1> = [Boolean,48,68,75]; ]
+    public
+    function onTap(clickEvent as WatchUi.ClickEvent) as Lang.Boolean {
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_48_76_60_4_start:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 49 8 ]
+        [ "C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_48_76_60_4_start" "C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_48_76_60_4_stop" ]
+        %coords.1 = local;
+        symbol [ coords %coords.1 49 12 18 ];
+        %tmp.1 = lgetv %clickEvent;
+        symbol [ clickEvent %tmp.1 49 21 31 ];
+        symbol [ getCoordinates %tmp.2 49 32 46 ];
+        %tmp.2 = getv function %tmp.1 :getCoordinates;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        lputv %coords.1 %tmp.3;
+        symbol [ coords %coords.1 49 12 18 ];
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 50 8 ]
+        [ "C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_48_76_60_4_start" "C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_48_76_60_4_stop" ]
+        %y.2 = local;
+        symbol [ y %y.2 50 12 13 ];
+        %tmp.4 = lgetv %coords.1;
+        symbol [ coords %tmp.4 50 16 22 ];
+        %tmp.5 = 1;
+        %tmp.6 = agetv %tmp.4 %tmp.5;
+        lputv %y.2 %tmp.6;
+        symbol [ y %y.2 50 12 13 ];
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 51 8 ]
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_51_8_57_8_if_stmt:
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_51_12_51_28_begin:
+        %tmp.7 = lgetv %y.2;
+        symbol [ y %tmp.7 51 12 13 ];
+        %tmp.8 = 80;
+        %tmp.9 = gte %tmp.7 %tmp.8;
+        bf %tmp.9 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_51_8_57_8_if_false;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_51_23_51_28_true:
+        %tmp.10 = lgetv %y.2;
+        symbol [ y %tmp.10 51 23 24 ];
+        %tmp.11 = 160;
+        %tmp.12 = lte %tmp.10 %tmp.11;
+        push %tmp.12;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_51_23_51_28_end:
+        %tmp.13 = phi [%tmp.9 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_51_12_51_28_begin] [%tmp.12 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_51_23_51_28_true] [%tmp.13 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_51_23_51_28_end];
+        bf %tmp.13 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_51_8_57_8_if_false;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_51_8_57_8_if_true:
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_51_33_53_8_start:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 52 12 ]
+        symbol [ mModel %tmp.15 52 12 18 ];
+        %tmp.15 = getv ? :mModel;
+        symbol [ toggleAutoScroll %tmp.16 52 19 35 ];
+        %tmp.16 = getv function %tmp.15 :toggleAutoScroll;
+        invoke %tmp.15 %tmp.16();
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_51_33_53_8_stop:
+        goto @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_51_8_57_8_if_end;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_51_8_57_8_if_false:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 53 15 ]
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_53_15_57_8_if_stmt:
+        %tmp.17 = lgetv %y.2;
+        symbol [ y %tmp.17 53 19 20 ];
+        %tmp.18 = 160;
+        %tmp.19 = gt %tmp.17 %tmp.18;
+        bf %tmp.19 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_53_15_57_8_if_else_false;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_53_15_57_8_if_true:
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_53_28_55_8_start:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 54 12 ]
+        symbol [ mModel %tmp.21 54 12 18 ];
+        %tmp.21 = getv ? :mModel;
+        symbol [ nextStep %tmp.22 54 19 27 ];
+        %tmp.22 = getv function %tmp.21 :nextStep;
+        invoke %tmp.21 %tmp.22();
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_53_28_55_8_stop:
+        goto @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_53_15_57_8_if_end;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_53_15_57_8_if_else_false:
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_55_15_57_8_start:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 56 12 ]
+        symbol [ mModel %tmp.24 56 12 18 ];
+        %tmp.24 = getv ? :mModel;
+        symbol [ prevStep %tmp.25 56 19 27 ];
+        %tmp.25 = getv function %tmp.24 :prevStep;
+        invoke %tmp.24 %tmp.25();
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_55_15_57_8_stop:
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_53_15_57_8_if_end:
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_51_8_57_8_if_end:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 58 8 ]
+        symbol [ WatchUi %tmp.26 58 8 15 ];
+        %tmp.26 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.27 58 16 29 ];
+        %tmp.27 = getv function %tmp.26 :requestUpdate;
+        invoke %tmp.26 %tmp.27();
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 59 8 ]
+        %tmp.28 = true;
+        ret %tmp.28;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_48_76_60_4_stop:
+    }
+    [ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc"; @line = 62; @symbol_functiondef = [onKey,62,20,25]; @symbol_param<0> = [keyEvent,62,26,34]; @symbol_param<0>_type<0> = [WatchUi,62,38,45]; @symbol_param<0>_type<1> = [KeyEvent,62,46,54]; @symbol_return<0> = [Lang,62,59,63]; @symbol_return<1> = [Boolean,62,64,71]; ]
+    public
+    function onKey(keyEvent as WatchUi.KeyEvent) as Lang.Boolean {
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_62_72_74_4_start:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 63 8 ]
+        [ "C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_62_72_74_4_start" "C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_62_72_74_4_stop" ]
+        %key.1 = local;
+        symbol [ key %key.1 63 12 15 ];
+        %tmp.1 = lgetv %keyEvent;
+        symbol [ keyEvent %tmp.1 63 18 26 ];
+        symbol [ getKey %tmp.2 63 27 33 ];
+        %tmp.2 = getv function %tmp.1 :getKey;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        lputv %key.1 %tmp.3;
+        symbol [ key %key.1 63 12 15 ];
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 64 8 ]
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_64_8_72_8_if_stmt:
+        %tmp.4 = lgetv %key.1;
+        symbol [ key %tmp.4 64 12 15 ];
+        symbol [ WatchUi %tmp.5 64 19 26 ];
+        %tmp.5 = getm $.Toybox.WatchUi;
+        symbol [ KEY_DOWN %tmp.6 64 27 35 ];
+        %tmp.6 = getv %tmp.5 :KEY_DOWN;
+        %tmp.7 = eq %tmp.4 %tmp.6;
+        bf %tmp.7 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_64_8_72_8_if_false;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_64_8_72_8_if_true:
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_64_37_66_8_start:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 65 12 ]
+        %tmp.8 = self;
+        symbol [ onNextPage %tmp.9 65 19 29 ];
+        %tmp.9 = getv function %tmp.8 :onNextPage;
+        %tmp.10 = invoke %tmp.8 %tmp.9();
+        ret %tmp.10;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_64_37_66_8_stop:
+        goto @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_64_8_72_8_if_end;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_64_8_72_8_if_false:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 66 15 ]
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_66_15_72_8_if_stmt:
+        %tmp.11 = lgetv %key.1;
+        symbol [ key %tmp.11 66 19 22 ];
+        symbol [ WatchUi %tmp.12 66 26 33 ];
+        %tmp.12 = getm $.Toybox.WatchUi;
+        symbol [ KEY_UP %tmp.13 66 34 40 ];
+        %tmp.13 = getv %tmp.12 :KEY_UP;
+        %tmp.14 = eq %tmp.11 %tmp.13;
+        bf %tmp.14 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_66_15_72_8_if_false;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_66_15_72_8_if_true:
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_66_42_68_8_start:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 67 12 ]
+        %tmp.15 = self;
+        symbol [ onPreviousPage %tmp.16 67 19 33 ];
+        %tmp.16 = getv function %tmp.15 :onPreviousPage;
+        %tmp.17 = invoke %tmp.15 %tmp.16();
+        ret %tmp.17;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_66_42_68_8_stop:
+        goto @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_66_15_72_8_if_end;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_66_15_72_8_if_false:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 68 15 ]
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_68_15_72_8_if_stmt:
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_68_19_68_62_begin:
+        %tmp.18 = lgetv %key.1;
+        symbol [ key %tmp.18 68 19 22 ];
+        symbol [ WatchUi %tmp.19 68 26 33 ];
+        %tmp.19 = getm $.Toybox.WatchUi;
+        symbol [ KEY_ENTER %tmp.20 68 34 43 ];
+        %tmp.20 = getv %tmp.19 :KEY_ENTER;
+        %tmp.21 = eq %tmp.18 %tmp.20;
+        bt %tmp.21 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_68_15_72_8_if_true;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_68_47_68_62_false:
+        %tmp.22 = lgetv %key.1;
+        symbol [ key %tmp.22 68 47 50 ];
+        symbol [ WatchUi %tmp.23 68 54 61 ];
+        %tmp.23 = getm $.Toybox.WatchUi;
+        symbol [ KEY_START %tmp.24 68 62 71 ];
+        %tmp.24 = getv %tmp.23 :KEY_START;
+        %tmp.25 = eq %tmp.22 %tmp.24;
+        push %tmp.25;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_68_47_68_62_end:
+        %tmp.26 = phi [%tmp.21 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_68_19_68_62_begin] [%tmp.25 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_68_47_68_62_false] [%tmp.26 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_68_47_68_62_end];
+        bf %tmp.26 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_68_15_72_8_if_false;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_68_15_72_8_if_true:
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_68_73_70_8_start:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 69 12 ]
+        %tmp.27 = self;
+        symbol [ onSelect %tmp.28 69 19 27 ];
+        %tmp.28 = getv function %tmp.27 :onSelect;
+        %tmp.29 = invoke %tmp.27 %tmp.28();
+        ret %tmp.29;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_68_73_70_8_stop:
+        goto @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_68_15_72_8_if_end;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_68_15_72_8_if_false:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 70 15 ]
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_70_15_72_8_if_stmt:
+        %tmp.30 = lgetv %key.1;
+        symbol [ key %tmp.30 70 19 22 ];
+        symbol [ WatchUi %tmp.31 70 26 33 ];
+        %tmp.31 = getm $.Toybox.WatchUi;
+        symbol [ KEY_ESC %tmp.32 70 34 41 ];
+        %tmp.32 = getv %tmp.31 :KEY_ESC;
+        %tmp.33 = eq %tmp.30 %tmp.32;
+        bf %tmp.33 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_70_15_72_8_if_end;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_70_15_72_8_if_true:
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_70_43_72_8_start:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 71 12 ]
+        %tmp.34 = self;
+        symbol [ onBack %tmp.35 71 19 25 ];
+        %tmp.35 = getv function %tmp.34 :onBack;
+        %tmp.36 = invoke %tmp.34 %tmp.35();
+        ret %tmp.36;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_70_43_72_8_stop:
+        goto @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_70_15_72_8_if_end;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_70_15_72_8_if_end:
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_68_15_72_8_if_end:
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_66_15_72_8_if_end:
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_64_8_72_8_if_end:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 73 8 ]
+        %tmp.37 = false;
+        ret %tmp.37;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_62_72_74_4_stop:
+    }
+}
+[ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc"; @line = 78; typecheck = strict; @symbol_classdef = [SongMenuDelegate,78,6,22]; @symbol_extends<0> = [WatchUi,78,31,38]; @symbol_extends<1> = [Menu2InputDelegate,78,39,57]; ]
+class SongMenuDelegate extends WatchUi.Menu2InputDelegate {
+    [ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc"; @line = 78; ]
+    <init> {
+    }
+    [ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc"; @line = 78; ]
+    static
+    <init> {
+    }
+    [ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc"; @line = 79; @position = 16; @symbol_vardef = [mModel,79,16,22]; @symbol_type<0> = [SongModel,79,26,35]; ]
+    private
+    var mModel as SongModel;
+    [ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc"; @line = 81; @symbol_functiondef = [initialize,81,20,30]; @symbol_param<0> = [model,81,31,36]; @symbol_param<0>_type<0> = [SongModel,81,40,49]; ]
+    public
+    function initialize(model as SongModel) as Void {
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_81_51_84_4_start:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 82 8 ]
+        symbol [ Menu2InputDelegate %tmp.2 82 8 26 ];
+        %tmp.2 = getv ? :Menu2InputDelegate;
+        symbol [ initialize %tmp.3 82 27 37 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 83 8 ]
+        %tmp.4 = lgetv %model;
+        symbol [ model %tmp.4 83 17 22 ];
+        symbol [ mModel ? 83 8 14 ];
+        putv self :mModel %tmp.4;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_81_51_84_4_stop:
+    }
+    [ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc"; @line = 86; @symbol_functiondef = [onSelect,86,20,28]; @symbol_param<0> = [item,86,29,33]; @symbol_param<0>_type<0> = [WatchUi,86,37,44]; @symbol_param<0>_type<1> = [MenuItem,86,45,53]; ]
+    public
+    function onSelect(item as WatchUi.MenuItem) as Void {
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_86_63_100_4_start:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 87 8 ]
+        [ "C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_86_63_100_4_start" "C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_86_63_100_4_stop" ]
+        %id.1 = local;
+        symbol [ id %id.1 87 12 14 ];
+        %tmp.1 = lgetv %item;
+        symbol [ item %tmp.1 87 17 21 ];
+        symbol [ getId %tmp.2 87 22 27 ];
+        %tmp.2 = getv function %tmp.1 :getId;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        lputv %id.1 %tmp.3;
+        symbol [ id %id.1 87 12 14 ];
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 88 8 ]
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_88_8_99_8_if_stmt:
+        %tmp.4 = lgetv %id.1;
+        symbol [ id %tmp.4 88 12 14 ];
+        symbol [ Lang %tmp.5 88 26 30 ];
+        %tmp.5 = getm $.Toybox.Lang;
+        symbol [ Number %tmp.6 88 31 37 ];
+        %tmp.6 = getv %tmp.5 :Number;
+        %tmp.7 = isa %tmp.4 %tmp.6;
+        bf %tmp.7 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_88_8_99_8_if_false;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_88_8_99_8_if_true:
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_88_39_91_8_start:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 89 12 ]
+        symbol [ mModel %tmp.9 89 12 18 ];
+        %tmp.9 = getv ? :mModel;
+        symbol [ selectSong %tmp.10 89 19 29 ];
+        %tmp.10 = getv function %tmp.9 :selectSong;
+        %tmp.11 = lgetv %id.1;
+        symbol [ id %tmp.11 89 30 32 ];
+        %tmp.12 = as %tmp.11 { (Lang.Number) };
+        invoke %tmp.9 %tmp.10(%tmp.12);
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 90 12 ]
+        symbol [ WatchUi %tmp.13 90 12 19 ];
+        %tmp.13 = getm $.Toybox.WatchUi;
+        symbol [ popView %tmp.14 90 20 27 ];
+        %tmp.14 = getv function %tmp.13 :popView;
+        symbol [ WatchUi %tmp.15 90 28 35 ];
+        %tmp.15 = getm $.Toybox.WatchUi;
+        symbol [ SLIDE_DOWN %tmp.16 90 36 46 ];
+        %tmp.16 = getv %tmp.15 :SLIDE_DOWN;
+        invoke %tmp.13 %tmp.14(%tmp.16);
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_88_39_91_8_stop:
+        goto @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_88_8_99_8_if_end;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_88_8_99_8_if_false:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 91 15 ]
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_91_15_99_8_if_stmt:
+        %tmp.17 = lgetv %id.1;
+        symbol [ id %tmp.17 91 19 21 ];
+        %tmp.18 = as %tmp.17 { (!Lang.Number) };
+        symbol [ Lang %tmp.19 91 33 37 ];
+        %tmp.19 = getm $.Toybox.Lang;
+        symbol [ String %tmp.20 91 38 44 ];
+        %tmp.20 = getv %tmp.19 :String;
+        %tmp.21 = isa %tmp.18 %tmp.20;
+        bf %tmp.21 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_91_15_99_8_if_end;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_91_15_99_8_if_true:
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_91_46_99_8_start:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 92 12 ]
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_92_12_98_12_if_stmt:
+        %tmp.22 = lgetv %id.1;
+        symbol [ id %tmp.22 92 16 18 ];
+        %tmp.23 = as %tmp.22 { (Lang.String) && (!Lang.Number) };
+        symbol [ equals %tmp.24 92 19 25 ];
+        %tmp.24 = getv function %tmp.23 :equals;
+        %tmp.25 = "AUTO_SCROLL";
+        %tmp.26 = invoke %tmp.23 %tmp.24(%tmp.25);
+        bf %tmp.26 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_92_12_98_12_if_false;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_92_12_98_12_if_true:
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_92_42_95_12_start:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 93 16 ]
+        symbol [ mModel %tmp.28 93 16 22 ];
+        %tmp.28 = getv ? :mModel;
+        symbol [ toggleAutoScroll %tmp.29 93 23 39 ];
+        %tmp.29 = getv function %tmp.28 :toggleAutoScroll;
+        invoke %tmp.28 %tmp.29();
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 94 16 ]
+        symbol [ WatchUi %tmp.30 94 16 23 ];
+        %tmp.30 = getm $.Toybox.WatchUi;
+        symbol [ popView %tmp.31 94 24 31 ];
+        %tmp.31 = getv function %tmp.30 :popView;
+        symbol [ WatchUi %tmp.32 94 32 39 ];
+        %tmp.32 = getm $.Toybox.WatchUi;
+        symbol [ SLIDE_DOWN %tmp.33 94 40 50 ];
+        %tmp.33 = getv %tmp.32 :SLIDE_DOWN;
+        invoke %tmp.30 %tmp.31(%tmp.33);
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_92_42_95_12_stop:
+        goto @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_92_12_98_12_if_end;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_92_12_98_12_if_false:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 95 19 ]
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_95_19_98_12_if_stmt:
+        %tmp.34 = lgetv %id.1;
+        symbol [ id %tmp.34 95 23 25 ];
+        %tmp.35 = as %tmp.34 { (Lang.String) && (!Lang.Number) };
+        symbol [ equals %tmp.36 95 26 32 ];
+        %tmp.36 = getv function %tmp.35 :equals;
+        %tmp.37 = "SYNC";
+        %tmp.38 = invoke %tmp.35 %tmp.36(%tmp.37);
+        bf %tmp.38 @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_95_19_98_12_if_end;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_95_19_98_12_if_true:
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_95_42_98_12_start:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 96 16 ]
+        symbol [ WatchUi %tmp.39 96 16 23 ];
+        %tmp.39 = getm $.Toybox.WatchUi;
+        symbol [ popView %tmp.40 96 24 31 ];
+        %tmp.40 = getv function %tmp.39 :popView;
+        symbol [ WatchUi %tmp.41 96 32 39 ];
+        %tmp.41 = getm $.Toybox.WatchUi;
+        symbol [ SLIDE_DOWN %tmp.42 96 40 50 ];
+        %tmp.42 = getv %tmp.41 :SLIDE_DOWN;
+        invoke %tmp.39 %tmp.40(%tmp.42);
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 97 16 ]
+        symbol [ mModel %tmp.44 97 16 22 ];
+        %tmp.44 = getv ? :mModel;
+        symbol [ startSync %tmp.45 97 23 32 ];
+        %tmp.45 = getv function %tmp.44 :startSync;
+        invoke %tmp.44 %tmp.45();
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_95_42_98_12_stop:
+        goto @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_95_19_98_12_if_end;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_95_19_98_12_if_end:
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_92_12_98_12_if_end:
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_91_46_99_8_stop:
+        goto @C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_91_15_99_8_if_end;
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_91_15_99_8_if_end:
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_88_8_99_8_if_end:
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_86_63_100_4_stop:
+    }
+    [ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc"; @line = 102; @symbol_functiondef = [onBack,102,20,26]; ]
+    public
+    function onBack() as Void {
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_102_37_104_4_start:
+[ "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc" 103 8 ]
+        symbol [ WatchUi %tmp.1 103 8 15 ];
+        %tmp.1 = getm $.Toybox.WatchUi;
+        symbol [ popView %tmp.2 103 16 23 ];
+        %tmp.2 = getv function %tmp.1 :popView;
+        symbol [ WatchUi %tmp.3 103 24 31 ];
+        %tmp.3 = getm $.Toybox.WatchUi;
+        symbol [ SLIDE_DOWN %tmp.4 103 32 42 ];
+        %tmp.4 = getv %tmp.3 :SLIDE_DOWN;
+        invoke %tmp.1 %tmp.2(%tmp.4);
+C__NopalBikinAplikasi_GuitarPrompter_source_ChordDelegate_mc_102_37_104_4_stop:
+    }
+}
+[ @file = "C:\NopalBikinAplikasi\GuitarPrompter\source\ChordDelegate.mc"; @line = 1; ]
+<init> {
+}
