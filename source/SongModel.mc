@@ -711,6 +711,14 @@ class SongModel {
         return "--";
     }
 
+    public function getNextLyric() as Lang.String? {
+        var currentSteps = mSongs[mCurrentSongIndex][:steps];
+        if (mCurrentStepIndex + 1 < currentSteps.size()) {
+            return currentSteps[mCurrentStepIndex + 1][:lyric] as Lang.String?;
+        }
+        return null;
+    }
+
     public function getCurrentIndex() as Lang.Number { return mCurrentStepIndex; }
     public function getTotalSteps() as Lang.Number { return mSongs[mCurrentSongIndex][:steps].size(); }
     public function getStatusMessage() as Lang.String? { return mStatusMessage; }
