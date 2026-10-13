@@ -1,153 +1,98 @@
-# 🎸 GuitarPrompter
+# GuitarPrompter
 
-> **Hands-free Guitar Chord & Lyric Prompter for Garmin Forerunner 165 / 165 Music**  
-> Dibangun dengan Garmin Connect IQ SDK & Monkey C untuk layar melingkar AMOLED 390x390.
+A Garmin Connect IQ watch app that displays guitar chords and lyrics right on your wrist. Built for the Forerunner 165 and 165 Music (390x390 AMOLED).
 
----
-
-## 📖 Ringkasan Proyek
-
-**GuitarPrompter** adalah aplikasi prompter kunci gitar cerdas yang dirancang khusus untuk jam tangan Garmin (khususnya seri Forerunner 165 & 165 Music). Aplikasi ini memungkinkan gitaris dan musisi membaca akor (chord) serta lirik lagu langsung dari pergelangan tangan secara *hands-free* saat tampil di panggung atau latihan.
-
-Dengan kombinasi layar AMOLED beresolusi tinggi, navigasi sentuh cepat, tombol fisik, serta mode auto-scroll otomatis, musisi tidak perlu lagi membolak-balik lembaran kertas chord atau menyentuh layar smartphone saat kedua tangan sedang memegang instrumen.
+Useful for rehearsals, busking, acoustic gigs, or open mic nights when you don't want a music stand or smartphone in front of you.
 
 ---
 
-## ✨ Fitur Utama
+## Features
 
-- ⏱️ **Hands-Free Auto-Scroll**:
-  - Fitur pengguliran otomatis berbasis `Toybox.Timer.Timer` dengan interval default **3.5 detik**.
-  - Dilengkapi indikator visual `[▶ AUTO]` berwarna hijau di puncak layar saat auto-scroll aktif.
-  - Auto-scroll akan otomatis berhenti jika sudah mencapai bait/langkah terakhir lagu.
-
-- 🎼 **Tampilan Panggung Horizontal 3 Chord**:
-  - **Kiri (Previous Chord)**: Menampilkan kunci sebelumnya dengan warna abu-abu redup.
-  - **Tengah (Current Chord)**: Menampilkan kunci aktif berukuran besar dengan border rounded oranye cerah berkontras tinggi agar mudah dibaca sekilas.
-  - **Kanan (Next Chord)**: Menampilkan kunci berikutnya dengan warna abu-abu redup untuk persiapan pergantian chord.
-
-- 🔤 **Smart 2-Line Lyric Wrapping**:
-  - Algoritma pemecah lirik adaptif yang mengukur panjang piksel teks (`getTextWidthInPixels`).
-  - Lirik panjang otomatis dipecah menjadi 2 baris terpusat berdasarkan batas kata sehingga tidak terpotong oleh bezel layar bulat 390x390.
-
-- 🌐 **Web Sync / Cloud ChordPro Integration**:
-  - Sinkronisasi daftar lagu dan lirik baru langsung dari internet (URL Raw GitHub Gist / Pastebin) via `Toybox.Communications.makeWebRequest`.
-  - Mendukung parsing format ChordPro ringkas.
-  - Data lagu disimpan secara permanen di memori jam menggunakan `Toybox.Application.Storage`.
-
-- 🔋 **Efisiensi Baterai AMOLED**:
-  - Menggunakan palet hitam pekat (*true black* `0x000000`) untuk efisiensi konsumsi daya layar AMOLED dan visibilitas maksimal di pencahayaan redup/panggung.
+- **Hands-Free Auto-Scroll**: Advances chords automatically so you don't have to take your hands off the fretboard. Defaults to 3.5 seconds per chord, with a green `[▶ AUTO]` tag on screen while running.
+- **3-Chord Stage View**: 
+  - Left: Previous chord (dimmed).
+  - Center: Current chord in large text with an orange rounded border.
+  - Right: Next chord (dimmed) so you can prepare your next hand shape.
+- **Smart Lyric Wrapping**: Long lyric lines are split across two centered lines so text won't get cut off by the watch's circular bezel.
+- **Web Sync**: Download song repertoires directly from a raw web link (like a GitHub Gist or Pastebin) formatted in simple ChordPro style. Songs persist across app restarts using `Application.Storage`.
+- **Battery-Friendly UI**: Pure black background (`#000000`) to save battery on AMOLED screens and keep visibility high under stage lighting.
 
 ---
 
-## 🎮 Kontrol & Navigasi
+## Controls
 
-Aplikasi ini mendukung kontrol layar sentuh maupun tombol fisik jam tangan Garmin:
+### Touch Screen
+| Zone | Action | Result |
+| :--- | :--- | :--- |
+| **Center** ($y: 80 - 160$) | Tap | Toggle auto-scroll (Play / Pause) |
+| **Bottom** ($y > 160$) | Tap | Next chord |
+| **Top** ($y < 80$) | Tap | Previous chord |
 
-### 1. Layar Sentuh (*Touch Gestures*)
-| Area Layar | Aksi | Fungsi |
-| :--- | :---: | :--- |
-| **Area Tengah** ($y: 80 - 160$) | Ketuk (*Tap*) | **Toggle Auto-Scroll** (Mulai / Jeda scroll otomatis) |
-| **Area Bawah** ($y > 160$) | Ketuk (*Tap*) | **Maju ke Chord Selanjutnya** (*Next Step*) |
-| **Area Atas** ($y < 80$) | Ketuk (*Tap*) | **Mundur ke Chord Sebelumnya** (*Previous Step*) |
-
-### 2. Tombol Fisik (*Hardware Buttons*)
-| Tombol | Fungsi |
+### Buttons
+| Button | Result |
 | :--- | :--- |
-| **Start / Enter** (Kanan Atas) | Membuka **Menu2** (Play/Pause Auto-Scroll, Daftar Pilihan Lagu, dan Sync dari Web) |
-| **Down** (Kiri Bawah) | Maju ke langkah chord selanjutnya |
-| **Up** (Kiri Tengah) | Mundur ke langkah chord sebelumnya |
-| **Back / Lap** (Kanan Bawah) | Kembali / Keluar dari menu |
+| **Start / Enter** (Top Right) | Open menu (Play/Pause auto-scroll, song list, web sync) |
+| **Down** (Bottom Left) | Next chord |
+| **Up** (Middle Left) | Previous chord |
+| **Back** (Bottom Right) | Back / Exit |
 
 ---
 
-## 📁 Struktur Kode & Arsitektur
+## Target Devices
+
+- Garmin Forerunner 165 (`fr165`)
+- Garmin Forerunner 165 Music (`fr165m`)
+- Minimum Connect IQ API: `4.2.0`
+
+---
+
+## Project Structure
 
 ```text
-GuitarPrompter/
-├── manifest.xml           # Konfigurasi aplikasi Connect IQ, izin, & target perangkat
-├── monkey.jungle          # Konfigurasi jungle build Garmin
-├── resources/             # Resource XML (string, drawable launcher icon 54x54)
-└── source/
-    ├── App.mc             # GuitarPrompterApp: Titik masuk aplikasi (AppBase)
-    ├── SongModel.mc       # Data layer: Penyimpanan lagu, timer auto-scroll, Web Sync
-    ├── ChordView.mc       # Presentation layer: Rendering AMOLED, 3 chord bar, lyric wrapping
-    └── ChordDelegate.mc   # Controller layer: BehaviorDelegate, touch listener, Menu2 delegate
+source/
+├── App.mc             # App entry point (AppBase)
+├── SongModel.mc       # Song data, timer-based auto-scroll, web sync, storage
+├── ChordView.mc       # AMOLED UI layout, 3-chord view, text wrapping
+└── ChordDelegate.mc   # Button mappings, touch coordinates, Menu2 handling
 ```
 
-### Rincian Modul:
-1. **[SongModel.mc](file:///c:/NopalBikinAplikasi/GuitarPrompter/source/SongModel.mc)**:
-   - Menyimpan daftar lagu default (*Country Roads*, *Hold Your Hand*) dan lagu hasil sinkronisasi.
-   - Mengelola `Timer.Timer` untuk Auto-Scroll interval 3.5 detik.
-   - Menyediakan getter: `getPrevChord()`, `getCurrentChord()`, dan `getNextChord()`.
-   - Menggunakan `Storage.setValue("SAVED_SONGS", mSongs as Application.Storage.ValueType)` untuk kompatibilitas strict storage.
-
-2. **[ChordView.mc](file:///c:/NopalBikinAplikasi/GuitarPrompter/source/ChordView.mc)**:
-   - Menggambar status lagu, nomor step, dan garis pemisah.
-   - Menggambar layout 3 chord horizontal berjajar dengan border aksen oranye.
-   - Mengimplementasikan `drawWrappedLyric` untuk membagi baris lirik secara proporsional.
-   - Menampilkan progress bar di bagian bawah layar.
-
-3. **[ChordDelegate.mc](file:///c:/NopalBikinAplikasi/GuitarPrompter/source/ChordDelegate.mc)**:
-   - Menangkap gesture sentuhan dan tombol fisik.
-   - Menampilkan `WatchUi.Menu2` untuk memilih lagu atau mengaktifkan/menonaktifkan auto-scroll.
-
 ---
 
-## 🛠️ Kompatibilitas Perangkat
+## Building from Source
 
-Aplikasi ini dikonfigurasi dan dioptimalkan untuk:
-- **Garmin Forerunner 165** (`fr165`) - AMOLED 390x390
-- **Garmin Forerunner 165 Music** (`fr165m`) - AMOLED 390x390
-- Minimum Connect IQ API Level: `4.2.0`
+You'll need the [Connect IQ SDK](https://developer.garmin.com/connect-iq/sdk/) (4.2.0+) and a developer signing key (`.der`).
 
----
-
-## 💻 Cara Build & Menjalankan
-
-### Prasyarat
-- Garmin Connect IQ SDK versi 4.2.0 atau lebih baru (disarankan SDK 9.x).
-- Java Runtime Environment (JRE).
-- Developer Private Key (`.der`) untuk penandatanganan aplikasi.
-
-### Kompilasi Menggunakan CLI
-Jalankan perintah berikut di direktori proyek:
+Compile using `monkeyc`:
 
 ```bash
-# Build untuk Forerunner 165
+# Build for Forerunner 165
 monkeyc -f monkey.jungle -o bin/GuitarPrompter.prg -d fr165 -y developer_key.der -w
 
-# Build untuk Forerunner 165 Music
+# Build for Forerunner 165 Music
 monkeyc -f monkey.jungle -o bin/GuitarPrompter.prg -d fr165m -y developer_key.der -w
 ```
 
-### Menjalankan di Connect IQ Simulator
+Run in the simulator:
 ```bash
-connectiq.bat
+connectiq
 monkeydo bin/GuitarPrompter.prg fr165
 ```
 
 ---
 
-## 📝 Format Sinkronisasi Lagu (ChordPro)
+## Adding Songs via Web Sync
 
-Untuk menyinkronkan lagu baru melalui fitur **Sync dari Web**, gunakan format teks mentah (*raw text*) seperti berikut pada Gist/Pastebin:
+You can host songs as raw text on GitHub Gist or Pastebin using this format:
 
 ```text
-# Judul Lagu
-[G] Bait pertama lirik lagu
-[Em] Bait kedua lirik lagu
-[C] Bait ketiga lirik lagu
-[D] Bait keempat lirik lagu
+# Song Title 1
+[G] Almost heaven, West Virginia
+[Em] Blue Ridge Mountains, Shenandoah
+[D] Younger than mountains
 
-# Lagu Kedua
-[Am] Lirik lagu kedua
-[F] Lirik lanjutan
+# Song Title 2
+[C] Some other lyric line
+[G] Another chord line
 ```
 
-Ganti nilai `mSyncUrl` di `source/SongModel.mc` dengan URL raw milik Anda sendiri.
-
----
-
-## 📄 Lisensi
-
-Proyek ini dikembangkan untuk penggunaan pribadi dan komunitas musisi Garmin Connect IQ.
+Update `mSyncUrl` in `source/SongModel.mc` with your raw URL, then hit **Sync dari Web** in the watch menu.
