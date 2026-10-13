@@ -39,58 +39,48 @@ class ChordView extends WatchUi.View {
         if (isAuto) {
             var autoText = (speed == 1.0f) ? "AUTO" : Lang.format("AUTO $1$x", [speed.format("%.1f")]);
             dc.setColor(0x00E676, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(195, 10, Graphics.FONT_XTINY, autoText, Graphics.TEXT_JUSTIFY_CENTER);
+            dc.drawText(195, 12, Graphics.FONT_XTINY, autoText, Graphics.TEXT_JUSTIFY_CENTER);
         }
 
-        // === 3. HEADER: SONG TITLE & SECTION / CAPO ===
-        // Title (Clean White, FONT_XTINY)
+        // === 3. HEADER: SONG TITLE & SECTION / CAPO (No lines) ===
+        // Title (Crisp White, FONT_XTINY)
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(195, 28, Graphics.FONT_XTINY, step[:songTitle], Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(195, 32, Graphics.FONT_XTINY, step[:songTitle], Graphics.TEXT_JUSTIFY_CENTER);
 
-        // Section & Capo combined into one clean line
+        // Section & Capo on single sub-header line
         var subHeader = step[:section];
         if (capo != null) {
             subHeader = subHeader + "  •  " + (capo as Lang.String).toUpper();
         }
         dc.setColor(0xFFA500, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(195, 50, Graphics.FONT_XTINY, subHeader, Graphics.TEXT_JUSTIFY_CENTER);
-
-        // Top Divider
-        dc.setColor(0x222222, Graphics.COLOR_TRANSPARENT);
-        dc.drawLine(120, 72, 270, 72);
+        dc.drawText(195, 56, Graphics.FONT_XTINY, subHeader, Graphics.TEXT_JUSTIFY_CENTER);
 
         // === 4. NOW (ACTIVE) CHORD & LYRICS ===
         // Current Chord: Medium font (clean, legible, not oversized), Electric Green
+        var curChord = mModel.getCurrentChord();
+        var curFont = (curChord.length() > 4) ? Graphics.FONT_SMALL : Graphics.FONT_MEDIUM;
         dc.setColor(0x00FF7F, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(195, 100, Graphics.FONT_MEDIUM, mModel.getCurrentChord(), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(195, 100, curFont, curChord, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
-        // Current Lyrics (White, 1 or 2 lines)
-        drawWrappedText(dc, step[:lyric] as Lang.String?, 126, Graphics.COLOR_WHITE, Graphics.FONT_XTINY, 220);
+        // Current Lyrics (White, FONT_XTINY, 1 or 2 lines)
+        drawCleanLyric(dc, step[:lyric] as Lang.String?, 130, 124, Graphics.COLOR_WHITE);
 
-        // === 5. MIDDLE DIVIDER: NEXT STEP ===
-        dc.setColor(0x222222, Graphics.COLOR_TRANSPARENT);
-        dc.drawLine(70, 182, 155, 182);
-        dc.drawLine(235, 182, 320, 182);
-
-        dc.setColor(0x555555, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(195, 182, Graphics.FONT_XTINY, "NEXT", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
-
-        // === 6. NEXT (PREVIEW) CHORD & LYRICS ===
+        // === 5. NEXT (PREVIEW) CHORD & LYRICS (No lines, no "NEXT" text) ===
         var nextChord = mModel.getNextChord();
         var nextLyric = mModel.getNextLyric();
 
         if (!nextChord.equals("--")) {
-            // Next Chord: Small/Tiny font (modest preview size, not big), Soft Ice Cyan
+            // Next Chord: Small/XTiny font (modest, subtle preview), Soft Ice Cyan
             dc.setColor(0x80CBC4, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(195, 216, Graphics.FONT_SMALL, nextChord, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+            dc.drawText(195, 212, Graphics.FONT_XTINY, nextChord, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
-            // Next Lyrics: Wrapped into 1 or 2 lines using available bottom space, Muted Gray
-            drawWrappedText(dc, nextLyric, 242, 0x777777, Graphics.FONT_XTINY, 240);
+            // Next Lyrics: Small FONT_XTINY, Muted Gray, 1 or 2 lines into bottom space
+            drawCleanLyric(dc, nextLyric, 240, 234, 0x666666);
         } else {
             // End of Song State
             dc.setColor(0x444444, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(195, 216, Graphics.FONT_XTINY, "---", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
-            dc.drawText(195, 242, Graphics.FONT_XTINY, "(End of song)", Graphics.TEXT_JUSTIFY_CENTER);
+            dc.drawText(195, 212, Graphics.FONT_XTINY, "---", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+            dc.drawText(195, 238, Graphics.FONT_XTINY, "(End of song)", Graphics.TEXT_JUSTIFY_CENTER);
         }
     }
 
@@ -127,8 +117,8 @@ class ChordView extends WatchUi.View {
         dc.setPenWidth(1);
     }
 
-    // Clean text wrapper: fits text into 1 or 2 lines without clipping or overlapping
-    private function drawWrappedText(dc as Graphics.Dc, rawText as Lang.String?, y as Lang.Number, color as Lang.Number, font as Graphics.FontType, maxW as Lang.Number) as Void {
+    // Clean lyric renderer with smart 1 or 2 line positioning and zero overlap
+    private function drawCleanLyric(dc as Graphics.Dc, rawText as Lang.String?, y1Line as Lang.Number, y2Line as Lang.Number, color as Lang.Number) as Void {
         if (rawText == null) {
             return;
         }
@@ -138,10 +128,13 @@ class ChordView extends WatchUi.View {
             return;
         }
 
-        // Fits in 1 line
+        var font = Graphics.FONT_XTINY;
+        var maxW = 230;
+
+        // Fits in 1 single line
         if (dc.getTextWidthInPixels(text, font) <= maxW) {
             dc.setColor(color, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(195, y, font, text, Graphics.TEXT_JUSTIFY_CENTER);
+            dc.drawText(195, y1Line, font, text, Graphics.TEXT_JUSTIFY_CENTER);
             return;
         }
 
@@ -171,7 +164,7 @@ class ChordView extends WatchUi.View {
 
         if (words.size() <= 1) {
             dc.setColor(color, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(195, y, font, text, Graphics.TEXT_JUSTIFY_CENTER);
+            dc.drawText(195, y1Line, font, text, Graphics.TEXT_JUSTIFY_CENTER);
             return;
         }
 
@@ -224,7 +217,7 @@ class ChordView extends WatchUi.View {
         }
 
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(195, y, font, line1, Graphics.TEXT_JUSTIFY_CENTER);
-        dc.drawText(195, y + 20, font, line2, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(195, y2Line, font, line1, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(195, y2Line + 22, font, line2, Graphics.TEXT_JUSTIFY_CENTER);
     }
 }
