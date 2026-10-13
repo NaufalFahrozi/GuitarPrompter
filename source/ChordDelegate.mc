@@ -26,32 +26,31 @@ class ChordDelegate extends WatchUi.BehaviorDelegate {
         var menu = new WatchUi.Menu2({:title => "Controls"});
 
         // 1. Play / Pause Auto-Scroll
-        var autoTitle = mModel.isAutoScrolling() ? "Pause Auto-Scroll" : "Start Auto-Scroll";
-        var autoSub = mModel.isAutoScrolling() ? "Stop auto-scrolling" : "Dynamic timing scroll";
-        menu.addItem(new WatchUi.MenuItem(autoTitle, autoSub, "AUTO_SCROLL", null));
+        var autoTitle = mModel.isAutoScrolling() ? "Auto-Scroll: ON" : "Auto-Scroll: OFF";
+        menu.addItem(new WatchUi.MenuItem(autoTitle, null, "AUTO_SCROLL", null));
 
         // 2. Playback Speed Multiplier (Practice Mode)
         var speedText = mModel.getSpeedMultiplier().format("%.1f") + "x";
-        menu.addItem(new WatchUi.MenuItem("Speed: " + speedText, "Cycle 0.8x, 1.0x, 1.2x, 1.5x", "SPEED", null));
+        menu.addItem(new WatchUi.MenuItem("Speed: " + speedText, null, "SPEED", null));
 
         // 3. Tactile Haptic Vibration Toggle
         var hapticText = mModel.isHapticEnabled() ? "ON" : "OFF";
-        menu.addItem(new WatchUi.MenuItem("Haptic Alert: " + hapticText, "Wrist vibe on chord change", "HAPTIC", null));
+        menu.addItem(new WatchUi.MenuItem("Haptic: " + hapticText, null, "HAPTIC", null));
 
         // 4. Quick Restart Song
-        menu.addItem(new WatchUi.MenuItem("Restart Song", "Jump back to start", "RESTART", null));
+        menu.addItem(new WatchUi.MenuItem("Restart Song", null, "RESTART", null));
 
         // 5. Song Picker
         for (var i = 0; i < mModel.getSongCount(); i++) {
             var songTitle = mModel.getSongTitle(i);
             var songCapo = mModel.getSongCapo(i);
-            var subTitle = (songCapo != null) ? songCapo : "Standard Tuning";
-            menu.addItem(new WatchUi.MenuItem(songTitle, subTitle, i, null));
+            var itemText = (songCapo != null) ? (songTitle + " [" + songCapo + "]") : songTitle;
+            menu.addItem(new WatchUi.MenuItem(itemText, null, i, null));
         }
 
         // 6. Web Sync & Reset Defaults
-        menu.addItem(new WatchUi.MenuItem("Sync from Web", "Download latest songs", "SYNC", null));
-        menu.addItem(new WatchUi.MenuItem("Reset Default Songs", "Reload default songs", "RESET", null));
+        menu.addItem(new WatchUi.MenuItem("Sync from Web", null, "SYNC", null));
+        menu.addItem(new WatchUi.MenuItem("Reset Defaults", null, "RESET", null));
 
         WatchUi.pushView(menu, new SongMenuDelegate(mModel), WatchUi.SLIDE_UP);
         return true;
