@@ -43,19 +43,17 @@ class SongModel {
     private var mSyncUrl as Lang.String = "https://raw.githubusercontent.com/NaufalFahrozi/GuitarPrompter/main/songs.txt";
 
     public function initialize() {
-        var loaded = Storage.getValue("SAVED_SONGS") as Lang.Array<SongData>?;
-        var needsUpdate = false;
-        if (loaded != null && loaded.size() >= 4) {
-            var s3 = loaded[3];
-            if (s3[:title].equals("Creep") && (s3[:capo] == null || !s3[:capo].equals("Capo 7"))) {
-                needsUpdate = true;
+        Storage.deleteValue("SAVED_SONGS"); // Clear legacy invalid symbol dictionary if present
+        var savedRaw = Storage.getValue("SAVED_RAW_SONGS") as Lang.String?;
+        if (savedRaw != null && savedRaw.length() > 0) {
+            var parsed = parseChordProText(savedRaw);
+            if (parsed.size() > 0) {
+                mSongs = parsed;
+            } else {
+                loadDefaultSongs();
             }
-        }
-        if (loaded != null && loaded.size() > 0 && !needsUpdate) {
-            mSongs = loaded;
         } else {
             loadDefaultSongs();
-            Storage.setValue("SAVED_SONGS", mSongs as Application.Storage.ValueType);
         }
 
         var savedHaptic = Storage.getValue("HAPTIC_ENABLED") as Lang.Boolean?;
@@ -71,6 +69,7 @@ class SongModel {
 
     public function resetToDefaultSongs() as Void {
         Storage.deleteValue("SAVED_SONGS");
+        Storage.deleteValue("SAVED_RAW_SONGS");
         loadDefaultSongs();
         mCurrentSongIndex = 0;
         mCurrentStepIndex = 0;
@@ -500,7 +499,7 @@ class SongModel {
                 mSongs = parsedSongs;
                 mCurrentSongIndex = 0;
                 mCurrentStepIndex = 0;
-                Storage.setValue("SAVED_SONGS", mSongs as Application.Storage.ValueType);
+                Storage.setValue("SAVED_RAW_SONGS", data as Application.Storage.ValueType);
                 mStatusMessage = "Success (" + mSongs.size().toString() + " Songs)";
             } else {
                 mStatusMessage = "Failed: Invalid format";
