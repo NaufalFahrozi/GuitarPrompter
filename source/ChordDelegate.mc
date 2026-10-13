@@ -23,18 +23,19 @@ class ChordDelegate extends WatchUi.BehaviorDelegate {
         return true;
     }
 
-    // Tombol Start/Enter (Kanan Atas) membuka menu: Play/Pause Auto-Scroll, daftar lagu, dan Sync
+    // Tombol Start/Enter (Kanan Atas) membuka menu: Play/Pause Auto-Scroll, daftar lagu, Sync, dan Reset
     public function onSelect() as Lang.Boolean {
         var menu = new WatchUi.Menu2({:title => "Menu"});
 
         var autoTitle = mModel.isAutoScrolling() ? "Pause Auto-Scroll" : "Play Auto-Scroll";
-        var autoSub = mModel.isAutoScrolling() ? "Hentikan gulir otomatis" : "Gulir otomatis (3.5s)";
+        var autoSub = mModel.isAutoScrolling() ? "Hentikan gulir otomatis" : "Gulir otomatis dinamis";
         menu.addItem(new WatchUi.MenuItem(autoTitle, autoSub, "AUTO_SCROLL", null));
 
         for (var i = 0; i < mModel.getSongCount(); i++) {
             menu.addItem(new WatchUi.MenuItem(mModel.getSongTitle(i), null, i, null));
         }
         menu.addItem(new WatchUi.MenuItem("🔄 Sync dari Web", "Download lirik baru", "SYNC", null));
+        menu.addItem(new WatchUi.MenuItem("⏮ Reset Lagu Bawaan", "Muat ulang 3 lagu default", "RESET", null));
 
         WatchUi.pushView(menu, new SongMenuDelegate(mModel), WatchUi.SLIDE_UP);
         return true;
@@ -95,6 +96,9 @@ class SongMenuDelegate extends WatchUi.Menu2InputDelegate {
             } else if (id.equals("SYNC")) {
                 WatchUi.popView(WatchUi.SLIDE_DOWN);
                 mModel.startSync();
+            } else if (id.equals("RESET")) {
+                WatchUi.popView(WatchUi.SLIDE_DOWN);
+                mModel.resetToDefaultSongs();
             }
         }
     }

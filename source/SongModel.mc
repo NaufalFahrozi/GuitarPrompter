@@ -8,13 +8,15 @@ import Toybox.WatchUi;
 typedef SongStep as {
     :section as Lang.String,
     :chord as Lang.String,
-    :lyric as Lang.String
+    :lyric as Lang.String,
+    :durationMs as Lang.Number?
 };
 
 typedef SongData as {
     :title as Lang.String,
     :artist as Lang.String,
-    :steps as Lang.Array<SongStep>
+    :steps as Lang.Array<SongStep>,
+    :defaultDurationMs as Lang.Number?
 };
 
 (:typecheck(false))
@@ -24,7 +26,7 @@ class SongModel {
     private var mSongs as Lang.Array<SongData> = [];
     private var mStatusMessage as Lang.String? = null;
 
-    // Hands-free Auto-Scroll Timer (default interval 3.5 detik)
+    // Hands-free Auto-Scroll Timer (dinamis per-chord, default 3.5 detik)
     private var mAutoScrollTimer as Timer.Timer? = null;
     private var mIsAutoScrolling as Lang.Boolean = false;
     private var mScrollIntervalMs as Lang.Number = 3500;
@@ -42,42 +44,96 @@ class SongModel {
         }
     }
 
+    public function resetToDefaultSongs() as Void {
+        Storage.deleteValue("SAVED_SONGS");
+        loadDefaultSongs();
+        mCurrentSongIndex = 0;
+        mCurrentStepIndex = 0;
+        mStatusMessage = "Lagu default dimuat";
+        WatchUi.requestUpdate();
+    }
+
     private function loadDefaultSongs() as Void {
         mSongs = [
-            // Lagu 1
+            // Lagu 1: Take Me Home, Country Roads - John Denver (~82 BPM)
             {
                 :title => "Country Roads",
                 :artist => "John Denver",
+                :defaultDurationMs => 3000,
                 :steps => [
-                    { :section => "Verse 1", :chord => "G",  :lyric => "Almost heaven, West Virginia" },
-                    { :section => "Verse 1", :chord => "Em", :lyric => "Blue Ridge Mountains, Shenandoah" },
-                    { :section => "Verse 1", :chord => "G",  :lyric => "Life is old there, older than trees" },
-                    { :section => "Verse 1", :chord => "D",  :lyric => "Younger than mountains," },
-                    { :section => "Verse 1", :chord => "C",  :lyric => "Growin' like a breeze" },
-                    { :section => "Chorus",  :chord => "G",  :lyric => "Country roads, take me home" },
-                    { :section => "Chorus",  :chord => "D",  :lyric => "To the place I belong" },
-                    { :section => "Chorus",  :chord => "Em", :lyric => "West Virginia, mountain mama" },
-                    { :section => "Chorus",  :chord => "C",  :lyric => "Take me home, country roads" }
+                    { :section => "Verse 1", :chord => "G",  :lyric => "Almost heaven, West Virginia", :durationMs => 3000 },
+                    { :section => "Verse 1", :chord => "Em", :lyric => "Blue Ridge Mountains, Shenandoah", :durationMs => 3000 },
+                    { :section => "Verse 1", :chord => "G",  :lyric => "Life is old there, older than trees", :durationMs => 3000 },
+                    { :section => "Verse 1", :chord => "D",  :lyric => "Younger than the mountains,", :durationMs => 2500 },
+                    { :section => "Verse 1", :chord => "C",  :lyric => "Growin' like a breeze", :durationMs => 2500 },
+                    { :section => "Chorus",  :chord => "G",  :lyric => "Country roads, take me home", :durationMs => 3000 },
+                    { :section => "Chorus",  :chord => "D",  :lyric => "To the place I belong", :durationMs => 3000 },
+                    { :section => "Chorus",  :chord => "Em", :lyric => "West Virginia, mountain mama", :durationMs => 3000 },
+                    { :section => "Chorus",  :chord => "C",  :lyric => "Take me home, country roads", :durationMs => 3000 },
+                    { :section => "Verse 2", :chord => "G",  :lyric => "All my memories gather 'round her", :durationMs => 3000 },
+                    { :section => "Verse 2", :chord => "Em", :lyric => "Miner's lady, stranger to blue water", :durationMs => 3000 },
+                    { :section => "Verse 2", :chord => "G",  :lyric => "Dark and dusty, painted on the sky", :durationMs => 3000 },
+                    { :section => "Verse 2", :chord => "D",  :lyric => "Misty taste of moonshine,", :durationMs => 2500 },
+                    { :section => "Verse 2", :chord => "C",  :lyric => "Teardrop in my eye", :durationMs => 2500 },
+                    { :section => "Chorus",  :chord => "G",  :lyric => "Country roads, take me home", :durationMs => 3000 },
+                    { :section => "Chorus",  :chord => "D",  :lyric => "To the place I belong", :durationMs => 3000 },
+                    { :section => "Chorus",  :chord => "Em", :lyric => "West Virginia, mountain mama", :durationMs => 3000 },
+                    { :section => "Chorus",  :chord => "C",  :lyric => "Take me home, country roads", :durationMs => 3000 },
+                    { :section => "Outro",   :chord => "G",  :lyric => "Take me home, country roads", :durationMs => 3000 }
                 ]
             },
-            // Lagu 2
+            // Lagu 2: Creep - Radiohead (~92 BPM, progresi G - B - C - Cm)
             {
-                :title => "Hold Your Hand",
-                :artist => "The Beatles",
+                :title => "Creep",
+                :artist => "Radiohead",
+                :defaultDurationMs => 5200,
                 :steps => [
-                    { :section => "Verse 1", :chord => "G",  :lyric => "Oh yeah, I'll tell you somethin'" },
-                    { :section => "Verse 1", :chord => "D",  :lyric => "I think you'll understand" },
-                    { :section => "Verse 1", :chord => "G",  :lyric => "When I say that somethin'" },
-                    { :section => "Verse 1", :chord => "Em", :lyric => "I wanna hold your hand" },
-                    { :section => "Chorus",  :chord => "C",  :lyric => "I wanna hold your..." },
-                    { :section => "Chorus",  :chord => "D",  :lyric => "HAND!" },
-                    { :section => "Chorus",  :chord => "G",  :lyric => "I wanna hold your hand!" }
+                    { :section => "Verse 1", :chord => "G",  :lyric => "When you were here before", :durationMs => 5200 },
+                    { :section => "Verse 1", :chord => "B",  :lyric => "Couldn't look you in the eye", :durationMs => 5200 },
+                    { :section => "Verse 1", :chord => "C",  :lyric => "You're just like an angel", :durationMs => 5200 },
+                    { :section => "Verse 1", :chord => "Cm", :lyric => "Your skin makes me cry", :durationMs => 5200 },
+                    { :section => "Verse 2", :chord => "G",  :lyric => "You float like a feather", :durationMs => 5200 },
+                    { :section => "Verse 2", :chord => "B",  :lyric => "In a beautiful world", :durationMs => 5200 },
+                    { :section => "Verse 2", :chord => "C",  :lyric => "I wish I was special", :durationMs => 5200 },
+                    { :section => "Verse 2", :chord => "Cm", :lyric => "You're so very special", :durationMs => 5200 },
+                    { :section => "Chorus",  :chord => "G",  :lyric => "But I'm a creep, I'm a weirdo", :durationMs => 5200 },
+                    { :section => "Chorus",  :chord => "B",  :lyric => "What the hell am I doin' here?", :durationMs => 5200 },
+                    { :section => "Chorus",  :chord => "C",  :lyric => "I don't belong here", :durationMs => 5200 },
+                    { :section => "Chorus",  :chord => "Cm", :lyric => "I don't care if it hurts", :durationMs => 5200 },
+                    { :section => "Outro",   :chord => "G",  :lyric => "Whatever makes you happy", :durationMs => 5200 },
+                    { :section => "Outro",   :chord => "B",  :lyric => "Whatever you want", :durationMs => 5200 },
+                    { :section => "Outro",   :chord => "C",  :lyric => "You're so very special...", :durationMs => 5200 },
+                    { :section => "Outro",   :chord => "Cm", :lyric => "I don't belong here...", :durationMs => 5200 }
+                ]
+            },
+            // Lagu 3: Hey Jude - The Beatles (~74 BPM)
+            {
+                :title => "Hey Jude",
+                :artist => "The Beatles",
+                :defaultDurationMs => 3300,
+                :steps => [
+                    { :section => "Verse 1", :chord => "F",  :lyric => "Hey Jude, don't make it bad", :durationMs => 3300 },
+                    { :section => "Verse 1", :chord => "C",  :lyric => "Take a sad song and make it better", :durationMs => 3300 },
+                    { :section => "Verse 1", :chord => "C7", :lyric => "Remember to let her into your heart", :durationMs => 3300 },
+                    { :section => "Verse 1", :chord => "F",  :lyric => "Then you can start to make it better", :durationMs => 3300 },
+                    { :section => "Verse 2", :chord => "F",  :lyric => "Hey Jude, don't be afraid", :durationMs => 3300 },
+                    { :section => "Verse 2", :chord => "C",  :lyric => "You were made to go out and get her", :durationMs => 3300 },
+                    { :section => "Verse 2", :chord => "C7", :lyric => "The minute you let her under your skin", :durationMs => 3300 },
+                    { :section => "Verse 2", :chord => "F",  :lyric => "Then you begin to make it better", :durationMs => 3300 },
+                    { :section => "Chorus",  :chord => "Bb", :lyric => "And anytime you feel the pain", :durationMs => 3300 },
+                    { :section => "Chorus",  :chord => "F",  :lyric => "Hey Jude, refrain", :durationMs => 3300 },
+                    { :section => "Chorus",  :chord => "C",  :lyric => "Don't carry the world upon your shoulders", :durationMs => 3300 },
+                    { :section => "Chorus",  :chord => "F",  :lyric => "For well you know that it's a fool", :durationMs => 3300 },
+                    { :section => "Outro",   :chord => "F",  :lyric => "Na, na na na na na na", :durationMs => 3300 },
+                    { :section => "Outro",   :chord => "Eb", :lyric => "Na na na na,", :durationMs => 3300 },
+                    { :section => "Outro",   :chord => "Bb", :lyric => "Hey Jude", :durationMs => 3300 },
+                    { :section => "Outro",   :chord => "F",  :lyric => "Jude, Jude, Jude...", :durationMs => 3300 }
                 ]
             }
         ];
     }
 
-    // Auto-Scroll methods
+    // Auto-Scroll methods dengan penjadwalan dinamis per-chord
     public function isAutoScrolling() as Lang.Boolean {
         return mIsAutoScrolling;
     }
@@ -91,11 +147,8 @@ class SongModel {
     }
 
     public function startAutoScroll() as Void {
-        if (mAutoScrollTimer == null) {
-            mAutoScrollTimer = new Timer.Timer();
-        }
-        mAutoScrollTimer.start(method(:onAutoScrollTimer), mScrollIntervalMs, true);
         mIsAutoScrolling = true;
+        scheduleNextStepTimer();
         WatchUi.requestUpdate();
     }
 
@@ -107,12 +160,42 @@ class SongModel {
         WatchUi.requestUpdate();
     }
 
+    private function scheduleNextStepTimer() as Void {
+        if (!mIsAutoScrolling) {
+            return;
+        }
+        var song = mSongs[mCurrentSongIndex];
+        var steps = song[:steps];
+        if (mCurrentStepIndex >= steps.size()) {
+            stopAutoScroll();
+            return;
+        }
+
+        var step = steps[mCurrentStepIndex];
+        var duration = mScrollIntervalMs;
+        if (step.hasKey(:durationMs) && step[:durationMs] != null) {
+            duration = step[:durationMs] as Lang.Number;
+        } else if (song.hasKey(:defaultDurationMs) && song[:defaultDurationMs] != null) {
+            duration = song[:defaultDurationMs] as Lang.Number;
+        }
+
+        if (mAutoScrollTimer == null) {
+            mAutoScrollTimer = new Timer.Timer();
+        }
+        // One-shot timer chained to the exact duration of current step
+        mAutoScrollTimer.start(method(:onAutoScrollTimer), duration, false);
+    }
+
     public function onAutoScrollTimer() as Void {
+        if (!mIsAutoScrolling) {
+            return;
+        }
         var currentSteps = mSongs[mCurrentSongIndex][:steps];
         if (mCurrentStepIndex < currentSteps.size() - 1) {
             mCurrentStepIndex++;
             mStatusMessage = null;
             WatchUi.requestUpdate();
+            scheduleNextStepTimer();
         } else {
             stopAutoScroll();
         }
@@ -151,6 +234,7 @@ class SongModel {
         WatchUi.requestUpdate();
     }
 
+    // Mendukung format ChordPro dengan durasi opsional: [Chord] atau [Chord:Detik]
     private function parseChordProText(rawText as Lang.String) as Lang.Array<SongData> {
         var result = [] as Lang.Array<SongData>;
         var currentSongTitle = "";
@@ -177,7 +261,8 @@ class SongModel {
                     result.add({
                         :title => currentSongTitle,
                         :artist => "Web",
-                        :steps => currentSteps
+                        :steps => currentSteps,
+                        :defaultDurationMs => 3500
                     });
                     currentSteps = [] as Lang.Array<SongStep>;
                 }
@@ -189,7 +274,27 @@ class SongModel {
                 var openB = line.find("[") as Lang.Number;
                 var closeB = line.find("]") as Lang.Number;
                 if (closeB > openB) {
-                    var chord = line.substring(openB + 1, closeB);
+                    var rawChord = line.substring(openB + 1, closeB);
+                    var chord = rawChord;
+                    var durationMs = null as Lang.Number?;
+
+                    var colonIdx = rawChord.find(":");
+                    if (colonIdx != null) {
+                        var colNum = colonIdx as Lang.Number;
+                        chord = rawChord.substring(0, colNum);
+                        if (colNum + 1 < rawChord.length()) {
+                            var durStr = rawChord.substring(colNum + 1, rawChord.length());
+                            var durFloat = durStr.toFloat();
+                            if (durFloat != null && durFloat > 0.0f) {
+                                if (durFloat < 60.0f) {
+                                    durationMs = (durFloat * 1000.0f).toNumber();
+                                } else {
+                                    durationMs = durFloat.toNumber();
+                                }
+                            }
+                        }
+                    }
+
                     var lyric = line.substring(closeB + 1, line.length());
                     while (lyric.length() > 0 && lyric.substring(0, 1).equals(" ")) {
                         lyric = lyric.substring(1, lyric.length());
@@ -197,7 +302,8 @@ class SongModel {
                     currentSteps.add({
                         :section => "Play",
                         :chord => chord,
-                        :lyric => lyric
+                        :lyric => lyric,
+                        :durationMs => durationMs
                     });
                 }
             }
@@ -207,7 +313,8 @@ class SongModel {
             result.add({
                 :title => currentSongTitle,
                 :artist => "Web",
-                :steps => currentSteps
+                :steps => currentSteps,
+                :defaultDurationMs => 3500
             });
         }
         return result;
@@ -226,6 +333,9 @@ class SongModel {
             mCurrentSongIndex = index;
             mCurrentStepIndex = 0;
             mStatusMessage = null;
+            if (mIsAutoScrolling) {
+                scheduleNextStepTimer();
+            }
         }
     }
 
@@ -282,6 +392,9 @@ class SongModel {
         if (mCurrentStepIndex < mSongs[mCurrentSongIndex][:steps].size() - 1) {
             mCurrentStepIndex++;
             mStatusMessage = null;
+            if (mIsAutoScrolling) {
+                scheduleNextStepTimer();
+            }
         }
     }
 
@@ -289,6 +402,9 @@ class SongModel {
         if (mCurrentStepIndex > 0) {
             mCurrentStepIndex--;
             mStatusMessage = null;
+            if (mIsAutoScrolling) {
+                scheduleNextStepTimer();
+            }
         }
     }
 }
