@@ -13,29 +13,45 @@ class ChordDelegate extends WatchUi.BehaviorDelegate {
 
     public function onNextPage() as Lang.Boolean {
         mModel.nextStep();
-        WatchUi.requestUpdate();
         return true;
     }
 
     public function onPreviousPage() as Lang.Boolean {
         mModel.prevStep();
-        WatchUi.requestUpdate();
         return true;
     }
 
-    // Start/Enter button (top right): opens menu with auto-scroll, song list, web sync, and reset
+    // Start/Enter button (top right): opens prompter control menu
     public function onSelect() as Lang.Boolean {
-        var menu = new WatchUi.Menu2({:title => "Menu"});
+        var menu = new WatchUi.Menu2({:title => "Controls"});
 
-        var autoTitle = mModel.isAutoScrolling() ? "Pause Auto-Scroll" : "Play Auto-Scroll";
-        var autoSub = mModel.isAutoScrolling() ? "Stop auto-scrolling" : "Dynamic auto-scroll";
+        // 1. Play / Pause Auto-Scroll
+        var autoTitle = mModel.isAutoScrolling() ? "⏸ Pause Auto-Scroll" : "▶ Play Auto-Scroll";
+        var autoSub = mModel.isAutoScrolling() ? "Stop auto-scrolling" : "Dynamic timing scroll";
         menu.addItem(new WatchUi.MenuItem(autoTitle, autoSub, "AUTO_SCROLL", null));
 
+        // 2. Playback Speed Multiplier (Practice Mode)
+        var speedText = mModel.getSpeedMultiplier().format("%.1f") + "x";
+        menu.addItem(new WatchUi.MenuItem("⚡ Speed: " + speedText, "Cycle 0.8x, 1.0x, 1.2x, 1.5x", "SPEED", null));
+
+        // 3. Tactile Haptic Vibration Toggle
+        var hapticText = mModel.isHapticEnabled() ? "ON" : "OFF";
+        menu.addItem(new WatchUi.MenuItem("📳 Haptic Buzz: " + hapticText, "Wrist vibe on chord change", "HAPTIC", null));
+
+        // 4. Quick Restart Song
+        menu.addItem(new WatchUi.MenuItem("⏮ Restart Song", "Jump back to start", "RESTART", null));
+
+        // 5. Song Picker
         for (var i = 0; i < mModel.getSongCount(); i++) {
-            menu.addItem(new WatchUi.MenuItem(mModel.getSongTitle(i), null, i, null));
+            var songTitle = mModel.getSongTitle(i);
+            var songCapo = mModel.getSongCapo(i);
+            var subTitle = (songCapo != null) ? songCapo : "Standard Tuning";
+            menu.addItem(new WatchUi.MenuItem(songTitle, subTitle, i, null));
         }
-        menu.addItem(new WatchUi.MenuItem("🔄 Web Sync", "Download new songs", "SYNC", null));
-        menu.addItem(new WatchUi.MenuItem("⏮ Reset Songs", "Reload default songs", "RESET", null));
+
+        // 6. Web Sync & Reset Defaults
+        menu.addItem(new WatchUi.MenuItem("🔄 Web Sync", "Download latest songs", "SYNC", null));
+        menu.addItem(new WatchUi.MenuItem("⚠️ Reset Songs", "Reload default songs", "RESET", null));
 
         WatchUi.pushView(menu, new SongMenuDelegate(mModel), WatchUi.SLIDE_UP);
         return true;
@@ -45,7 +61,7 @@ class ChordDelegate extends WatchUi.BehaviorDelegate {
         return false;
     }
 
-    // Touch controls: Center (80-160) = toggle auto-scroll, Bottom (>160) = next, Top (<80) = prev
+    // Touch controls: Center zone (80-160) = toggle auto-scroll, Bottom (>160) = next, Top (<80) = prev
     public function onTap(clickEvent as WatchUi.ClickEvent) as Lang.Boolean {
         var coords = clickEvent.getCoordinates();
         var y = coords[1];
@@ -56,8 +72,18 @@ class ChordDelegate extends WatchUi.BehaviorDelegate {
         } else {
             mModel.prevStep();
         }
-        WatchUi.requestUpdate();
         return true;
+    }
+
+    // Natural AMOLED swipe gestures: Left/Up = Next Chord, Right/Down = Prev Chord
+    public function onSwipe(swipeEvent as WatchUi.SwipeEvent) as Lang.Boolean {
+        var dir = swipeEvent.getDirection();
+        if (dir == WatchUi.SWIPE_LEFT || dir == WatchUi.SWIPE_UP) {
+            return onNextPage();
+        } else if (dir == WatchUi.SWIPE_RIGHT || dir == WatchUi.SWIPE_DOWN) {
+            return onPreviousPage();
+        }
+        return false;
     }
 
     public function onKey(keyEvent as WatchUi.KeyEvent) as Lang.Boolean {
@@ -92,6 +118,15 @@ class SongMenuDelegate extends WatchUi.Menu2InputDelegate {
         } else if (id instanceof Lang.String) {
             if (id.equals("AUTO_SCROLL")) {
                 mModel.toggleAutoScroll();
+                WatchUi.popView(WatchUi.SLIDE_DOWN);
+            } else if (id.equals("SPEED")) {
+                mModel.cycleSpeed();
+                WatchUi.popView(WatchUi.SLIDE_DOWN);
+            } else if (id.equals("HAPTIC")) {
+                mModel.toggleHaptic();
+                WatchUi.popView(WatchUi.SLIDE_DOWN);
+            } else if (id.equals("RESTART")) {
+                mModel.restartSong();
                 WatchUi.popView(WatchUi.SLIDE_DOWN);
             } else if (id.equals("SYNC")) {
                 WatchUi.popView(WatchUi.SLIDE_DOWN);

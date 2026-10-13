@@ -1,5 +1,6 @@
 import Toybox.Application;
 import Toybox.Application.Storage;
+import Toybox.Attention;
 import Toybox.Communications;
 import Toybox.Lang;
 import Toybox.Timer;
@@ -15,6 +16,7 @@ typedef SongStep as {
 typedef SongData as {
     :title as Lang.String,
     :artist as Lang.String,
+    :capo as Lang.String?,
     :steps as Lang.Array<SongStep>,
     :defaultDurationMs as Lang.Number?
 };
@@ -26,21 +28,36 @@ class SongModel {
     private var mSongs as Lang.Array<SongData> = [];
     private var mStatusMessage as Lang.String? = null;
 
-    // Hands-free auto-scroll timer (dynamic per-chord duration, default 3.5s)
+    // Hands-free dynamic auto-scroll timer
     private var mAutoScrollTimer as Timer.Timer? = null;
     private var mIsAutoScrolling as Lang.Boolean = false;
     private var mScrollIntervalMs as Lang.Number = 3500;
 
-    // Raw GitHub URL for one-click Web Sync directly from your repo!
+    // Tactile haptic feedback (wrist pulse on chord transitions)
+    private var mHapticEnabled as Lang.Boolean = true;
+
+    // Practice speed multiplier (0.8x slow practice, 1.0x normal, 1.2x fast, 1.5x up-tempo)
+    private var mSpeedMultiplier as Lang.Float = 1.0f;
+
+    // Raw GitHub URL for one-click Web Sync directly from repo
     private var mSyncUrl as Lang.String = "https://raw.githubusercontent.com/NaufalFahrozi/GuitarPrompter/main/songs.txt";
 
     public function initialize() {
         var loaded = Storage.getValue("SAVED_SONGS") as Lang.Array<SongData>?;
-
         if (loaded != null && loaded.size() > 0) {
             mSongs = loaded;
         } else {
             loadDefaultSongs();
+        }
+
+        var savedHaptic = Storage.getValue("HAPTIC_ENABLED") as Lang.Boolean?;
+        if (savedHaptic != null) {
+            mHapticEnabled = savedHaptic;
+        }
+
+        var savedSpeed = Storage.getValue("SPEED_MULT") as Lang.Float?;
+        if (savedSpeed != null) {
+            mSpeedMultiplier = savedSpeed;
         }
     }
 
@@ -59,6 +76,7 @@ class SongModel {
             {
                 :title => "Country Roads",
                 :artist => "John Denver",
+                :capo => null,
                 :defaultDurationMs => 3000,
                 :steps => [
                     { :section => "Verse 1", :chord => "G",     :lyric => "Almost heaven, West Virginia", :durationMs => 3000 },
@@ -98,6 +116,7 @@ class SongModel {
             {
                 :title => "Hey Jude",
                 :artist => "The Beatles",
+                :capo => "Capo 3",
                 :defaultDurationMs => 3500,
                 :steps => [
                     { :section => "Verse 1", :chord => "D",     :lyric => "Hey Jude, don't make it bad", :durationMs => 3500 },
@@ -156,6 +175,7 @@ class SongModel {
             {
                 :title => "Here Comes The Sun",
                 :artist => "The Beatles",
+                :capo => "Capo 7",
                 :defaultDurationMs => 3000,
                 :steps => [
                     { :section => "Chorus",  :chord => "D",     :lyric => "Here comes the sun, doo-doo-doo-doo", :durationMs => 3000 },
@@ -189,6 +209,7 @@ class SongModel {
             {
                 :title => "Creep",
                 :artist => "Radiohead",
+                :capo => null,
                 :defaultDurationMs => 5200,
                 :steps => [
                     { :section => "Verse 1", :chord => "G",     :lyric => "When you were here before", :durationMs => 5200 },
@@ -220,6 +241,7 @@ class SongModel {
             {
                 :title => "Fake Plastic Trees",
                 :artist => "Radiohead",
+                :capo => null,
                 :defaultDurationMs => 3500,
                 :steps => [
                     { :section => "Verse 1", :chord => "D",     :lyric => "Her green plastic watering can", :durationMs => 3500 },
@@ -254,6 +276,7 @@ class SongModel {
             {
                 :title => "Walking Back Home",
                 :artist => "Vira Talisa",
+                :capo => null,
                 :defaultDurationMs => 3000,
                 :steps => [
                     { :section => "Verse 1", :chord => "C",     :lyric => "Mr. Blue, I'm feeling fine", :durationMs => 3000 },
@@ -292,6 +315,7 @@ class SongModel {
 
     public function startAutoScroll() as Void {
         mIsAutoScrolling = true;
+        triggerHaptic();
         scheduleNextStepTimer();
         WatchUi.requestUpdate();
     }
@@ -301,6 +325,66 @@ class SongModel {
             mAutoScrollTimer.stop();
         }
         mIsAutoScrolling = false;
+        WatchUi.requestUpdate();
+    }
+
+    // Practice speed multiplier methods
+    public function getSpeedMultiplier() as Lang.Float {
+        return mSpeedMultiplier;
+    }
+
+    public function cycleSpeed() as Lang.Float {
+        if (mSpeedMultiplier == 1.0f) {
+            mSpeedMultiplier = 1.2f;
+        } else if (mSpeedMultiplier == 1.2f) {
+            mSpeedMultiplier = 1.5f;
+        } else if (mSpeedMultiplier == 1.5f) {
+            mSpeedMultiplier = 0.8f;
+        } else {
+            mSpeedMultiplier = 1.0f;
+        }
+        Storage.setValue("SPEED_MULT", mSpeedMultiplier as Application.Storage.ValueType);
+        if (mIsAutoScrolling) {
+            scheduleNextStepTimer();
+        }
+        WatchUi.requestUpdate();
+        return mSpeedMultiplier;
+    }
+
+    // Tactile haptic feedback methods
+    public function isHapticEnabled() as Lang.Boolean {
+        return mHapticEnabled;
+    }
+
+    public function toggleHaptic() as Lang.Boolean {
+        mHapticEnabled = !mHapticEnabled;
+        Storage.setValue("HAPTIC_ENABLED", mHapticEnabled as Application.Storage.ValueType);
+        if (mHapticEnabled) {
+            triggerHaptic();
+        }
+        WatchUi.requestUpdate();
+        return mHapticEnabled;
+    }
+
+    public function triggerHaptic() as Void {
+        if (mHapticEnabled && (Attention has :vibrate)) {
+            try {
+                // Short crisp pulse (40% duty cycle, 70ms duration)
+                var vibeProfile = [new Attention.VibeProfile(40, 70)];
+                Attention.vibrate(vibeProfile);
+            } catch (e) {
+                // Safe ignore if vibration hardware is busy
+            }
+        }
+    }
+
+    public function restartSong() as Void {
+        mCurrentStepIndex = 0;
+        mStatusMessage = null;
+        triggerHaptic();
+        if (mIsAutoScrolling) {
+            scheduleNextStepTimer();
+        }
         WatchUi.requestUpdate();
     }
 
@@ -323,11 +407,17 @@ class SongModel {
             duration = song[:defaultDurationMs] as Lang.Number;
         }
 
+        // Apply practice speed multiplier
+        var scaledDuration = (duration.toFloat() / mSpeedMultiplier).toNumber();
+        if (scaledDuration < 500) {
+            scaledDuration = 500;
+        }
+
         if (mAutoScrollTimer == null) {
             mAutoScrollTimer = new Timer.Timer();
         }
-        // One-shot timer chained to the exact duration of current step
-        mAutoScrollTimer.start(method(:onAutoScrollTimer), duration, false);
+        // One-shot timer chained to the scaled duration of current step
+        mAutoScrollTimer.start(method(:onAutoScrollTimer), scaledDuration, false);
     }
 
     public function onAutoScrollTimer() as Void {
@@ -338,6 +428,7 @@ class SongModel {
         if (mCurrentStepIndex < currentSteps.size() - 1) {
             mCurrentStepIndex++;
             mStatusMessage = null;
+            triggerHaptic();
             WatchUi.requestUpdate();
             scheduleNextStepTimer();
         } else {
@@ -378,10 +469,11 @@ class SongModel {
         WatchUi.requestUpdate();
     }
 
-    // Parses ChordPro text with optional durations: [Chord] or [Chord:Seconds]
+    // Parses ChordPro text with optional durations and Capo metadata
     private function parseChordProText(rawText as Lang.String) as Lang.Array<SongData> {
         var result = [] as Lang.Array<SongData>;
         var currentSongTitle = "";
+        var currentSongCapo = null as Lang.String?;
         var currentSteps = [] as Lang.Array<SongStep>;
 
         var remaining = rawText;
@@ -400,19 +492,58 @@ class SongModel {
                 line = line.substring(0, line.length() - 1);
             }
 
+            // Song header line starting with #
             if (line.length() > 1 && line.substring(0, 1).equals("#")) {
                 if (currentSongTitle.length() > 0 && currentSteps.size() > 0) {
                     result.add({
                         :title => currentSongTitle,
                         :artist => "Web",
+                        :capo => currentSongCapo,
                         :steps => currentSteps,
                         :defaultDurationMs => 3500
                     });
                     currentSteps = [] as Lang.Array<SongStep>;
+                    currentSongCapo = null;
                 }
-                currentSongTitle = line.substring(1, line.length());
-                while (currentSongTitle.length() > 0 && currentSongTitle.substring(0, 1).equals(" ")) {
-                    currentSongTitle = currentSongTitle.substring(1, currentSongTitle.length());
+                var rawTitle = line.substring(1, line.length());
+                while (rawTitle.length() > 0 && rawTitle.substring(0, 1).equals(" ")) {
+                    rawTitle = rawTitle.substring(1, rawTitle.length());
+                }
+
+                // Check for embedded Capo in title e.g. "Hey Jude (Capo 3)"
+                var capoIdx = rawTitle.find("Capo ");
+                if (capoIdx != null && rawTitle.find("No Capo") == null) {
+                    var cNum = capoIdx as Lang.Number;
+                    var endCapo = rawTitle.length();
+                    var closeP = rawTitle.find(")");
+                    if (closeP != null && (closeP as Lang.Number) > cNum) {
+                        endCapo = closeP as Lang.Number;
+                    }
+                    var commaP = rawTitle.find(",");
+                    if (commaP != null && (commaP as Lang.Number) > cNum && (commaP as Lang.Number) < endCapo) {
+                        endCapo = commaP as Lang.Number;
+                    }
+                    currentSongCapo = rawTitle.substring(cNum, endCapo);
+                }
+
+                var dashIdx = rawTitle.find(" - ");
+                if (dashIdx != null) {
+                    currentSongTitle = rawTitle.substring(0, dashIdx as Lang.Number);
+                } else {
+                    currentSongTitle = rawTitle;
+                }
+
+            } else if (line.find("{capo:") != null) {
+                var cStart = line.find("{capo:") as Lang.Number;
+                var cEnd = line.find("}");
+                if (cEnd != null && (cEnd as Lang.Number) > cStart + 6) {
+                    var capoVal = line.substring(cStart + 6, cEnd as Lang.Number);
+                    while (capoVal.length() > 0 && capoVal.substring(0, 1).equals(" ")) {
+                        capoVal = capoVal.substring(1, capoVal.length());
+                    }
+                    if (!capoVal.equals("No Capo") && !capoVal.equals("none") && capoVal.length() > 0) {
+                        currentSongCapo = capoVal;
+                    }
                 }
             } else if (line.find("[") != null && line.find("]") != null) {
                 var openB = line.find("[") as Lang.Number;
@@ -457,6 +588,7 @@ class SongModel {
             result.add({
                 :title => currentSongTitle,
                 :artist => "Web",
+                :capo => currentSongCapo,
                 :steps => currentSteps,
                 :defaultDurationMs => 3500
             });
@@ -472,11 +604,26 @@ class SongModel {
         return mSongs[index][:title];
     }
 
+    public function getSongCapo(index as Lang.Number) as Lang.String? {
+        if (index >= 0 && index < mSongs.size()) {
+            var song = mSongs[index];
+            if (song.hasKey(:capo)) {
+                return song[:capo] as Lang.String?;
+            }
+        }
+        return null;
+    }
+
+    public function getCurrentCapo() as Lang.String? {
+        return getSongCapo(mCurrentSongIndex);
+    }
+
     public function selectSong(index as Lang.Number) as Void {
         if (index >= 0 && index < mSongs.size()) {
             mCurrentSongIndex = index;
             mCurrentStepIndex = 0;
             mStatusMessage = null;
+            triggerHaptic();
             if (mIsAutoScrolling) {
                 scheduleNextStepTimer();
             }
@@ -536,9 +683,11 @@ class SongModel {
         if (mCurrentStepIndex < mSongs[mCurrentSongIndex][:steps].size() - 1) {
             mCurrentStepIndex++;
             mStatusMessage = null;
+            triggerHaptic();
             if (mIsAutoScrolling) {
                 scheduleNextStepTimer();
             }
+            WatchUi.requestUpdate();
         }
     }
 
@@ -546,9 +695,11 @@ class SongModel {
         if (mCurrentStepIndex > 0) {
             mCurrentStepIndex--;
             mStatusMessage = null;
+            triggerHaptic();
             if (mIsAutoScrolling) {
                 scheduleNextStepTimer();
             }
+            WatchUi.requestUpdate();
         }
     }
 }
