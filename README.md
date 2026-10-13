@@ -46,7 +46,7 @@ All songs use easy open chord shapes (no barre chords):
 1. **Take Me Home, Country Roads** – John Denver (Standard / No Capo: `G`, `Em`, `D`, `C`, `D7`)
 2. **Hey Jude** – The Beatles (Capo 3: `D`, `A`, `G`, `D7`, `Bm`, `Em`, `A7`, `C`)
 3. **Here Comes The Sun** – The Beatles (Capo 7: `D`, `G`, `A7`, `E7`, `C`)
-4. **Creep** – Radiohead (Standard / No Capo: `G`, `B7`, `C`, `Cm`)
+4. **Creep** – Radiohead (Capo 7: `C`, `E`, `F`, `Fm`)
 5. **Fake Plastic Trees** – Radiohead (Standard / No Capo: `D`, `Dsus4`, `G`, `Em`, `A`)
 6. **Walking Back Home** – Vira Talisa (Standard / No Capo: `C`, `Em`, `Fmaj7`, `G`, `Dm`, `Am`)
 

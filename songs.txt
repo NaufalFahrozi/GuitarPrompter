@@ -134,43 +134,48 @@
 [G:2.5] It's alright
 [D:3] ...
 
-# Creep - Radiohead (Easy Open Chords: G - B7 - C - Cm)
-[G:5.2] When you were here before
-[B7:5.2] Couldn't look you in the eye
-[C:5.2] You're just like an angel
-[Cm:5.2] Your skin makes me cry
-[G:5.2] You float like a feather
-[B7:5.2] In a beautiful world
-[C:5.2] I wish I was special
-[Cm:5.2] You're so very special
-[G:5.2] But I'm a creep
-[B7:5.2] I'm a weirdo
-[C:5.2] What the hell am I doin' here?
-[Cm:5.2] I don't belong here
-[G:5.2] I don't care if it hurts
-[B7:5.2] I wanna have control
-[C:5.2] I want a perfect body
-[Cm:5.2] I want a perfect soul
-[G:5.2] I want you to notice
-[B7:5.2] When I'm not around
-[C:5.2] You're so very special
-[Cm:5.2] I wish I was special
-[G:5.2] But I'm a creep
-[B7:5.2] I'm a weirdo
-[C:5.2] What the hell am I doin' here?
-[Cm:5.2] I don't belong here
-[G:5.2] She's running out the door
-[B7:5.2] She's running out
-[C:5.2] She run, run, run, run
-[Cm:5.2] Run...
-[G:5.2] Whatever makes you happy
-[B7:5.2] Whatever you want
-[C:5.2] You're so very special
-[Cm:5.2] I wish I was special
-[G:5.2] But I'm a creep
-[B7:5.2] I'm a weirdo
-[C:5.2] What the hell am I doin' here?
-[Cm:5.2] I don't belong here
+# Creep - Radiohead (Capo 7, Key of C)
+[C:4.5] (Intro)
+[E:4.5] (Intro)
+[F:4.5] (Intro)
+[Fm:4.5] (Intro)
+[C:4.8] When you were here before,
+[E:4.8] couldn't look you in the eye.
+[F:4.8] You're just like an angel,
+[Fm:4.8] your skin makes me cry.
+[C:4.8] You float like a feather,
+[E:4.8] in a beautiful world
+[F:4.8] I wish I was special,
+[Fm:4.8] you're so fucking special.
+[C:4.8] But I'm a creep, I'm a weirdo.
+[E:4] I'm a weirdo
+[F:4.8] What the hell am I doing here?
+[Fm:4.8] I don't belong here.
+[C:4.8] I don't care if it hurts,
+[E:4.8] I want to have control.
+[F:4.8] I want a perfect body,
+[Fm:4.8] I want a perfect soul.
+[C:4.8] I want you to notice,
+[E:4.8] when I'm not around.
+[F:4.8] You're so fucking special,
+[Fm:4.8] I wish I was special.
+[C:4.8] But I'm a creep, I'm a weirdo.
+[E:4] I'm a weirdo
+[F:4.8] What the hell am I doing here?
+[Fm:4.8] I don't belong here, oh-oh, oh-oh.
+[C:4.8] She's running out the door...
+[E:4.8] She's running out, she run, run, run...
+[F:4.8] Ruuuuuuuuuuuuuuuuuuun...
+[Fm:4.8] Ruuuuuuuuuuuuuuun...
+[C:4.8] Whatever makes you happy,
+[E:4.8] whatever you want.
+[F:4.8] You're so fucking special,
+[Fm:4.8] I wish I was special,
+[C:4.8] But I'm a creep, I'm a weirdo.
+[E:4] I'm a weirdo
+[F:4.8] What the hell am I doing here?
+[Fm:4.8] I don't belong here,
+[C:4.8] I don't belong here.
 
 # Fake Plastic Trees - Radiohead (No Capo, Easy Chords)
 [D:3.5] Her green plastic watering can

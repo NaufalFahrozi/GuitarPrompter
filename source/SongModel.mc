@@ -44,10 +44,18 @@ class SongModel {
 
     public function initialize() {
         var loaded = Storage.getValue("SAVED_SONGS") as Lang.Array<SongData>?;
-        if (loaded != null && loaded.size() > 0) {
+        var needsUpdate = false;
+        if (loaded != null && loaded.size() >= 4) {
+            var s3 = loaded[3];
+            if (s3[:title].equals("Creep") && (s3[:capo] == null || !s3[:capo].equals("Capo 7"))) {
+                needsUpdate = true;
+            }
+        }
+        if (loaded != null && loaded.size() > 0 && !needsUpdate) {
             mSongs = loaded;
         } else {
             loadDefaultSongs();
+            Storage.setValue("SAVED_SONGS", mSongs as Application.Storage.ValueType);
         }
 
         var savedHaptic = Storage.getValue("HAPTIC_ENABLED") as Lang.Boolean?;
@@ -205,35 +213,69 @@ class SongModel {
                 ]
             },
 
-            // 4. Creep - Radiohead (Easy Open Chords: G - B7 - C - Cm)
+            // 4. Creep - Radiohead (Capo 7: C - E - F - Fm)
             {
                 :title => "Creep",
                 :artist => "Radiohead",
-                :capo => null,
-                :defaultDurationMs => 5200,
+                :capo => "Capo 7",
+                :defaultDurationMs => 4800,
                 :steps => [
-                    { :section => "Verse 1", :chord => "G",     :lyric => "When you were here before", :durationMs => 5200 },
-                    { :section => "Verse 1", :chord => "B7",    :lyric => "Couldn't look you in the eye", :durationMs => 5200 },
-                    { :section => "Verse 1", :chord => "C",     :lyric => "You're just like an angel", :durationMs => 5200 },
-                    { :section => "Verse 1", :chord => "Cm",    :lyric => "Your skin makes me cry", :durationMs => 5200 },
-                    { :section => "Verse 2", :chord => "G",     :lyric => "You float like a feather", :durationMs => 5200 },
-                    { :section => "Verse 2", :chord => "B7",    :lyric => "In a beautiful world", :durationMs => 5200 },
-                    { :section => "Verse 2", :chord => "C",     :lyric => "I wish I was special", :durationMs => 5200 },
-                    { :section => "Verse 2", :chord => "Cm",    :lyric => "You're so very special", :durationMs => 5200 },
-                    { :section => "Chorus",  :chord => "G",     :lyric => "But I'm a creep, I'm a weirdo", :durationMs => 5200 },
-                    { :section => "Chorus",  :chord => "B7",    :lyric => "What the hell am I doin' here?", :durationMs => 5200 },
-                    { :section => "Chorus",  :chord => "C",     :lyric => "I don't belong here", :durationMs => 5200 },
-                    { :section => "Chorus",  :chord => "Cm",    :lyric => "I don't care if it hurts", :durationMs => 5200 },
-                    { :section => "Verse 3", :chord => "G",     :lyric => "I want a perfect body, perfect soul", :durationMs => 5200 },
-                    { :section => "Verse 3", :chord => "B7",    :lyric => "I want you to notice when not around", :durationMs => 5200 },
-                    { :section => "Verse 3", :chord => "C",     :lyric => "You're so very special", :durationMs => 5200 },
-                    { :section => "Verse 3", :chord => "Cm",    :lyric => "I wish I was special", :durationMs => 5200 },
-                    { :section => "Chorus",  :chord => "G",     :lyric => "She's running out the door, she run", :durationMs => 5200 },
-                    { :section => "Chorus",  :chord => "B7",    :lyric => "Run, run, run, run... Run...", :durationMs => 5200 },
-                    { :section => "Outro",   :chord => "G",     :lyric => "Whatever makes you happy, what you want", :durationMs => 5200 },
-                    { :section => "Outro",   :chord => "B7",    :lyric => "You're so very special...", :durationMs => 5200 },
-                    { :section => "Outro",   :chord => "C",     :lyric => "I wish I was special...", :durationMs => 5200 },
-                    { :section => "Outro",   :chord => "Cm",    :lyric => "I don't belong here...", :durationMs => 5200 }
+                    // Intro
+                    { :section => "Intro",   :chord => "C",  :lyric => "(Intro)", :durationMs => 4500 },
+                    { :section => "Intro",   :chord => "E",  :lyric => "(Intro)", :durationMs => 4500 },
+                    { :section => "Intro",   :chord => "F",  :lyric => "(Intro)", :durationMs => 4500 },
+                    { :section => "Intro",   :chord => "Fm", :lyric => "(Intro)", :durationMs => 4500 },
+
+                    // Verse 1
+                    { :section => "Verse 1", :chord => "C",  :lyric => "When you were here before,", :durationMs => 4800 },
+                    { :section => "Verse 1", :chord => "E",  :lyric => "couldn't look you in the eye.", :durationMs => 4800 },
+                    { :section => "Verse 1", :chord => "F",  :lyric => "You're just like an angel,", :durationMs => 4800 },
+                    { :section => "Verse 1", :chord => "Fm", :lyric => "your skin makes me cry.", :durationMs => 4800 },
+                    { :section => "Verse 1", :chord => "C",  :lyric => "You float like a feather,", :durationMs => 4800 },
+                    { :section => "Verse 1", :chord => "E",  :lyric => "in a beautiful world", :durationMs => 4800 },
+                    { :section => "Verse 1", :chord => "F",  :lyric => "I wish I was special,", :durationMs => 4800 },
+                    { :section => "Verse 1", :chord => "Fm", :lyric => "you're so fucking special.", :durationMs => 4800 },
+
+                    // Chorus 1
+                    { :section => "Chorus",  :chord => "C",  :lyric => "But I'm a creep, I'm a weirdo.", :durationMs => 4800 },
+                    { :section => "Chorus",  :chord => "E",  :lyric => "I'm a weirdo.", :durationMs => 4000 },
+                    { :section => "Chorus",  :chord => "F",  :lyric => "What the hell am I doing here?", :durationMs => 4800 },
+                    { :section => "Chorus",  :chord => "Fm", :lyric => "I don't belong here.", :durationMs => 4800 },
+
+                    // Verse 2
+                    { :section => "Verse 2", :chord => "C",  :lyric => "I don't care if it hurts,", :durationMs => 4800 },
+                    { :section => "Verse 2", :chord => "E",  :lyric => "I want to have control.", :durationMs => 4800 },
+                    { :section => "Verse 2", :chord => "F",  :lyric => "I want a perfect body,", :durationMs => 4800 },
+                    { :section => "Verse 2", :chord => "Fm", :lyric => "I want a perfect soul.", :durationMs => 4000 },
+                    { :section => "Verse 2", :chord => "C",  :lyric => "I want you to notice,", :durationMs => 4800 },
+                    { :section => "Verse 2", :chord => "E",  :lyric => "when I'm not around.", :durationMs => 4800 },
+                    { :section => "Verse 2", :chord => "F",  :lyric => "You're so fucking special,", :durationMs => 4800 },
+                    { :section => "Verse 2", :chord => "Fm", :lyric => "I wish I was special.", :durationMs => 4800 },
+
+                    // Chorus 2
+                    { :section => "Chorus",  :chord => "C",  :lyric => "But I'm a creep, I'm a weirdo.", :durationMs => 4800 },
+                    { :section => "Chorus",  :chord => "E",  :lyric => "I'm a weirdo.", :durationMs => 4000 },
+                    { :section => "Chorus",  :chord => "F",  :lyric => "What the hell am I doing here?", :durationMs => 4800 },
+                    { :section => "Chorus",  :chord => "Fm", :lyric => "I don't belong here, oh-oh.", :durationMs => 4800 },
+
+                    // Bridge
+                    { :section => "Bridge",  :chord => "C",  :lyric => "She's running out the door...", :durationMs => 4800 },
+                    { :section => "Bridge",  :chord => "E",  :lyric => "She's running out, she run...", :durationMs => 4800 },
+                    { :section => "Bridge",  :chord => "F",  :lyric => "Ruuuuuuuuuuuuuuuuuuun...", :durationMs => 4800 },
+                    { :section => "Bridge",  :chord => "Fm", :lyric => "Ruuuuuuuuuuuuuuun...", :durationMs => 4800 },
+
+                    // Verse 3
+                    { :section => "Verse 3", :chord => "C",  :lyric => "Whatever makes you happy,", :durationMs => 4800 },
+                    { :section => "Verse 3", :chord => "E",  :lyric => "whatever you want.", :durationMs => 4800 },
+                    { :section => "Verse 3", :chord => "F",  :lyric => "You're so fucking special,", :durationMs => 4800 },
+                    { :section => "Verse 3", :chord => "Fm", :lyric => "I wish I was special,", :durationMs => 4800 },
+
+                    // Chorus 3 / Outro
+                    { :section => "Chorus",  :chord => "C",  :lyric => "But I'm a creep, I'm a weirdo.", :durationMs => 4800 },
+                    { :section => "Chorus",  :chord => "E",  :lyric => "I'm a weirdo.", :durationMs => 4000 },
+                    { :section => "Chorus",  :chord => "F",  :lyric => "What the hell am I doing here?", :durationMs => 4800 },
+                    { :section => "Outro",   :chord => "Fm", :lyric => "I don't belong here,", :durationMs => 4800 },
+                    { :section => "Outro",   :chord => "C",  :lyric => "I don't belong here.", :durationMs => 4800 }
                 ]
             },
 
