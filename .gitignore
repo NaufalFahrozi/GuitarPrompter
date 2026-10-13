@@ -16,3 +16,6 @@ developer_key.der
 .idea/
 *.swp
 *.bak
+
+# Local helper scripts
+*.bat
