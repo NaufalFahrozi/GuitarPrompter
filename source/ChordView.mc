@@ -42,45 +42,44 @@ class ChordView extends WatchUi.View {
             dc.drawText(195, 12, Graphics.FONT_XTINY, autoText, Graphics.TEXT_JUSTIFY_CENTER);
         }
 
-        // === 3. HEADER: SONG TITLE & SECTION / CAPO (No lines) ===
-        // Title (Crisp White, FONT_XTINY)
+        // === 3. HEADER: SONG TITLE & SECTION / CAPO ===
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(195, 32, Graphics.FONT_XTINY, step[:songTitle], Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(195, 30, Graphics.FONT_XTINY, step[:songTitle], Graphics.TEXT_JUSTIFY_CENTER);
 
-        // Section & Capo on single sub-header line
         var subHeader = step[:section];
         if (capo != null) {
             subHeader = subHeader + "  •  " + (capo as Lang.String).toUpper();
         }
         dc.setColor(0xFFA500, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(195, 56, Graphics.FONT_XTINY, subHeader, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(195, 52, Graphics.FONT_XTINY, subHeader, Graphics.TEXT_JUSTIFY_CENTER);
 
         // === 4. NOW (ACTIVE) CHORD & LYRICS ===
-        // Current Chord: Medium font (clean, legible, not oversized), Electric Green
+        // More breathing room below header: centered at y = 116
         var curChord = mModel.getCurrentChord();
         var curFont = (curChord.length() > 4) ? Graphics.FONT_SMALL : Graphics.FONT_MEDIUM;
         dc.setColor(0x00FF7F, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(195, 100, curFont, curChord, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(195, 116, curFont, curChord, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
-        // Current Lyrics (White, FONT_XTINY, 1 or 2 lines)
-        drawCleanLyric(dc, step[:lyric] as Lang.String?, 130, 124, Graphics.COLOR_WHITE);
+        // Current Lyrics (White, FONT_XTINY, 1-line at 152, 2-line at 144/166)
+        drawCleanLyric(dc, step[:lyric] as Lang.String?, 152, 144, Graphics.COLOR_WHITE);
 
-        // === 5. NEXT (PREVIEW) CHORD & LYRICS (No lines, no "NEXT" text) ===
+        // === 5. NEXT (PREVIEW) CHORD & LYRICS ===
+        // Positioned comfortably in lower area so the middle stays clearly focused on CURRENT
         var nextChord = mModel.getNextChord();
         var nextLyric = mModel.getNextLyric();
 
         if (!nextChord.equals("--")) {
-            // Next Chord: Small/XTiny font (modest, subtle preview), Soft Ice Cyan
+            // Next Chord: Small XTiny font, Soft Ice Cyan, centered at y = 248
             dc.setColor(0x80CBC4, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(195, 212, Graphics.FONT_XTINY, nextChord, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+            dc.drawText(195, 248, Graphics.FONT_XTINY, nextChord, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
-            // Next Lyrics: Small FONT_XTINY, Muted Gray, 1 or 2 lines into bottom space
-            drawCleanLyric(dc, nextLyric, 240, 234, 0x666666);
+            // Next Lyrics: Muted Gray, 1-line at 278, 2-line at 272/294
+            drawCleanLyric(dc, nextLyric, 278, 272, 0x666666);
         } else {
             // End of Song State
             dc.setColor(0x444444, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(195, 212, Graphics.FONT_XTINY, "---", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
-            dc.drawText(195, 238, Graphics.FONT_XTINY, "(End of song)", Graphics.TEXT_JUSTIFY_CENTER);
+            dc.drawText(195, 248, Graphics.FONT_XTINY, "---", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+            dc.drawText(195, 274, Graphics.FONT_XTINY, "(End of song)", Graphics.TEXT_JUSTIFY_CENTER);
         }
     }
 
