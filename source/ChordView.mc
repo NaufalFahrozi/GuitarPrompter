@@ -115,32 +115,32 @@ class ChordView extends WatchUi.View {
         }
 
         // === 3-CHORD STAGE ===
-        var chordCenterY = boxY + 24;
+        var chordCenterY = boxY + 20;
 
         // Previous Chord (left: muted soft gray)
         dc.setColor(0x555555, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(80, chordCenterY, Graphics.FONT_XTINY, mModel.getPrevChord(), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(85, chordCenterY, Graphics.FONT_XTINY, mModel.getPrevChord(), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
-        // Current Chord Card (center: dark amber fill with crisp orange border)
-        dc.setColor(0x1C1004, Graphics.COLOR_TRANSPARENT);
-        dc.fillRoundedRectangle(147, boxY, 96, 48, 6);
+        // Current Chord Card (center: dark amber fill with crisp slim orange border)
+        dc.setColor(0x180E03, Graphics.COLOR_TRANSPARENT);
+        dc.fillRoundedRectangle(151, boxY, 88, 40, 6);
 
         dc.setColor(0xFF7700, Graphics.COLOR_TRANSPARENT);
         dc.setPenWidth(2);
-        dc.drawRoundedRectangle(147, boxY, 96, 48, 6);
+        dc.drawRoundedRectangle(151, boxY, 88, 40, 6);
         dc.setPenWidth(1);
 
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(195, chordCenterY, Graphics.FONT_LARGE, mModel.getCurrentChord(), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(195, chordCenterY, Graphics.FONT_MEDIUM, mModel.getCurrentChord(), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
         // Next Chord (right: soft ice-cyan)
         dc.setColor(0x80CBC4, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(310, chordCenterY, Graphics.FONT_XTINY, mModel.getNextChord(), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(305, chordCenterY, Graphics.FONT_XTINY, mModel.getNextChord(), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
         // Stage Bottom Divider
-        var stageDivY = boxY + 56;
+        var stageDivY = boxY + 48;
         dc.setColor(0x242424, Graphics.COLOR_TRANSPARENT);
-        dc.drawLine(120, stageDivY, 270, stageDivY);
+        dc.drawLine(130, stageDivY, 260, stageDivY);
 
         // === LYRICS AREA ===
         drawWrappedLyric(dc, step[:lyric] as Lang.String?, lyricY);
