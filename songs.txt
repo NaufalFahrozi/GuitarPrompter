@@ -3,7 +3,7 @@
 [Em:3] Blue Ridge Mountains, Shenandoah River
 [G:3] Life is old there, older than the trees
 [D:2.5] Younger than the mountains,
-[C:2.5] Growin' like a breeze
+[C:2] growin' like a breeze
 [G:3] Country roads, take me home
 [D:3] To the place I belong
 [Em:3] West Virginia, mountain mama
@@ -12,105 +12,129 @@
 [Em:3] Miner's lady, stranger to blue water
 [G:3] Dark and dusty, painted on the sky
 [D:2.5] Misty taste of moonshine,
-[C:2.5] Teardrop in my eye
+[C:2] teardrop in my eye
 [G:3] Country roads, take me home
 [D:3] To the place I belong
 [Em:3] West Virginia, mountain mama
 [C:3] Take me home, country roads
-[Em:2] I hear her voice in the
-[D:2] mornin' hour she calls me
-[G:2] Radio reminds me of my
-[C:2] home far away
-[G:2] Drivin' down the road
-[D:2] I get a feelin' that I
-[D7:2] should have been home yesterday
+[Em:2.5] I hear her voice in the mornin' hour she calls me
+[D:2.5] Radio reminds me of my home far away
+[G:2.5] Drivin' down the road I get a feelin'
+[D:2] That I should have been home
+[D7:2] yesterday, yesterday
 [G:3] Country roads, take me home
 [D:3] To the place I belong
 [Em:3] West Virginia, mountain mama
 [C:3] Take me home, country roads
 [G:3] Take me home, country roads
-[G:3] Take me home, country roads
+[D:3] Take me home, country roads
+[G:3] Country roads
 
-# Hey Jude - The Beatles (Capo 3, Easy Chords)
-[C:3.5] Hey Jude, don't make it bad
-[G:3.5] Take a sad song and make it better
-[G7:3.5] Remember to let her into your heart
-[C:3.5] Then you can start to make it better
-[C:3.5] Hey Jude, don't be afraid
-[G:3.5] You were made to go out and get her
-[G7:3.5] The minute you let her under your skin
-[C:3.5] Then you begin to make it better
-[C7:3] And anytime you feel the pain,
-[Fmaj7:3] hey Jude, refrain
-[C:3] Don't carry the world upon
-[G:3] your shoulders
-[C7:3] For well you know that it's a fool
-[Fmaj7:3] who plays it cool
-[C:3] By making his world a little
-[G:3] colder
-[C:3] Da da da da da
-[G7:3] da da da da
-[C:3.5] Hey Jude, don't let me down
-[G:3.5] You have found her, now go and get her
-[G7:3.5] Remember to let her into your heart
-[C:3.5] Then you can start to make it better
-[C:3.5] So let it out and let it in,
-[C7:3.5] hey Jude, begin
-[Fmaj7:3] You're waiting for someone to
-[C:3] perform with
-[C7:3] And don't you know that it's just you,
-[Fmaj7:3] hey Jude, you'll do
-[C:3] The movement you need is on
-[G:3] your shoulder
-[C:3.5] Hey Jude, don't make it bad
-[G:3.5] Take a sad song and make it better
-[G7:3.5] Remember to let her under your skin
-[C:3.5] Then you'll begin to make it better
-[C:3] Na, na na na na na na
-[Bb:3] Na na na na,
-[Fmaj7:3] hey Jude
-[C:3] Na, na na na na na na
-[Bb:3] Na na na na,
-[Fmaj7:3] hey Jude
-[C:3] Jude, Jude, Jude, yeah!
+# Hey Jude - The Beatles (Capo 3, Key of D)
+[D:3.5] Hey Jude, don't make it bad
+[A:3.5] Take a sad song and make it better
+[G:3.5] Remember to let her into your heart
+[D:2.5] Then you can start to make it
+[A:2] better
+[D:2] ...
+[D:3.5] Hey Jude, don't be afraid
+[A:3.5] You were made to go out and get her
+[G:3.5] The minute you let her under your skin
+[D:2.5] Then you begin to make it
+[A:2] better
+[D:2] ...
+[D7:2.5] And anytime you feel the pain,
+[G:2] hey Jude, refrain
+[Bm:2] Don't carry the world upon
+[Em:2] your shoulders
+[A:2.5] For well you know that it's a fool
+[D:2.5] who plays it cool
+[D7:2.5] By making his world a little
+[G:2] colder
+[Bm:2] ...
+[Em:2] ...
+[A:2.5] ...
+[D:2] ...
+[D:2] Da da da da da
+[D7:2] da da da da
+[A7:2] da...
+[D:3.5] Hey Jude, don't let me down
+[A:3.5] You have found her, now go and get her
+[G:3.5] Remember to let her into your heart
+[D:2.5] Then you can start to make it
+[A:2] better
+[D:2] ...
+[D7:2.5] So let it out and let it in,
+[G:2] hey Jude, begin
+[Bm:2] You're waiting for someone to
+[Em:2] perform with
+[A:2.5] And don't you know that it's just you,
+[D:2.5] hey Jude, you'll do
+[D7:2.5] The movement you need is on your
+[G:2] shoulders
+[Bm:2] ...
+[Em:2] ...
+[A:2.5] ...
+[D:2] ...
+[D:2] Da da da da da
+[D7:2] da da da da
+[A7:2] da...
+[D:3.5] Hey Jude, don't make it bad
+[A:3.5] Take a sad song and make it better
+[G:3.5] Remember to let her under your skin
+[D:2.5] Then you begin to make it
+[A:2] better, better, better!
+[D:3] Na na na na na na na
+[C:3] Na na na na,
+[G:3] hey Jude
+[D:3] Na na na na na na na
+[C:3] Na na na na,
+[G:3] hey Jude
+[D:3] Na na na na na na na
+[C:3] Na na na na,
+[G:3] hey Jude
+[D:3] Na na na na na na na
+[C:3] Na na na na,
+[G:3] hey Jude...
 
-# Here Comes The Sun - The Beatles (Capo 7, Easy Chords)
+# Here Comes The Sun - The Beatles (Capo 7, Key of D)
 [D:3] Here comes the sun, doo-doo-doo-doo
-[G:3] Here comes the sun,
-[E7:2.5] and I say
-[D:3] It's alright
+[G:2.5] Here comes the sun,
+[E7:2] and I say
+[A7:2] it's alright
+[D:2] ...
 [D:3.5] Little darling, it's been a long, cold, lonely winter
-[G:3] Little darling, it feels like
-[A7:3] years since it's been here
+[G:3] Little darling, it feels like years
+[A7:3] since it's been here
 [D:3] Here comes the sun, doo-doo-doo-doo
-[G:3] Here comes the sun,
-[E7:2.5] and I say
-[D:3] It's alright
+[G:2.5] Here comes the sun,
+[E7:2] and I say
+[A7:2] it's alright
+[D:2] ...
 [D:3.5] Little darling, the smiles returning to the faces
-[G:3] Little darling, it seems like
-[A7:3] years since it's been here
-[D:3] Here comes the sun
-[G:3] Here comes the sun,
-[E7:2.5] and I say
-[D:3] It's alright
-[C:2] Sun, sun, sun,
-[G:2] here it comes
-[D:2] Sun, sun, sun,
-[A7:2] here it comes
-[C:2] Sun, sun, sun,
-[G:2] here it comes
+[G:3] Little darling, it seems like years
+[A7:3] since it's been here
+[D:3] Here comes the sun, doo-doo-doo-doo
+[G:2.5] Here comes the sun,
+[E7:2] and I say
+[A7:2] it's alright
+[D:2] ...
+[C:2] Sun, sun, sun, here it comes
+[G:2] Sun, sun, sun, here it comes
+[D:2] Sun, sun, sun, here it comes
+[A7:2] Sun, sun, sun, here it comes
 [D:3.5] Little darling, I feel that ice is slowly melting
-[G:3] Little darling, it seems like
-[A7:3] years since it's been clear
+[G:3] Little darling, it seems like years
+[A7:3] since it's been clear
+[D:3] Here comes the sun, doo-doo-doo-doo
+[G:2.5] Here comes the sun,
+[E7:2] and I say
+[A7:2] it's alright
 [D:3] Here comes the sun
-[G:3] Here comes the sun,
-[E7:2.5] and I say
-[D:3] It's alright
-[G:3] Here comes the sun,
-[E7:2.5] and I say
-[D:3] It's alright
+[G:2.5] It's alright
+[D:3] ...
 
-# Creep - Radiohead (Easy Open Chords)
+# Creep - Radiohead (Easy Open Chords: G - B7 - C - Cm)
 [G:5.2] When you were here before
 [B7:5.2] Couldn't look you in the eye
 [C:5.2] You're just like an angel
@@ -180,34 +204,7 @@
 [A:3.5] It wears me out
 [D:3.5] And if I could be who you wanted
 [G:3.5] All the time...
-
-# Mary On A Cross - Ghost (Capo 3, Easy Chords)
-[Am:3] We were young and we were wild
-[Fmaj7:3] In the night, our hearts collide
-[C:3] In the temple of our love
-[G:3] Shining like the stars above
-[Am:3] You go down just like Holy Mary
-[Fmaj7:3] Mary on a, Mary on a cross
-[C:3] Not just another bloody Mary
-[G:3] Mary on a, Mary on a cross
-[Am:3] If you choose to run away with me
-[Fmaj7:3] I will tickle you internally
-[C:3] And I see nothing wrong with that
-[G:3] Mary on a, Mary on a cross
-[Am:3] We'd be traveling together
-[Fmaj7:3] Through the stormy winter weather
-[C:3] But the beauty of your face
-[G:3] Takes me to a sacred place
-[Am:3] You go down just like Holy Mary
-[Fmaj7:3] Mary on a, Mary on a cross
-[C:3] Not just another bloody Mary
-[G:3] Mary on a, Mary on a cross
-[Fmaj7:3] Nothing's gonna stop us now
-[G:3] No one's gonna bring us down
-[Am:3] Mary on a cross
-[Fmaj7:3] Mary on a, Mary on a cross
-[C:3] Mary on a cross
-[G:3] Mary on a cross
+[D:3.5] All the time...
 
 # Walking Back Home - Vira Talisa (Easy Chords)
 [C:3] Mr. Blue, I'm feeling fine
@@ -229,27 +226,4 @@
 [C:3] Walking back home
 [Em:3] Walking back home
 [Fmaj7:3] Walking back home
-[C:3] Ooh, back home
-
-# If You Know That I'm Lonely - FUR (Capo 1, Easy Chords)
-[C:3] If you know that I'm lonely
-[E7:3] Why'd you have to leave me?
-[Am:3] Waiting by the telephone
-[Fmaj7:3] Sitting on my own at home
-[C:3] I was looking for someone
-[E7:3] To hold through the night
-[Am:3] But you walked away so fast
-[Fmaj7:3] Vanished in the morning light
-[Dm:3] Tell me what I did so wrong
-[G:3] To make you stay away this long
-[C:3] Baby won't you come around
-[Am:3] Lift me up from underground
-[C:3] If you know that I'm lonely
-[E7:3] Why don't you call my name?
-[Am:3] Playing this romantic game
-[Fmaj7:3] Only brings me tears and pain
-[C:3] Won't you come back home to me
-[E7:3] Set this lonely spirit free
-[Am:3] If you know that I'm lonely
-[Fmaj7:3] If you know that I'm lonely
-[C:3] Don't leave me alone tonight
+[C:3] Ooh, back home...

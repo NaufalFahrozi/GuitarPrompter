@@ -14,15 +14,13 @@ Useful for rehearsals, busking, acoustic gigs, or open mic nights when you don't
   - Center: Current chord in large text with an orange rounded border.
   - Right: Next chord (dimmed) so you can prepare your next hand shape.
 - **Smart Lyric Wrapping**: Long lyric lines are split across two centered lines so text won't get cut off by the watch's circular bezel.
-- **8 Preloaded Songs**: Comes with 8 complete acoustic songs using easy open chords (no hard barre chords, capo tips included):
-  1. *Country Roads* – John Denver (No Capo: G, Em, D, C)
-  2. *Hey Jude* – The Beatles (Capo 3: C, G, G7, Fmaj7, C7)
-  3. *Here Comes The Sun* – The Beatles (Capo 7: D, G, A7, E7)
+- **6 Preloaded Songs**: Comes with 6 complete acoustic songs using easy open chords (no hard barre chords, capo tips included):
+  1. *Country Roads* – John Denver (No Capo: G, Em, D, C, D7)
+  2. *Hey Jude* – The Beatles (Capo 3: D, A, G, D7, Bm, Em, A7, C)
+  3. *Here Comes The Sun* – The Beatles (Capo 7: D, G, A7, E7, C)
   4. *Creep* – Radiohead (No Capo: G, B7, C, Cm)
   5. *Fake Plastic Trees* – Radiohead (No Capo: D, Dsus4, G, Em, A)
-  6. *Mary On A Cross* – Ghost (Capo 3: Am, Fmaj7, C, G)
-  7. *Walking Back Home* – Vira Talisa (No Capo: C, Em, Fmaj7, G, Dm, Am)
-  8. *If You Know That I'm Lonely* – FUR (Capo 1: C, E7, Am, Fmaj7, G, Dm)
+  6. *Walking Back Home* – Vira Talisa (No Capo: C, Em, Fmaj7, G, Dm, Am)
 - **Direct Web Sync**: Syncs songs directly from [`songs.txt`](./songs.txt) in this repository or custom raw links. Songs persist across app restarts via `Application.Storage`.
 - **Battery-Friendly UI**: Pure black background (`#000000`) for maximum AMOLED power efficiency and high visibility under stage lights.
 
@@ -63,7 +61,7 @@ source/
 ├── SongModel.mc       # Song data, dynamic per-step auto-scroll, web sync, storage
 ├── ChordView.mc       # AMOLED UI layout, 3-chord view, text wrapping
 └── ChordDelegate.mc   # Button mappings, touch coordinates, Menu2 handling
-songs.txt              # Complete ChordPro database with 8 songs
+songs.txt              # Complete ChordPro database with 6 songs
 ```
 
 ---
@@ -99,7 +97,7 @@ You can add or customize songs in `songs.txt`. The app supports ChordPro syntax 
 [G:3] Almost heaven, West Virginia
 [Em:3] Blue Ridge Mountains, Shenandoah
 [D:2.5] Younger than the mountains
-[C:2.5] Growin' like a breeze
+[C:2] Growin' like a breeze
 ```
 
-To sync on the watch, select **🔄 Web Sync** from the menu. You can also select **⏮ Reset Songs** to reload all 8 default songs anytime.
+To sync on the watch, select **🔄 Web Sync** from the menu. You can also select **⏮ Reset Songs** to reload the 6 default songs anytime.

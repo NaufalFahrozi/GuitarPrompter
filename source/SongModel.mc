@@ -55,7 +55,7 @@ class SongModel {
 
     private function loadDefaultSongs() as Void {
         mSongs = [
-            // 1. Take Me Home, Country Roads - John Denver
+            // 1. Take Me Home, Country Roads - John Denver (No Capo)
             {
                 :title => "Country Roads",
                 :artist => "John Denver",
@@ -65,7 +65,7 @@ class SongModel {
                     { :section => "Verse 1", :chord => "Em",    :lyric => "Blue Ridge Mountains, Shenandoah River", :durationMs => 3000 },
                     { :section => "Verse 1", :chord => "G",     :lyric => "Life is old there, older than the trees", :durationMs => 3000 },
                     { :section => "Verse 1", :chord => "D",     :lyric => "Younger than the mountains,", :durationMs => 2500 },
-                    { :section => "Verse 1", :chord => "C",     :lyric => "Growin' like a breeze", :durationMs => 2500 },
+                    { :section => "Verse 1", :chord => "C",     :lyric => "Growin' like a breeze", :durationMs => 2000 },
                     { :section => "Chorus",  :chord => "G",     :lyric => "Country roads, take me home", :durationMs => 3000 },
                     { :section => "Chorus",  :chord => "D",     :lyric => "To the place I belong", :durationMs => 3000 },
                     { :section => "Chorus",  :chord => "Em",    :lyric => "West Virginia, mountain mama", :durationMs => 3000 },
@@ -74,73 +74,100 @@ class SongModel {
                     { :section => "Verse 2", :chord => "Em",    :lyric => "Miner's lady, stranger to blue water", :durationMs => 3000 },
                     { :section => "Verse 2", :chord => "G",     :lyric => "Dark and dusty, painted on the sky", :durationMs => 3000 },
                     { :section => "Verse 2", :chord => "D",     :lyric => "Misty taste of moonshine,", :durationMs => 2500 },
-                    { :section => "Verse 2", :chord => "C",     :lyric => "Teardrop in my eye", :durationMs => 2500 },
+                    { :section => "Verse 2", :chord => "C",     :lyric => "Teardrop in my eye", :durationMs => 2000 },
                     { :section => "Chorus",  :chord => "G",     :lyric => "Country roads, take me home", :durationMs => 3000 },
                     { :section => "Chorus",  :chord => "D",     :lyric => "To the place I belong", :durationMs => 3000 },
                     { :section => "Chorus",  :chord => "Em",    :lyric => "West Virginia, mountain mama", :durationMs => 3000 },
                     { :section => "Chorus",  :chord => "C",     :lyric => "Take me home, country roads", :durationMs => 3000 },
-                    { :section => "Bridge",  :chord => "Em",    :lyric => "I hear her voice in the mornin' hour", :durationMs => 2500 },
+                    { :section => "Bridge",  :chord => "Em",    :lyric => "I hear her voice in the mornin' hour she calls me", :durationMs => 2500 },
                     { :section => "Bridge",  :chord => "D",     :lyric => "Radio reminds me of my home far away", :durationMs => 2500 },
                     { :section => "Bridge",  :chord => "G",     :lyric => "Drivin' down the road I get a feelin'", :durationMs => 2500 },
-                    { :section => "Bridge",  :chord => "D7",    :lyric => "That I should have been home yesterday", :durationMs => 2500 },
+                    { :section => "Bridge",  :chord => "D",     :lyric => "That I should have been home", :durationMs => 2000 },
+                    { :section => "Bridge",  :chord => "D7",    :lyric => "yesterday, yesterday", :durationMs => 2000 },
                     { :section => "Chorus",  :chord => "G",     :lyric => "Country roads, take me home", :durationMs => 3000 },
                     { :section => "Chorus",  :chord => "D",     :lyric => "To the place I belong", :durationMs => 3000 },
                     { :section => "Chorus",  :chord => "Em",    :lyric => "West Virginia, mountain mama", :durationMs => 3000 },
                     { :section => "Chorus",  :chord => "C",     :lyric => "Take me home, country roads", :durationMs => 3000 },
-                    { :section => "Outro",   :chord => "G",     :lyric => "Take me home, country roads", :durationMs => 3000 }
+                    { :section => "Outro",   :chord => "G",     :lyric => "Take me home, country roads", :durationMs => 3000 },
+                    { :section => "Outro",   :chord => "D",     :lyric => "Take me home, country roads", :durationMs => 3000 },
+                    { :section => "Outro",   :chord => "G",     :lyric => "Country roads", :durationMs => 3000 }
                 ]
             },
 
-            // 2. Hey Jude - The Beatles (Capo 3, Easy Chords)
+            // 2. Hey Jude - The Beatles (Capo 3, Key of D)
             {
                 :title => "Hey Jude",
                 :artist => "The Beatles",
                 :defaultDurationMs => 3500,
                 :steps => [
-                    { :section => "Verse 1", :chord => "C",     :lyric => "Hey Jude, don't make it bad", :durationMs => 3500 },
-                    { :section => "Verse 1", :chord => "G",     :lyric => "Take a sad song and make it better", :durationMs => 3500 },
-                    { :section => "Verse 1", :chord => "G7",    :lyric => "Remember to let her into your heart", :durationMs => 3500 },
-                    { :section => "Verse 1", :chord => "C",     :lyric => "Then you can start to make it better", :durationMs => 3500 },
-                    { :section => "Verse 2", :chord => "C",     :lyric => "Hey Jude, don't be afraid", :durationMs => 3500 },
-                    { :section => "Verse 2", :chord => "G",     :lyric => "You were made to go out and get her", :durationMs => 3500 },
-                    { :section => "Verse 2", :chord => "G7",    :lyric => "The minute you let her under your skin", :durationMs => 3500 },
-                    { :section => "Verse 2", :chord => "C",     :lyric => "Then you begin to make it better", :durationMs => 3500 },
-                    { :section => "Chorus",  :chord => "C7",    :lyric => "And anytime you feel the pain, refrain", :durationMs => 3000 },
-                    { :section => "Chorus",  :chord => "Fmaj7", :lyric => "Don't carry the world upon your shoulders", :durationMs => 3000 },
-                    { :section => "Chorus",  :chord => "C",     :lyric => "For well you know that it's a fool", :durationMs => 3000 },
-                    { :section => "Chorus",  :chord => "G",     :lyric => "Who plays it cool by making it colder", :durationMs => 3000 },
-                    { :section => "Verse 3", :chord => "C",     :lyric => "Hey Jude, don't let me down", :durationMs => 3500 },
-                    { :section => "Verse 3", :chord => "G",     :lyric => "You have found her, now go and get her", :durationMs => 3500 },
-                    { :section => "Verse 3", :chord => "G7",    :lyric => "Remember to let her into your heart", :durationMs => 3500 },
-                    { :section => "Verse 3", :chord => "C",     :lyric => "Then you can start to make it better", :durationMs => 3500 },
-                    { :section => "Chorus",  :chord => "C7",    :lyric => "So let it out and let it in, begin", :durationMs => 3000 },
-                    { :section => "Chorus",  :chord => "Fmaj7", :lyric => "You're waiting for someone to perform with", :durationMs => 3000 },
-                    { :section => "Chorus",  :chord => "C",     :lyric => "The movement you need is on your shoulder", :durationMs => 3000 },
-                    { :section => "Verse 4", :chord => "C",     :lyric => "Hey Jude, don't make it bad", :durationMs => 3500 },
-                    { :section => "Verse 4", :chord => "G",     :lyric => "Take a sad song and make it better", :durationMs => 3500 },
-                    { :section => "Verse 4", :chord => "G7",    :lyric => "Remember to let her under your skin", :durationMs => 3500 },
-                    { :section => "Verse 4", :chord => "C",     :lyric => "Then you'll begin to make it better", :durationMs => 3500 },
-                    { :section => "Outro",   :chord => "C",     :lyric => "Na, na na na na na na", :durationMs => 3000 },
-                    { :section => "Outro",   :chord => "Bb",    :lyric => "Na na na na,", :durationMs => 3000 },
-                    { :section => "Outro",   :chord => "Fmaj7", :lyric => "Hey Jude!", :durationMs => 3000 },
-                    { :section => "Outro",   :chord => "C",     :lyric => "Jude, Jude, Jude, yeah!", :durationMs => 3000 }
+                    { :section => "Verse 1", :chord => "D",     :lyric => "Hey Jude, don't make it bad", :durationMs => 3500 },
+                    { :section => "Verse 1", :chord => "A",     :lyric => "Take a sad song and make it better", :durationMs => 3500 },
+                    { :section => "Verse 1", :chord => "G",     :lyric => "Remember to let her into your heart", :durationMs => 3500 },
+                    { :section => "Verse 1", :chord => "D",     :lyric => "Then you can start to make it", :durationMs => 2500 },
+                    { :section => "Verse 1", :chord => "A",     :lyric => "better", :durationMs => 2000 },
+                    { :section => "Verse 2", :chord => "D",     :lyric => "Hey Jude, don't be afraid", :durationMs => 3500 },
+                    { :section => "Verse 2", :chord => "A",     :lyric => "You were made to go out and get her", :durationMs => 3500 },
+                    { :section => "Verse 2", :chord => "G",     :lyric => "The minute you let her under your skin", :durationMs => 3500 },
+                    { :section => "Verse 2", :chord => "D",     :lyric => "Then you begin to make it", :durationMs => 2500 },
+                    { :section => "Verse 2", :chord => "A",     :lyric => "better", :durationMs => 2000 },
+                    { :section => "Chorus 1", :chord => "D7",   :lyric => "And anytime you feel the pain, refrain", :durationMs => 2500 },
+                    { :section => "Chorus 1", :chord => "G",    :lyric => "Hey Jude, refrain", :durationMs => 2000 },
+                    { :section => "Chorus 1", :chord => "Bm",   :lyric => "Don't carry the world upon", :durationMs => 2000 },
+                    { :section => "Chorus 1", :chord => "Em",   :lyric => "your shoulders", :durationMs => 2000 },
+                    { :section => "Chorus 1", :chord => "A",    :lyric => "For well you know that it's a fool", :durationMs => 2500 },
+                    { :section => "Chorus 1", :chord => "D",    :lyric => "who plays it cool", :durationMs => 2500 },
+                    { :section => "Chorus 1", :chord => "D7",   :lyric => "By making his world a little colder", :durationMs => 2500 },
+                    { :section => "Interlude", :chord => "D",   :lyric => "Da da da da da", :durationMs => 2000 },
+                    { :section => "Interlude", :chord => "D7",  :lyric => "da da da da", :durationMs => 2000 },
+                    { :section => "Interlude", :chord => "A7",  :lyric => "da...", :durationMs => 2000 },
+                    { :section => "Verse 3", :chord => "D",     :lyric => "Hey Jude, don't let me down", :durationMs => 3500 },
+                    { :section => "Verse 3", :chord => "A",     :lyric => "You have found her, now go and get her", :durationMs => 3500 },
+                    { :section => "Verse 3", :chord => "G",     :lyric => "Remember to let her into your heart", :durationMs => 3500 },
+                    { :section => "Verse 3", :chord => "D",     :lyric => "Then you can start to make it", :durationMs => 2500 },
+                    { :section => "Verse 3", :chord => "A",     :lyric => "better", :durationMs => 2000 },
+                    { :section => "Chorus 2", :chord => "D7",   :lyric => "So let it out and let it in, begin", :durationMs => 2500 },
+                    { :section => "Chorus 2", :chord => "G",    :lyric => "Hey Jude, begin", :durationMs => 2000 },
+                    { :section => "Chorus 2", :chord => "Bm",   :lyric => "You're waiting for someone to", :durationMs => 2000 },
+                    { :section => "Chorus 2", :chord => "Em",   :lyric => "perform with", :durationMs => 2000 },
+                    { :section => "Chorus 2", :chord => "A",    :lyric => "And don't you know that it's just you", :durationMs => 2500 },
+                    { :section => "Chorus 2", :chord => "D",    :lyric => "Hey Jude, you'll do", :durationMs => 2500 },
+                    { :section => "Chorus 2", :chord => "D7",   :lyric => "The movement you need is on your shoulders", :durationMs => 2500 },
+                    { :section => "Interlude", :chord => "D",   :lyric => "Da da da da da", :durationMs => 2000 },
+                    { :section => "Interlude", :chord => "D7",  :lyric => "da da da da", :durationMs => 2000 },
+                    { :section => "Interlude", :chord => "A7",  :lyric => "da...", :durationMs => 2000 },
+                    { :section => "Verse 4", :chord => "D",     :lyric => "Hey Jude, don't make it bad", :durationMs => 3500 },
+                    { :section => "Verse 4", :chord => "A",     :lyric => "Take a sad song and make it better", :durationMs => 3500 },
+                    { :section => "Verse 4", :chord => "G",     :lyric => "Remember to let her under your skin", :durationMs => 3500 },
+                    { :section => "Verse 4", :chord => "D",     :lyric => "Then you begin to make it", :durationMs => 2500 },
+                    { :section => "Verse 4", :chord => "A",     :lyric => "better, better, better!", :durationMs => 2000 },
+                    { :section => "Outro",   :chord => "D",     :lyric => "Na na na na na na na", :durationMs => 3000 },
+                    { :section => "Outro",   :chord => "C",     :lyric => "Na na na na,", :durationMs => 3000 },
+                    { :section => "Outro",   :chord => "G",     :lyric => "Hey Jude", :durationMs => 3000 },
+                    { :section => "Outro",   :chord => "D",     :lyric => "Na na na na na na na", :durationMs => 3000 },
+                    { :section => "Outro",   :chord => "C",     :lyric => "Na na na na,", :durationMs => 3000 },
+                    { :section => "Outro",   :chord => "G",     :lyric => "Hey Jude", :durationMs => 3000 },
+                    { :section => "Outro",   :chord => "D",     :lyric => "Na na na na na na na", :durationMs => 3000 },
+                    { :section => "Outro",   :chord => "C",     :lyric => "Na na na na,", :durationMs => 3000 },
+                    { :section => "Outro",   :chord => "G",     :lyric => "Hey Jude...", :durationMs => 3000 }
                 ]
             },
 
-            // 3. Here Comes The Sun - The Beatles (Capo 7, Easy Chords)
+            // 3. Here Comes The Sun - The Beatles (Capo 7, Key of D)
             {
                 :title => "Here Comes The Sun",
                 :artist => "The Beatles",
                 :defaultDurationMs => 3000,
                 :steps => [
                     { :section => "Chorus",  :chord => "D",     :lyric => "Here comes the sun, doo-doo-doo-doo", :durationMs => 3000 },
-                    { :section => "Chorus",  :chord => "G",     :lyric => "Here comes the sun,", :durationMs => 3000 },
-                    { :section => "Chorus",  :chord => "E7",    :lyric => "And I say, it's alright", :durationMs => 2500 },
+                    { :section => "Chorus",  :chord => "G",     :lyric => "Here comes the sun,", :durationMs => 2500 },
+                    { :section => "Chorus",  :chord => "E7",    :lyric => "And I say, it's alright", :durationMs => 2000 },
+                    { :section => "Chorus",  :chord => "A7",    :lyric => "It's alright", :durationMs => 2000 },
                     { :section => "Verse 1", :chord => "D",     :lyric => "Little darling, long cold lonely winter", :durationMs => 3500 },
                     { :section => "Verse 1", :chord => "G",     :lyric => "Little darling, feels like years since here", :durationMs => 3000 },
                     { :section => "Verse 1", :chord => "A7",    :lyric => "It's been here", :durationMs => 3000 },
                     { :section => "Chorus",  :chord => "D",     :lyric => "Here comes the sun, doo-doo-doo-doo", :durationMs => 3000 },
-                    { :section => "Chorus",  :chord => "G",     :lyric => "Here comes the sun, it's alright", :durationMs => 3000 },
+                    { :section => "Chorus",  :chord => "G",     :lyric => "Here comes the sun, it's alright", :durationMs => 2500 },
+                    { :section => "Chorus",  :chord => "E7",    :lyric => "It's alright", :durationMs => 2000 },
                     { :section => "Verse 2", :chord => "D",     :lyric => "Little darling, smiles returning to faces", :durationMs => 3500 },
                     { :section => "Verse 2", :chord => "G",     :lyric => "Little darling, seems like years since here", :durationMs => 3000 },
                     { :section => "Verse 2", :chord => "A7",    :lyric => "It's been here", :durationMs => 3000 },
@@ -152,7 +179,8 @@ class SongModel {
                     { :section => "Verse 3", :chord => "G",     :lyric => "Little darling, seems like years since clear", :durationMs => 3000 },
                     { :section => "Verse 3", :chord => "A7",    :lyric => "It's been clear", :durationMs => 3000 },
                     { :section => "Chorus",  :chord => "D",     :lyric => "Here comes the sun, doo-doo-doo-doo", :durationMs => 3000 },
-                    { :section => "Chorus",  :chord => "G",     :lyric => "Here comes the sun, and I say", :durationMs => 3000 },
+                    { :section => "Chorus",  :chord => "G",     :lyric => "Here comes the sun, and I say", :durationMs => 2500 },
+                    { :section => "Chorus",  :chord => "E7",    :lyric => "It's alright", :durationMs => 2000 },
                     { :section => "Outro",   :chord => "D",     :lyric => "It's alright, it's alright", :durationMs => 3000 }
                 ]
             },
@@ -217,39 +245,12 @@ class SongModel {
                     { :section => "Verse 3", :chord => "Dsus4", :lyric => "She tastes like the real thing", :durationMs => 3500 },
                     { :section => "Verse 3", :chord => "G",     :lyric => "My fake plastic love", :durationMs => 3500 },
                     { :section => "Outro",   :chord => "Em",    :lyric => "If I could be who you wanted", :durationMs => 3500 },
-                    { :section => "Outro",   :chord => "A",     :lyric => "All the time, all the time...", :durationMs => 3500 }
+                    { :section => "Outro",   :chord => "A",     :lyric => "All the time, all the time...", :durationMs => 3500 },
+                    { :section => "Outro",   :chord => "D",     :lyric => "All the time...", :durationMs => 3500 }
                 ]
             },
 
-            // 6. Mary On A Cross - Ghost (Capo 3, Easy Chords: Am - Fmaj7 - C - G)
-            {
-                :title => "Mary On A Cross",
-                :artist => "Ghost",
-                :defaultDurationMs => 3000,
-                :steps => [
-                    { :section => "Verse 1", :chord => "Am",    :lyric => "We were young and we were wild", :durationMs => 3000 },
-                    { :section => "Verse 1", :chord => "Fmaj7", :lyric => "In the night, our hearts collide", :durationMs => 3000 },
-                    { :section => "Verse 1", :chord => "C",     :lyric => "In the temple of our love", :durationMs => 3000 },
-                    { :section => "Verse 1", :chord => "G",     :lyric => "Shining like the stars above", :durationMs => 3000 },
-                    { :section => "Chorus",  :chord => "Am",    :lyric => "You go down just like Holy Mary", :durationMs => 3000 },
-                    { :section => "Chorus",  :chord => "Fmaj7", :lyric => "Mary on a, Mary on a cross", :durationMs => 3000 },
-                    { :section => "Chorus",  :chord => "C",     :lyric => "Not just another bloody Mary", :durationMs => 3000 },
-                    { :section => "Chorus",  :chord => "G",     :lyric => "Mary on a, Mary on a cross", :durationMs => 3000 },
-                    { :section => "Verse 2", :chord => "Am",    :lyric => "If you choose to run away with me", :durationMs => 3000 },
-                    { :section => "Verse 2", :chord => "Fmaj7", :lyric => "I will tickle you internally", :durationMs => 3000 },
-                    { :section => "Verse 2", :chord => "C",     :lyric => "And I see nothing wrong with that", :durationMs => 3000 },
-                    { :section => "Verse 2", :chord => "G",     :lyric => "Mary on a, Mary on a cross", :durationMs => 3000 },
-                    { :section => "Chorus",  :chord => "Am",    :lyric => "You go down just like Holy Mary", :durationMs => 3000 },
-                    { :section => "Chorus",  :chord => "Fmaj7", :lyric => "Mary on a, Mary on a cross", :durationMs => 3000 },
-                    { :section => "Chorus",  :chord => "C",     :lyric => "Not just another bloody Mary", :durationMs => 3000 },
-                    { :section => "Chorus",  :chord => "G",     :lyric => "Mary on a, Mary on a cross", :durationMs => 3000 },
-                    { :section => "Outro",   :chord => "Fmaj7", :lyric => "Nothing's gonna stop us now", :durationMs => 3000 },
-                    { :section => "Outro",   :chord => "G",     :lyric => "Mary on a cross", :durationMs => 3000 },
-                    { :section => "Outro",   :chord => "Am",    :lyric => "Mary on a cross...", :durationMs => 3000 }
-                ]
-            },
-
-            // 7. Walking Back Home - Vira Talisa (Easy Chords: C - Em - Fmaj7 - G - Dm - Am)
+            // 6. Walking Back Home - Vira Talisa (Easy Chords: C - Em - Fmaj7 - G - Dm - Am)
             {
                 :title => "Walking Back Home",
                 :artist => "Vira Talisa",
@@ -271,35 +272,6 @@ class SongModel {
                     { :section => "Outro",   :chord => "Em",    :lyric => "Watch the city lights arrive", :durationMs => 3000 },
                     { :section => "Outro",   :chord => "Fmaj7", :lyric => "Living life in harmony", :durationMs => 3000 },
                     { :section => "Outro",   :chord => "C",     :lyric => "Ooh, walking back home...", :durationMs => 3000 }
-                ]
-            },
-
-            // 8. If You Know That I'm Lonely - FUR (Capo 1, Easy Chords: C - E7 - Am - Fmaj7 - G)
-            {
-                :title => "If You Know Lonely",
-                :artist => "FUR",
-                :defaultDurationMs => 3000,
-                :steps => [
-                    { :section => "Verse 1", :chord => "C",     :lyric => "If you know that I'm lonely", :durationMs => 3000 },
-                    { :section => "Verse 1", :chord => "E7",    :lyric => "Why'd you have to leave me?", :durationMs => 3000 },
-                    { :section => "Verse 1", :chord => "Am",    :lyric => "Waiting by the telephone", :durationMs => 3000 },
-                    { :section => "Verse 1", :chord => "Fmaj7", :lyric => "Sitting on my own at home", :durationMs => 3000 },
-                    { :section => "Verse 2", :chord => "C",     :lyric => "I was looking for someone", :durationMs => 3000 },
-                    { :section => "Verse 2", :chord => "E7",    :lyric => "To hold through the night", :durationMs => 3000 },
-                    { :section => "Verse 2", :chord => "Am",    :lyric => "But you walked away so fast", :durationMs => 3000 },
-                    { :section => "Verse 2", :chord => "Fmaj7", :lyric => "Vanished in the morning light", :durationMs => 3000 },
-                    { :section => "Chorus",  :chord => "Dm",    :lyric => "Tell me what I did so wrong", :durationMs => 3000 },
-                    { :section => "Chorus",  :chord => "G",     :lyric => "To make you stay away this long", :durationMs => 3000 },
-                    { :section => "Chorus",  :chord => "C",     :lyric => "Baby won't you come around", :durationMs => 3000 },
-                    { :section => "Chorus",  :chord => "Am",    :lyric => "Lift me up from underground", :durationMs => 3000 },
-                    { :section => "Verse 3", :chord => "C",     :lyric => "If you know that I'm lonely", :durationMs => 3000 },
-                    { :section => "Verse 3", :chord => "E7",    :lyric => "Why don't you call my name?", :durationMs => 3000 },
-                    { :section => "Verse 3", :chord => "Am",    :lyric => "Playing this romantic game", :durationMs => 3000 },
-                    { :section => "Verse 3", :chord => "Fmaj7", :lyric => "Only brings me tears and pain", :durationMs => 3000 },
-                    { :section => "Outro",   :chord => "C",     :lyric => "Won't you come back home to me", :durationMs => 3000 },
-                    { :section => "Outro",   :chord => "E7",    :lyric => "Set this lonely spirit free", :durationMs => 3000 },
-                    { :section => "Outro",   :chord => "Am",    :lyric => "If you know that I'm lonely...", :durationMs => 3000 },
-                    { :section => "Outro",   :chord => "Fmaj7", :lyric => "Don't leave me alone tonight", :durationMs => 3000 }
                 ]
             }
         ];
