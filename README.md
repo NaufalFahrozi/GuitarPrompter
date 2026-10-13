@@ -8,18 +8,23 @@ Useful for rehearsals, busking, acoustic gigs, or open mic nights when you don't
 
 ## Features
 
-- **Dynamic Auto-Scroll**: Automatically advances chords based on the song's tempo and individual chord durations. Displays a green `[▶ AUTO]` badge on screen while running.
+- **Dynamic Auto-Scroll**: Automatically advances chords based on each song's tempo and per-chord durations. Displays a green `[▶ AUTO]` badge on screen while running.
 - **3-Chord Stage View**: 
   - Left: Previous chord (dimmed).
   - Center: Current chord in large text with an orange rounded border.
   - Right: Next chord (dimmed) so you can prepare your next hand shape.
 - **Smart Lyric Wrapping**: Long lyric lines are split across two centered lines so text won't get cut off by the watch's circular bezel.
-- **Built-in Song Repertoire**: Comes preloaded with 3 ready-to-play songs:
-  1. *Take Me Home, Country Roads* – John Denver (~82 BPM)
-  2. *Creep* – Radiohead (~92 BPM, 5.2s per measure)
-  3. *Hey Jude* – The Beatles (~74 BPM)
-- **Web Sync**: Download song repertoires directly from a raw web link (like a GitHub Gist or Pastebin) formatted in simple ChordPro style. Songs persist across app restarts using `Application.Storage`.
-- **Battery-Friendly UI**: Pure black background (`#000000`) to save battery on AMOLED screens and keep visibility high under stage lighting.
+- **8 Preloaded Songs**: Comes with 8 complete acoustic songs using easy open chords (no hard barre chords, capo tips included):
+  1. *Country Roads* – John Denver (No Capo: G, Em, D, C)
+  2. *Hey Jude* – The Beatles (Capo 3: C, G, G7, Fmaj7, C7)
+  3. *Here Comes The Sun* – The Beatles (Capo 7: D, G, A7, E7)
+  4. *Creep* – Radiohead (No Capo: G, B7, C, Cm)
+  5. *Fake Plastic Trees* – Radiohead (No Capo: D, Dsus4, G, Em, A)
+  6. *Mary On A Cross* – Ghost (Capo 3: Am, Fmaj7, C, G)
+  7. *Walking Back Home* – Vira Talisa (No Capo: C, Em, Fmaj7, G, Dm, Am)
+  8. *If You Know That I'm Lonely* – FUR (Capo 1: C, E7, Am, Fmaj7, G, Dm)
+- **Direct Web Sync**: Syncs songs directly from [`songs.txt`](./songs.txt) in this repository or custom raw links. Songs persist across app restarts via `Application.Storage`.
+- **Battery-Friendly UI**: Pure black background (`#000000`) for maximum AMOLED power efficiency and high visibility under stage lights.
 
 ---
 
@@ -58,6 +63,7 @@ source/
 ├── SongModel.mc       # Song data, dynamic per-step auto-scroll, web sync, storage
 ├── ChordView.mc       # AMOLED UI layout, 3-chord view, text wrapping
 └── ChordDelegate.mc   # Button mappings, touch coordinates, Menu2 handling
+songs.txt              # Complete ChordPro database with 8 songs
 ```
 
 ---
@@ -86,7 +92,7 @@ monkeydo bin/GuitarPrompter.prg fr165
 
 ## Adding Songs via Web Sync
 
-You can host songs as raw text on GitHub Gist or Pastebin. You can specify custom durations per chord (in seconds) or let them use the default tempo:
+You can add or customize songs in `songs.txt`. The app supports ChordPro syntax with optional per-chord timing in seconds:
 
 ```text
 # Song Title
@@ -94,12 +100,6 @@ You can host songs as raw text on GitHub Gist or Pastebin. You can specify custo
 [Em:3] Blue Ridge Mountains, Shenandoah
 [D:2.5] Younger than the mountains
 [C:2.5] Growin' like a breeze
-
-# Another Song
-[G:5.2] When you were here before
-[B:5.2] Couldn't look you in the eye
-[C:5.2] You're just like an angel
-[Cm:5.2] Your skin makes me cry
 ```
 
-Update `mSyncUrl` in `source/SongModel.mc` with your raw URL, then hit **Sync dari Web** in the watch menu. You can also select **Reset Lagu Bawaan** to reload the default songs anytime.
+To sync on the watch, select **🔄 Web Sync** from the menu. You can also select **⏮ Reset Songs** to reload all 8 default songs anytime.

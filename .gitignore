@@ -1,0 +1,18 @@
+# Connect IQ build outputs
+bin/
+*.prg
+*.prg.debug.xml
+*.mir
+*.mbc
+*.mcgen
+
+# Private developer signing keys (do NOT publish to GitHub)
+*.der
+*.pem
+developer_key.der
+
+# IDE and temporary files
+.vscode/
+.idea/
+*.swp
+*.bak
