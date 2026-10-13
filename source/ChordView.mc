@@ -35,112 +35,62 @@ class ChordView extends WatchUi.View {
         var isAuto = mModel.isAutoScrolling();
         var speed = mModel.getSpeedMultiplier();
 
-        var statusText = isAuto ? "AUTO" : "MANUAL";
-        if (isAuto && speed != 1.0f) {
-            statusText = Lang.format("AUTO $1$x", [speed.format("%.1f")]);
-        }
-
-        // === 2. TOP STATUS PILL (y: 18..36) ===
-        var pillW = (isAuto && speed != 1.0f) ? 88 : 74;
-        var pillX = 195 - (pillW / 2);
-        var pillY = 18;
-        var pillH = 18;
-        var pillCenterY = pillY + (pillH / 2);
-
+        // === 2. AUTO STATUS BADGE (Only when auto-scrolling is active) ===
         if (isAuto) {
-            dc.setColor(0x062810, Graphics.COLOR_TRANSPARENT);
-            dc.fillRoundedRectangle(pillX, pillY, pillW, pillH, 9);
+            var autoText = (speed == 1.0f) ? "AUTO" : Lang.format("AUTO $1$x", [speed.format("%.1f")]);
             dc.setColor(0x00E676, Graphics.COLOR_TRANSPARENT);
-            dc.drawRoundedRectangle(pillX, pillY, pillW, pillH, 9);
-            dc.setColor(0x00FF7F, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(195, pillCenterY, Graphics.FONT_XTINY, statusText, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
-        } else {
-            dc.setColor(0x181818, Graphics.COLOR_TRANSPARENT);
-            dc.fillRoundedRectangle(pillX, pillY, pillW, pillH, 9);
-            dc.setColor(0x383838, Graphics.COLOR_TRANSPARENT);
-            dc.drawRoundedRectangle(pillX, pillY, pillW, pillH, 9);
-            dc.setColor(0x888888, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(195, pillCenterY, Graphics.FONT_XTINY, statusText, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+            dc.drawText(195, 10, Graphics.FONT_XTINY, autoText, Graphics.TEXT_JUSTIFY_CENTER);
         }
 
-        // === 3. SONG TITLE & SECTION ===
+        // === 3. HEADER: SONG TITLE & SECTION / CAPO ===
+        // Title (Clean White, FONT_XTINY)
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(195, 42, Graphics.FONT_XTINY, step[:songTitle], Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(195, 28, Graphics.FONT_XTINY, step[:songTitle], Graphics.TEXT_JUSTIFY_CENTER);
 
-        var sectionY = 62;
-        var topDivY = 84;
-        var nowChordY = 112;
-
+        // Section & Capo combined into one clean line
+        var subHeader = step[:section];
         if (capo != null) {
-            var capoStr = "[" + (capo as Lang.String).toUpper() + "]";
-            dc.setColor(0x00E5FF, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(195, 58, Graphics.FONT_XTINY, capoStr, Graphics.TEXT_JUSTIFY_CENTER);
-
-            sectionY = 74;
-            topDivY = 94;
-            nowChordY = 120;
+            subHeader = subHeader + "  •  " + (capo as Lang.String).toUpper();
         }
-
         dc.setColor(0xFFA500, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(195, sectionY, Graphics.FONT_XTINY, step[:section], Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(195, 50, Graphics.FONT_XTINY, subHeader, Graphics.TEXT_JUSTIFY_CENTER);
 
         // Top Divider
         dc.setColor(0x222222, Graphics.COLOR_TRANSPARENT);
-        dc.drawLine(120, topDivY, 270, topDivY);
+        dc.drawLine(120, 72, 270, 72);
 
-        // === 4. NOW (ACTIVE) CHORD & LYRIC ===
-        var currentChord = mModel.getCurrentChord();
-        var chordFont = (currentChord.length() > 4) ? Graphics.FONT_MEDIUM : Graphics.FONT_LARGE;
-
-        // Active Chord (Electric Green)
+        // === 4. NOW (ACTIVE) CHORD & LYRICS ===
+        // Current Chord: Medium font (clean, legible, not oversized), Electric Green
         dc.setColor(0x00FF7F, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(195, nowChordY, chordFont, currentChord, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(195, 100, Graphics.FONT_MEDIUM, mModel.getCurrentChord(), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
-        // Active Lyric (White)
-        var nowLyricY = nowChordY + 24;
-        drawWrappedLyric(dc, step[:lyric] as Lang.String?, nowLyricY);
+        // Current Lyrics (White, 1 or 2 lines)
+        drawWrappedText(dc, step[:lyric] as Lang.String?, 126, Graphics.COLOR_WHITE, Graphics.FONT_XTINY, 220);
 
-        // === 5. MIDDLE DIVIDER: NEXT SECTION ===
-        var nextDivY = (capo != null) ? 198 : 192;
-        dc.setColor(0x252525, Graphics.COLOR_TRANSPARENT);
-        dc.drawLine(85, nextDivY, 160, nextDivY);
-        dc.drawLine(230, nextDivY, 305, nextDivY);
+        // === 5. MIDDLE DIVIDER: NEXT STEP ===
+        dc.setColor(0x222222, Graphics.COLOR_TRANSPARENT);
+        dc.drawLine(70, 182, 155, 182);
+        dc.drawLine(235, 182, 320, 182);
 
         dc.setColor(0x555555, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(195, nextDivY, Graphics.FONT_XTINY, "NEXT", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(195, 182, Graphics.FONT_XTINY, "NEXT", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
-        // === 6. NEXT (UPCOMING) CHORD & LYRIC ===
+        // === 6. NEXT (PREVIEW) CHORD & LYRICS ===
         var nextChord = mModel.getNextChord();
         var nextLyric = mModel.getNextLyric();
-        var nextChordY = nextDivY + 28;
 
         if (!nextChord.equals("--")) {
-            // Next Chord (Soft Ice Cyan: #80CBC4)
+            // Next Chord: Small/Tiny font (modest preview size, not big), Soft Ice Cyan
             dc.setColor(0x80CBC4, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(195, nextChordY, Graphics.FONT_MEDIUM, nextChord, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+            dc.drawText(195, 216, Graphics.FONT_SMALL, nextChord, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
-            // Next Lyric (Muted Gray: #888888)
-            if (nextLyric != null && (nextLyric as Lang.String).length() > 0) {
-                var nl = nextLyric as Lang.String;
-                var maxNextWidth = 260;
-                var fontTiny = Graphics.FONT_XTINY;
-
-                if (dc.getTextWidthInPixels(nl, fontTiny) > maxNextWidth) {
-                    while (nl.length() > 0 && dc.getTextWidthInPixels(nl + "...", fontTiny) > maxNextWidth) {
-                        nl = nl.substring(0, nl.length() - 1) as Lang.String;
-                    }
-                    nl = nl + "...";
-                }
-
-                var nextLyricY = nextChordY + 26;
-                dc.setColor(0x888888, Graphics.COLOR_TRANSPARENT);
-                dc.drawText(195, nextLyricY, fontTiny, nl, Graphics.TEXT_JUSTIFY_CENTER);
-            }
+            // Next Lyrics: Wrapped into 1 or 2 lines using available bottom space, Muted Gray
+            drawWrappedText(dc, nextLyric, 242, 0x777777, Graphics.FONT_XTINY, 240);
         } else {
             // End of Song State
             dc.setColor(0x444444, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(195, nextChordY, Graphics.FONT_XTINY, "---", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
-            dc.drawText(195, nextChordY + 22, Graphics.FONT_XTINY, "(End of song)", Graphics.TEXT_JUSTIFY_CENTER);
+            dc.drawText(195, 216, Graphics.FONT_XTINY, "---", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+            dc.drawText(195, 242, Graphics.FONT_XTINY, "(End of song)", Graphics.TEXT_JUSTIFY_CENTER);
         }
     }
 
@@ -177,29 +127,27 @@ class ChordView extends WatchUi.View {
         dc.setPenWidth(1);
     }
 
-    // Split long lyrics across 1 or 2 compact lines with safe margins inside circular bezel
-    // Returns the bottom Y coordinate of the rendered lyric
-    private function drawWrappedLyric(dc as Graphics.Dc, rawLyric as Lang.String?, y as Lang.Number) as Lang.Number {
-        if (rawLyric == null) {
-            return y;
+    // Clean text wrapper: fits text into 1 or 2 lines without clipping or overlapping
+    private function drawWrappedText(dc as Graphics.Dc, rawText as Lang.String?, y as Lang.Number, color as Lang.Number, font as Graphics.FontType, maxW as Lang.Number) as Void {
+        if (rawText == null) {
+            return;
         }
 
-        var lyric = rawLyric as Lang.String;
-        if (lyric.length() == 0) {
-            return y;
+        var text = rawText as Lang.String;
+        if (text.length() == 0) {
+            return;
         }
 
-        var font = Graphics.FONT_XTINY;
-        var maxWidth = 220;
-
-        if (dc.getTextWidthInPixels(lyric, font) <= maxWidth) {
-            dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(195, y, font, lyric, Graphics.TEXT_JUSTIFY_CENTER);
-            return y + 20;
+        // Fits in 1 line
+        if (dc.getTextWidthInPixels(text, font) <= maxW) {
+            dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(195, y, font, text, Graphics.TEXT_JUSTIFY_CENTER);
+            return;
         }
 
+        // Tokenize words
         var words = [] as Lang.Array<Lang.String>;
-        var remaining = lyric;
+        var remaining = text;
         while (remaining.length() > 0) {
             var sp = remaining.find(" ");
             if (sp != null) {
@@ -222,11 +170,12 @@ class ChordView extends WatchUi.View {
         }
 
         if (words.size() <= 1) {
-            dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(195, y, font, lyric, Graphics.TEXT_JUSTIFY_CENTER);
-            return y + 20;
+            dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(195, y, font, text, Graphics.TEXT_JUSTIFY_CENTER);
+            return;
         }
 
+        // Find optimal split point between line 1 and line 2
         var bestSplit = 0;
         var minDiff = 10000;
 
@@ -243,10 +192,10 @@ class ChordView extends WatchUi.View {
             var w2 = dc.getTextWidthInPixels(l2, font);
 
             var penalty = 0;
-            if (w1 > maxWidth) {
+            if (w1 > maxW) {
                 penalty += 500;
             }
-            if (w2 > maxWidth) {
+            if (w2 > maxW) {
                 penalty += 500;
             }
 
@@ -266,9 +215,16 @@ class ChordView extends WatchUi.View {
             line2 = (line2.length() == 0) ? words[b] : line2 + " " + words[b];
         }
 
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+        // Truncate line 2 if it still exceeds max width
+        if (dc.getTextWidthInPixels(line2, font) > maxW) {
+            while (line2.length() > 0 && dc.getTextWidthInPixels(line2 + "...", font) > maxW) {
+                line2 = line2.substring(0, line2.length() - 1) as Lang.String;
+            }
+            line2 = line2 + "...";
+        }
+
+        dc.setColor(color, Graphics.COLOR_TRANSPARENT);
         dc.drawText(195, y, font, line1, Graphics.TEXT_JUSTIFY_CENTER);
         dc.drawText(195, y + 20, font, line2, Graphics.TEXT_JUSTIFY_CENTER);
-        return y + 40;
     }
 }
