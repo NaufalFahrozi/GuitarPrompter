@@ -26,12 +26,12 @@ class SongModel {
     private var mSongs as Lang.Array<SongData> = [];
     private var mStatusMessage as Lang.String? = null;
 
-    // Hands-free Auto-Scroll Timer (dinamis per-chord, default 3.5 detik)
+    // Hands-free auto-scroll timer (dynamic per-chord duration, default 3.5s)
     private var mAutoScrollTimer as Timer.Timer? = null;
     private var mIsAutoScrolling as Lang.Boolean = false;
     private var mScrollIntervalMs as Lang.Number = 3500;
 
-    // Ganti URL ini dengan URL Raw Gist / Pastebin milikmu sendiri jika ingin sync lagu baru
+    // Change this URL to your own raw Gist or Pastebin URL to sync custom songs
     private var mSyncUrl as Lang.String = "https://gist.githubusercontent.com/raw/sample_songs.txt";
 
     public function initialize() {
@@ -49,13 +49,13 @@ class SongModel {
         loadDefaultSongs();
         mCurrentSongIndex = 0;
         mCurrentStepIndex = 0;
-        mStatusMessage = "Lagu default dimuat";
+        mStatusMessage = "Default songs loaded";
         WatchUi.requestUpdate();
     }
 
     private function loadDefaultSongs() as Void {
         mSongs = [
-            // Lagu 1: Take Me Home, Country Roads - John Denver (~82 BPM)
+            // Song 1: Take Me Home, Country Roads - John Denver (~82 BPM)
             {
                 :title => "Country Roads",
                 :artist => "John Denver",
@@ -82,7 +82,7 @@ class SongModel {
                     { :section => "Outro",   :chord => "G",  :lyric => "Take me home, country roads", :durationMs => 3000 }
                 ]
             },
-            // Lagu 2: Creep - Radiohead (~92 BPM, progresi G - B - C - Cm)
+            // Song 2: Creep - Radiohead (~92 BPM, G - B - C - Cm progression)
             {
                 :title => "Creep",
                 :artist => "Radiohead",
@@ -106,7 +106,7 @@ class SongModel {
                     { :section => "Outro",   :chord => "Cm", :lyric => "I don't belong here...", :durationMs => 5200 }
                 ]
             },
-            // Lagu 3: Hey Jude - The Beatles (~74 BPM)
+            // Song 3: Hey Jude - The Beatles (~74 BPM)
             {
                 :title => "Hey Jude",
                 :artist => "The Beatles",
@@ -133,7 +133,7 @@ class SongModel {
         ];
     }
 
-    // Auto-Scroll methods dengan penjadwalan dinamis per-chord
+    // Auto-scroll methods with dynamic per-chord scheduling
     public function isAutoScrolling() as Lang.Boolean {
         return mIsAutoScrolling;
     }
@@ -202,7 +202,7 @@ class SongModel {
     }
 
     public function startSync() as Void {
-        mStatusMessage = "Mengunduh Lagu...";
+        mStatusMessage = "Downloading songs...";
         WatchUi.requestUpdate();
 
         Communications.makeWebRequest(
@@ -224,17 +224,17 @@ class SongModel {
                 mCurrentSongIndex = 0;
                 mCurrentStepIndex = 0;
                 Storage.setValue("SAVED_SONGS", mSongs as Application.Storage.ValueType);
-                mStatusMessage = "Berhasil (" + mSongs.size().toString() + " Lagu)";
+                mStatusMessage = "Success (" + mSongs.size().toString() + " Songs)";
             } else {
-                mStatusMessage = "Gagal: Format Salah";
+                mStatusMessage = "Failed: Invalid format";
             }
         } else {
-            mStatusMessage = "Koneksi Gagal (" + responseCode.toString() + ")";
+            mStatusMessage = "Connection failed (" + responseCode.toString() + ")";
         }
         WatchUi.requestUpdate();
     }
 
-    // Mendukung format ChordPro dengan durasi opsional: [Chord] atau [Chord:Detik]
+    // Parses ChordPro text with optional durations: [Chord] or [Chord:Seconds]
     private function parseChordProText(rawText as Lang.String) as Lang.Array<SongData> {
         var result = [] as Lang.Array<SongData>;
         var currentSongTitle = "";

@@ -12,7 +12,7 @@ class ChordView extends WatchUi.View {
     }
 
     public function onUpdate(dc as Graphics.Dc) as Void {
-        // Layar hitam pekat untuk efisiensi baterai AMOLED
+        // True black background for AMOLED battery savings
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
         dc.clear();
 
@@ -27,13 +27,13 @@ class ChordView extends WatchUi.View {
         var currentStepNum = mModel.getCurrentIndex() + 1;
         var totalSteps = mModel.getTotalSteps();
 
-        // 1. Indikator Auto-Scroll (Warna hijau di bagian paling atas jika aktif)
+        // 1. Auto-scroll indicator (green text at the very top when active)
         if (mModel.isAutoScrolling()) {
             dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
             dc.drawText(195, 26, Graphics.FONT_XTINY, "[▶ AUTO]", Graphics.TEXT_JUSTIFY_CENTER);
         }
 
-        // 2. Bagian Atas: Judul Lagu & Nomor Step
+        // 2. Top section: Song title & step progress
         dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
         dc.drawText(195, 48, Graphics.FONT_XTINY, step[:songTitle], Graphics.TEXT_JUSTIFY_CENTER);
 
@@ -44,37 +44,37 @@ class ChordView extends WatchUi.View {
         dc.setColor(0x2A2A2A, Graphics.COLOR_TRANSPARENT);
         dc.drawLine(100, 96, 290, 96);
 
-        // 3. Bagian Tengah: Horizontal 3 Chord berjajar (Prev di kiri, Current besar dengan border oranye di tengah, Next di kanan)
+        // 3. Middle section: Horizontal 3-chord layout (Prev on left, Current with orange border in center, Next on right)
         var prevChord = mModel.getPrevChord();
         var currentChord = mModel.getCurrentChord();
         var nextChord = mModel.getNextChord();
 
-        // Kunci Sebelumnya (Kiri)
+        // Previous chord (left)
         dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
         dc.drawText(75, 146, Graphics.FONT_MEDIUM, prevChord, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
-        // Kunci Aktif (Tengah, Besar, Border Oranye)
+        // Current chord (center, large font, orange rounded border)
         dc.setColor(Graphics.COLOR_ORANGE, Graphics.COLOR_TRANSPARENT);
         dc.setPenWidth(2);
         dc.drawRoundedRectangle(140, 116, 110, 60, 8);
         dc.setPenWidth(1);
         dc.drawText(195, 146, Graphics.FONT_SYSTEM_LARGE, currentChord, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
-        // Kunci Selanjutnya (Kanan)
+        // Next chord (right)
         dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
         dc.drawText(315, 146, Graphics.FONT_MEDIUM, nextChord, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
         dc.setColor(0x2A2A2A, Graphics.COLOR_TRANSPARENT);
         dc.drawLine(90, 196, 300, 196);
 
-        // 4. Bagian Bawah: Lirik Aktif (Dipecah 2 baris jika panjang)
+        // 4. Bottom section: Active lyric line (wrapped into 2 lines if needed)
         drawWrappedLyric(dc, step[:lyric] as Lang.String?, 232);
 
-        var nextHint = (nextChord.equals("--")) ? "Selesai" : "Berikutnya: " + nextChord;
+        var nextHint = (nextChord.equals("--")) ? "End" : "Next: " + nextChord;
         dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
         dc.drawText(195, 280, Graphics.FONT_XTINY, nextHint, Graphics.TEXT_JUSTIFY_CENTER);
 
-        // 5. Garis Progres Lagu
+        // 5. Song progress bar
         dc.setColor(0x222222, Graphics.COLOR_TRANSPARENT);
         dc.fillRoundedRectangle(135, 330, 120, 4, 2);
 
@@ -85,7 +85,7 @@ class ChordView extends WatchUi.View {
         }
     }
 
-    // Fungsi untuk memecah lirik panjang menjadi 2 baris agar tidak terpotong oleh layar bulat 390x390
+    // Split long lyrics across 2 lines to fit circular 390x390 display
     private function drawWrappedLyric(dc as Graphics.Dc, rawLyric as Lang.String?, y as Lang.Number) as Void {
         if (rawLyric == null) {
             return;

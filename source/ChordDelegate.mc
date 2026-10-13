@@ -23,19 +23,19 @@ class ChordDelegate extends WatchUi.BehaviorDelegate {
         return true;
     }
 
-    // Tombol Start/Enter (Kanan Atas) membuka menu: Play/Pause Auto-Scroll, daftar lagu, Sync, dan Reset
+    // Start/Enter button (top right): opens menu with auto-scroll, song list, web sync, and reset
     public function onSelect() as Lang.Boolean {
         var menu = new WatchUi.Menu2({:title => "Menu"});
 
         var autoTitle = mModel.isAutoScrolling() ? "Pause Auto-Scroll" : "Play Auto-Scroll";
-        var autoSub = mModel.isAutoScrolling() ? "Hentikan gulir otomatis" : "Gulir otomatis dinamis";
+        var autoSub = mModel.isAutoScrolling() ? "Stop auto-scrolling" : "Dynamic auto-scroll";
         menu.addItem(new WatchUi.MenuItem(autoTitle, autoSub, "AUTO_SCROLL", null));
 
         for (var i = 0; i < mModel.getSongCount(); i++) {
             menu.addItem(new WatchUi.MenuItem(mModel.getSongTitle(i), null, i, null));
         }
-        menu.addItem(new WatchUi.MenuItem("🔄 Sync dari Web", "Download lirik baru", "SYNC", null));
-        menu.addItem(new WatchUi.MenuItem("⏮ Reset Lagu Bawaan", "Muat ulang 3 lagu default", "RESET", null));
+        menu.addItem(new WatchUi.MenuItem("🔄 Web Sync", "Download new songs", "SYNC", null));
+        menu.addItem(new WatchUi.MenuItem("⏮ Reset Songs", "Reload default songs", "RESET", null));
 
         WatchUi.pushView(menu, new SongMenuDelegate(mModel), WatchUi.SLIDE_UP);
         return true;
@@ -45,7 +45,7 @@ class ChordDelegate extends WatchUi.BehaviorDelegate {
         return false;
     }
 
-    // Sentuhan Layar: Tengah (80-160) = Toggle Auto-Scroll, Bawah (>160) = Maju, Atas (<80) = Mundur
+    // Touch controls: Center (80-160) = toggle auto-scroll, Bottom (>160) = next, Top (<80) = prev
     public function onTap(clickEvent as WatchUi.ClickEvent) as Lang.Boolean {
         var coords = clickEvent.getCoordinates();
         var y = coords[1];
