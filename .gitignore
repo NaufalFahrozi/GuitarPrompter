@@ -1,21 +1,44 @@
-# Connect IQ build outputs
+# Garmin Connect IQ build artifacts & generated files
 bin/
 *.prg
+*.iq
 *.prg.debug.xml
+*.jungle.bin
 *.mir
 *.mbc
 *.mcgen
+projectInfo.xml
 
-# Private developer signing keys (do NOT publish to GitHub)
+# Garmin Developer Keys & Signatures (Security: Never commit keys)
 *.der
 *.pem
+*developer_key*
+*.key
+*.p12
 developer_key.der
 
-# IDE and temporary files
+# VS Code & IDE workspace files
 .vscode/
 .idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 *.swp
 *.bak
 
-# Local helper scripts
+# Operating System files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+[Dd]esktop.ini
+
+# Temporary files, logs & local scripts
+*.tmp
+*.log
 *.bat
